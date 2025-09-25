@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iStore · Apple Watch</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+  <!-- NAVBAR -->
+  <header class="sticky-top">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm">
+      <div class="container-fluid justify-content-between">
+        <a class="navbar-brand fw-semibold" href="../index.html">✌️iStore</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarScroll">
+          <div class="w-25"></div>
+          <form class="d-flex w-25" role="search">
+            <input class="form-control me-2" type="search" placeholder="¿Qué estás buscando?">
+            <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+          </form>
+          <ul class="navbar-nav my-2 my-lg-0 navbar-nav-scroll">
+            <li class="nav-item me-lg-3 my-auto">
+              <span class="nav-link">📍 Ica, Perú</span>
+            </li>
+            <li class="nav-item me-lg-2 my-auto">
+              <a href="#" class="btn btn-outline-dark border-0" data-bs-toggle="modal" data-bs-target="#cartModal">
+                🛒 Carrito <span class="badge bg-primary ms-1">0</span>
+              </a>
+            </li>
+            <li class="nav-item me-2">
+              <a href="../login.html" class="btn btn-outline-primary">Iniciar sesión</a>
+            </li>
+            <li class="nav-item">
+              <a href="../register.html" class="btn btn-primary">Registrarse</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- NAVBAR CATEGORÍAS -->
+    <nav class="navbar navbar-expand-lg border-top bg-light-subtle nav-categorias">
+      <div class="container">
+        <div class="collapse navbar-collapse justify-content-center" id="menuCategorias">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="../index.html#productos">Equipos</a></li>
+            <li class="nav-item"><a class="nav-link active fw-semibold" href="#">Applewatchs</a></li>
+            <li class="nav-item"><a class="nav-link" href="index-audifonos.html">Audífonos</a></li>
+            <li class="nav-item"><a class="nav-link" href="index-accesorios.html">Accesorios</a></li>
+            <li class="nav-item"><a class="nav-link" href="../nosotros.html">Nosotros</a></li>
+            <li class="nav-item"><a class="nav-link" href="../tiendas.html">Tiendas</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- LISTADO APPLE WATCH -->
+  <main id="productos" class="py-5">
+    <div class="container">
+      <h2 class="text-center fw-bold mb-4">Nuestros Apple Watch</h2>
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 text-center">
+
+        <!-- Watch 1 -->
+        <div class="col">
+          <div class="card product h-100 pb-2">
+            <button type="button" class="border-0 bg-transparent p-0 w-100" data-bs-toggle="modal"
+              data-bs-target="#modalWatchUltra2">
+              <img src="../img/applewatches/applewatch-ultra.png" class="card-img-top product-image">
+              <div class="card-body p-0">
+                <h5 class="card-title">Apple Watch Ultra 2</h5>
+                <p class="card-text">49 mm · Titanio</p>
+                <p class="product-price">S/. 3,699.00</p>
+              </div>
+            </button>
+            <div class="card-footer bg-white border-0">
+              <a href="#" class="btn btn-primary w-75">Agregar al carrito</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Watch 2 -->
+        <div class="col">
+          <div class="card product h-100 pb-2">
+            <button type="button" class="border-0 bg-transparent p-0 w-100" data-bs-toggle="modal"
+              data-bs-target="#modalWatchSeries9">
+              <img src="../img/applewatches/applewatch-series-9.png" class="card-img-top product-image">
+              <div class="card-body p-0">
+                <h5 class="card-title">Apple Watch Series 9</h5>
+                <p class="card-text">45 mm · Starlight</p>
+                <p class="product-price">S/. 2,299.00</p>
+              </div>
+            </button>
+            <div class="card-footer bg-white border-0">
+              <a href="#" class="btn btn-primary w-75">Agregar al carrito</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Watch 3 -->
+        <div class="col">
+          <div class="card product h-100 pb-2">
+            <button type="button" class="border-0 bg-transparent p-0 w-100" data-bs-toggle="modal"
+              data-bs-target="#modalWatchSE">
+              <img src="../img/applewatches/applewatch-se.png" class="card-img-top product-image">
+              <div class="card-body p-0">
+                <h5 class="card-title">Apple Watch SE</h5>
+                <p class="card-text">40 mm · Blanco</p>
+                <p class="product-price">S/. 1,299.00</p>
+              </div>
+            </button>
+            <div class="card-footer bg-white border-0">
+              <a href="#" class="btn btn-primary w-75">Agregar al carrito</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="mt-auto border-top py-4 text-center">
+    <small class="text-secondary">© 2025 iStore. Todos los derechos reservados.</small>
+  </footer>
+
+  <!-- MODALES PRODUCTOS -->
+  <!-- Ultra 2 -->
+  <div class="modal fade" id="modalWatchUltra2" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Apple Watch Ultra 2</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body row">
+          <div class="col-md-6 text-center">
+            <img src="../img/applewatches/applewatch-ultra.png" class="img-fluid">
+          </div>
+          <div class="col-md-6">
+            <p><strong>Precio:</strong> S/. 3,699.00</p>
+            <p><strong>Tamaño:</strong> 49 mm</p>
+            <p><strong>Material:</strong> Titanio</p>
+            <p>El Apple Watch más resistente y completo, ideal para deportes extremos.</p>
+            <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Series 9 -->
+  <div class="modal fade" id="modalWatchSeries9" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Apple Watch Series 9</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body row">
+          <div class="col-md-6 text-center">
+            <img src="../img/applewatches/applewatch-series-9.png" class="img-fluid">
+          </div>
+          <div class="col-md-6">
+            <p><strong>Precio:</strong> S/. 2,299.00</p>
+            <p><strong>Tamaño:</strong> 45 mm</p>
+            <p><strong>Color:</strong> Starlight</p>
+            <p>Potente y elegante, con funciones avanzadas de salud y conectividad.</p>
+            <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SE -->
+  <div class="modal fade" id="modalWatchSE" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Apple Watch SE</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body row">
+          <div class="col-md-6 text-center">
+            <img src="../img/applewatches/applewatch-se.png" class="img-fluid">
+          </div>
+          <div class="col-md-6">
+            <p><strong>Precio:</strong> S/. 1,299.00</p>
+            <p><strong>Tamaño:</strong> 40 mm</p>
+            <p><strong>Color:</strong> Blanco</p>
+            <p>La opción accesible de Apple Watch con funciones esenciales.</p>
+            <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

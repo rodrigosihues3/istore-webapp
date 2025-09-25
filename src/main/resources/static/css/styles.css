@@ -1,0 +1,222 @@
+:root {
+  /* Color principal - Azul */
+  --apple-primary: #0050a8;
+  /* Azul elegante para botones principales */
+  --apple-primary-dark: #003d82;
+  /* Azul profundo para hover */
+  --apple-primary-light: #4a8fd4;
+  /* Azul suave para detalles/acento */
+
+  /* Color */
+  --apple-white: #ffffff;
+  --apple-gray-50: #fafafa;
+  --apple-gray-100: #f5f5f7;
+  --apple-gray-200: #e5e5ea;
+  --apple-gray-300: #d1d1d6;
+  --apple-gray-400: #8e8e93;
+  --apple-gray-500: #636366;
+  --apple-gray-600: #48484a;
+  --apple-gray-700: #3a3a3c;
+  --apple-gray-800: #2c2c2e;
+  --apple-gray-900: #1c1c1e;
+  --apple-black: #000000;
+
+  /* Acento color */
+  --apple-green: #30d158;
+  --apple-red: #ff3b30;
+  --apple-orange: #ff9500;
+
+  /* Fondo color */
+  --bg-primary: var(--apple-white);
+  --bg-secondary: var(--apple-gray-50);
+  --bg-tertiary: var(--apple-gray-100);
+
+  /* Texto color */
+  --text-primary: var(--apple-gray-900);
+  --text-secondary: var(--apple-gray-600);
+  --text-tertiary: var(--apple-gray-400);
+  --text-inverse: var(--apple-white);
+
+  /* Borde color */
+  --border-light: var(--apple-gray-200);
+  --border-medium: var(--apple-gray-300);
+  --border-dark: var(--apple-gray-400);
+
+  /* sombra */
+  --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-medium: 0 6px 12px rgba(0, 0, 0, 0.15);
+  --shadow-heavy: 0 8px 25px rgba(0, 0, 0, 0.5);
+
+  /* Borde tamaño */
+  --radius-small: 6px;
+  --radius-medium: 12px;
+  --radius-large: 16px;
+  --radius-xl: 24px;
+
+  /* Tipografía */
+  --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", "Segoe UI", Roboto, sans-serif;
+  --font-size-base: 1rem;
+  --font-size-sm: 0.875rem;
+  --font-size-lg: 1.125rem;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", "Segoe UI", Roboto, sans-serif;
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+}
+
+.btn-primary {
+  background-color: var(--apple-primary);
+  border-color: var(--apple-primary);
+  border-radius: var(--radius-small);
+}
+
+/* AREA HEADER */
+.navbar {
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.nav-categorias a {
+  border-radius: .4rem;
+  margin: 0 .3rem;
+}
+
+.nav-categorias a:hover {
+  color: var(--text-primary);
+  background-color: var(--apple-gray-200);
+  border-radius: .4rem;
+}
+
+/* AREA CARRUSEL */
+.carousel-item img {
+  height: 88vh;
+  max-height: 51rem;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* AREA DE PRODUCTOS */
+.product {
+  background: var(--bg-primary);
+  border-radius: var(--radius-large);
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-medium);
+  max-width: 20rem;
+  /* ~320px */
+  margin: 0 auto;
+}
+
+.product:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-heavy);
+  cursor: pointer;
+}
+
+.product-image {
+  width: 100%;
+  height: 220px;
+  object-fit: fill;
+}
+
+.product-price {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--apple-primary-dark);
+}
+
+/* ESTILOS DE FORM */
+.form-control {
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-small);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+}
+
+.form-control:focus {
+  border-color: var(--apple-primary-dark);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+  outline: none;
+}
+
+/* BOTONES DE BOOTSTRAP */
+.product .btn-primary {
+  background-color: var(--apple-primary);
+  border-color: var(--apple-primary);
+  border-radius: var(--radius-medium);
+  font-weight: 500;
+  padding: .7rem 1.2rem;
+  transition: all 0.2s ease;
+}
+
+.product .btn-primary:hover {
+  background-color: var(--apple-primary-light);
+  border-color: var(--apple-primary-light);
+  transform: translateY(-1px);
+}
+
+.product .btn-secondary {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-medium);
+  color: var(--text-primary);
+  border-radius: var(--radius-medium);
+  font-weight: 500;
+  padding: 12px 24px;
+}
+
+.product .btn-secondary:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+
+
+
+/* HOVERS GLOBALES */
+a {
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+a:hover {
+  color: var(--apple-primary-dark);
+}
+
+.btn {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-light);
+}
+
+/* Tablets y pantallas medianas */
+@media (max-width: 992px) and (min-width: 577px) {
+  .carousel-item img {
+    height: 50vh;
+    max-height: 32rem;
+  }
+}
+
+/* Celulares */
+@media (max-width: 576px) {
+  .carousel-item img {
+    height: auto;
+    max-height: 20rem;
+  }
+
+  .product {
+    max-width: 20rem;
+  }
+}

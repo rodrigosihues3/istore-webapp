@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administrador | Clientes</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+
+<body class="bg-light d-flex flex-column min-vh-100">
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm">
+    <div class="container-fluid justify-content-between">
+      <a class="navbar-brand fw-semibold" href="../../index.html">✌️iStore</a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+        aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-between" id="navbarScroll">
+        <div class="w-25"></div>
+
+        <!-- Barra búsqueda -->
+        <form class="d-flex w-25" role="search">
+          <input class="form-control me-2" type="search" placeholder="Buscar cliente..." aria-label="Search">
+          <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+        </form>
+
+        <!-- Opciones derecha -->
+        <ul class="navbar-nav navbar-nav-scroll">
+          <li class="nav-item me-lg-3 me-2 my-auto">
+            <span class="nav-link">📍 Ica, Perú</span>
+          </li>
+          <li class="nav-item me-lg-2 me-2 my-auto">
+            <a href="#" class="btn btn-outline-dark border-0">
+              🛒 Carrito <span class="badge bg-primary ms-1">0</span>
+            </a>
+          </li>
+
+          <!-- PERFIL -->
+          <li class="nav-item dropdown z-3">
+            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
+              data-bs-toggle="dropdown">
+              <div class="rounded-circle bg-light d-flex justify-content-center align-items-center me-2"
+                style="width: 32px; height: 32px; border: 1px solid var(--border-medium);">
+                <span>👤</span>
+              </div>
+              Perfil
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow-sm"
+              style="min-width: 240px; border-radius: var(--radius-medium);">
+              <li class="px-3 py-2 text-center border-bottom">
+                <div class="rounded-circle bg-light d-flex justify-content-center align-items-center mx-auto mb-2"
+                  style="width: 64px; height: 64px; border: 1px solid var(--border-medium);">
+                  <span class="fs-3">👤</span>
+                </div>
+                <p class="mb-0 fw-semibold">Administrador</p>
+                <small class="text-secondary">admin@istore.com</small>
+              </li>
+              <li><a class="dropdown-item" href="">👤 Mi cuenta</a></li>
+              <li><a class="dropdown-item" href="">📦 Mis pedidos</a></li>
+
+              <li class="mt-2 mb-1 px-3 text-uppercase small fw-semibold text-secondary text-center">
+                Funciones de admin
+              </li>
+              <li><a class="dropdown-item" href="../catalogo.html">🛠️ Gestionar catálogos</a></li>
+              <li><a class="dropdown-item" href="../inventario.html">📦 Gestionar inventario</a></li>
+              <li><a class="dropdown-item" href="../pedidos.html">📑 Ver pedidos</a></li>
+              <li><a class="dropdown-item" href="../devoluciones.html">🔄 Devoluciones</a></li>
+              <li><a class="dropdown-item" href="../usuarios.html">👤 Gestionar usuarios y roles</a></li>
+              <li><a class="dropdown-item" href="../errores.html">⚠️ Supervisar errores</a></li>
+              <li><a class="dropdown-item" href="../tablasBD.html">🗄️ Ver tablas BD</a></li>
+
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item text-danger" href="../../index.html">Cerrar sesión</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CONTENIDO -->
+  <main class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="fw-bold">👥 Clientes</h1>
+      <div>
+        <a href="../usuarios.html" class="btn btn-secondary">Volver</a>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAgregar">➕ Agregar cliente</button>
+      </div>
+    </div>
+
+    <!-- Tabla -->
+    <div class="card shadow-sm border-0">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle">
+            <thead class="table-light">
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Teléfono</th>
+                <th>Dirección</th>
+                <th>Fecha registro</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>#C001</td>
+                <td>Juan Pérez</td>
+                <td>juanperez@gmail.com</td>
+                <td>+51 987654321</td>
+                <td>Ica, Perú</td>
+                <td>01/09/2025</td>
+                <td>
+                  <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#modalEditar">Editar</button>
+                  <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                    data-bs-target="#modalEliminar">Eliminar</button>
+                </td>
+              </tr>
+              <tr>
+                <td>#C002</td>
+                <td>María López</td>
+                <td>marialopez@gmail.com</td>
+                <td>+51 912345678</td>
+                <td>Lima, Perú</td>
+                <td>28/08/2025</td>
+                <td>
+                  <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#modalEditar">Editar</button>
+                  <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                    data-bs-target="#modalEliminar">Eliminar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal Agregar -->
+  <div class="modal fade" id="modalAgregar" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header">
+          <h5 class="modal-title">➕ Agregar cliente</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Nombre completo</label>
+                <input type="text" class="form-control">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Correo</label>
+                <input type="email" class="form-control">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Teléfono</label>
+                <input type="text" class="form-control">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Dirección</label>
+                <input type="text" class="form-control">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Rol</label>
+                <select class="form-select">
+                  <option value="cliente" selected>Cliente</option>
+                  <option value="empleado">Empleado</option>
+                  <option value="administrador">Administrador</option>
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button class="btn btn-primary">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Editar -->
+  <div class="modal fade" id="modalEditar" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header">
+          <h5 class="modal-title">✏️ Editar cliente</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Nombre completo</label>
+                <input type="text" class="form-control" value="Juan Pérez">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Correo</label>
+                <input type="email" class="form-control" value="juanperez@gmail.com">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Teléfono</label>
+                <input type="text" class="form-control" value="+51 987654321">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Dirección</label>
+                <input type="text" class="form-control" value="Ica, Perú">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Rol</label>
+                <select class="form-select">
+                  <option selected>Cliente</option>
+                  <option>Empleado</option>
+                  <option>Administrador</option>
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button class="btn btn-primary">Guardar cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Eliminar -->
+  <div class="modal fade" id="modalEliminar" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header">
+          <h5 class="modal-title">⚠️ Confirmar eliminación</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p>¿Estás seguro de eliminar este cliente? Esta acción no se puede deshacer.</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button class="btn btn-danger">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="mt-auto border-top py-3 text-center">
+    <small class="text-secondary">© 2025 iStore. Panel administrador.</small>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iStore · Tiendas</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+  <!-- NAVBAR -->
+  <header class="sticky-top">
+    <div th:replace="fragments/navbars :: navbarPrincipal"></div>
+
+    <!-- NAVBAR CATEGORÍAS -->
+    <div th:replace="fragments/navbars :: nabvarCategorias"></div>
+  </header>
+
+  <!-- SECCIÓN TIENDAS -->
+  <main class="container my-5">
+    <h1 class="fw-bold text-center mb-4">🏪 Encuentra nuestras tiendas</h1>
+    <p class="text-center text-secondary mb-5">Visítanos en nuestras sucursales en las principales ciudades del Perú o
+      compra en línea con envío gratis a todo el país 🚚</p>
+
+    <!-- Mapa -->
+    <div class="mb-5">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3900.856281829867!2d-75.7403!3d-14.0678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9110e31f7a7d9f17%3A0xf91a4b6a8c6746c3!2sIca!5e0!3m2!1ses!2spe!4v1693681489086!5m2!1ses!2spe"
+        width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+
+    <!-- Sucursales -->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+
+      <!-- Tienda Ica -->
+      <div class="col">
+        <div class="card h-100 shadow-sm border-0">
+          <div class="card-body">
+            <h5 class="card-title">📍 iStore Ica</h5>
+            <p class="mb-1"><strong>Dirección:</strong> Av. San Martín 245, Ica</p>
+            <p class="mb-1"><strong>Horario:</strong> Lun-Sáb 10:00-20:00 · Dom 11:00-18:00</p>
+            <p class="mb-1"><strong>Tel:</strong> +51 912 345 678</p>
+          </div>
+          <div class="card-footer bg-white border-0">
+            <a href="https://maps.google.com" target="_blank" class="btn btn-outline-primary w-100">Ver en Google
+              Maps</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tienda Lima -->
+      <div class="col">
+        <div class="card h-100 shadow-sm border-0">
+          <div class="card-body">
+            <h5 class="card-title">📍 iStore Ica - Subtanjalla</h5>
+            <p class="mb-1"><strong>Dirección:</strong> Subtanjalla </p>
+            <p class="mb-1"><strong>Horario:</strong> Lun-Sáb 10:00-21:00 · Dom 11:00-19:00</p>
+            <p class="mb-1"><strong>Tel:</strong> +51 923 456 789</p>
+          </div>
+          <div class="card-footer bg-white border-0">
+            <a href="https://maps.google.com" target="_blank" class="btn btn-outline-primary w-100">Ver en Google
+              Maps</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tienda Arequipa -->
+      <div class="col">
+        <div class="card h-100 shadow-sm border-0">
+          <div class="card-body">
+            <h5 class="card-title">📍 iStore Ica - La tinguiña</h5>
+            <p class="mb-1"><strong>Dirección:</strong> La tinguiña</p>
+            <p class="mb-1"><strong>Horario:</strong> Lun-Sáb 10:00-21:00 · Dom 11:00-19:00</p>
+            <p class="mb-1"><strong>Tel:</strong> +51 934 567 890</p>
+          </div>
+          <div class="card-footer bg-white border-0">
+            <a href="https://maps.google.com" target="_blank" class="btn btn-outline-primary w-100">Ver en Google
+              Maps</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center mt-5">
+      <h4 class="fw-semibold">¿No tienes una tienda cerca?</h4>
+      <p class="text-secondary">Compra online y recibe tu iPhone en casa con envío gratis en todo el Perú 🚚</p>
+      <a href="../index.html#productos" class="btn btn-primary">Comprar Online</a>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="mt-auto border-top py-4 text-center">
+    <small class="text-secondary">© 2025 iStore. Todos los derechos reservados.</small>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

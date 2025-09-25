@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Empleado | Accesorios</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    crossorigin="anonymous">
+
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+
+<body class="bg-light d-flex flex-column min-vh-100">
+  <!-- HEADER -->
+  <header class="sticky-top">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm">
+      <div class="container-fluid justify-content-between">
+        <a class="navbar-brand fw-semibold" href="../../index.html">✌️iStore</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+          aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-between" id="navbarScroll">
+          <div class="w-25"></div>
+
+          <!-- Barra de búsqueda -->
+          <form class="d-flex w-25" role="search">
+            <input class="form-control me-2" type="search" placeholder="¿Qué estás buscando?" aria-label="Search">
+            <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+          </form>
+
+          <!-- Opciones derecha -->
+          <ul class="navbar-nav navbar-nav-scroll">
+            <li class="nav-item me-lg-3 me-2 my-auto">
+              <span class="nav-link">📍 Ica, Perú</span>
+            </li>
+            <li class="nav-item me-lg-2 me-2 my-auto">
+              <a href="#" class="btn btn-outline-dark border-0">
+                🛒 Carrito <span class="badge bg-primary ms-1">0</span>
+              </a>
+            </li>
+
+            <!-- PERFIL -->
+            <li class="nav-item dropdown z-3">
+              <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="rounded-circle bg-light d-flex justify-content-center align-items-center me-2"
+                  style="width: 32px; height: 32px; border: 1px solid var(--border-medium);">
+                  <span>👤</span>
+                </div>
+                Perfil
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end shadow-sm"
+                style="min-width: 240px; border-radius: var(--radius-medium);">
+                <li class="px-3 py-2 text-center border-bottom">
+                  <div class="rounded-circle bg-light d-flex justify-content-center align-items-center mx-auto mb-2"
+                    style="width: 64px; height: 64px; border: 1px solid var(--border-medium);">
+                    <span class="fs-3">👤</span>
+                  </div>
+                  <p class="mb-0 fw-semibold">María López</p>
+                  <small class="text-secondary">empleado@istore.com</small>
+                </li>
+                <li><a class="dropdown-item" href="#">👤 Mi cuenta</a></li>
+                <li><a class="dropdown-item" href="#">📦 Mis pedidos</a></li>
+                <li class="mt-2 mb-1 px-3 text-uppercase small fw-semibold text-secondary text-center">
+                  Funciones de empleado
+                </li>
+                <li><a class="dropdown-item" href="../catalogo.html">🛠️ Gestionar catálogos</a></li>
+                <li><a class="dropdown-item" href="../inventario.html">📦 Gestionar inventario</a></li>
+                <li><a class="dropdown-item" href="../pedidos.html">📑 Ver pedidos</a></li>
+                <li><a class="dropdown-item" href="../devoluciones.html">🔄 Devoluciones</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item text-danger" href="../../index.html">Cerrar sesión</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- CONTENIDO -->
+  <main class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="fw-bold">🎒 Accesorios</h1>
+      <div class="d-flex flex-row gap-3">
+        <a href="../catalogo.html" class="btn btn-secondary">Volver</a>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAgregar">
+          ➕ Añadir producto
+        </button>
+      </div>
+    </div>
+
+    <!-- Grid de productos -->
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+      <!-- Funda iPhone -->
+      <div class="col">
+        <div class="card product h-100 shadow-sm border-0">
+          <img src="../../img/accesorios/funda-silicona-iphone-15.png" class="card-img-top product-image" alt="Funda iPhone">
+          <div class="card-body text-center">
+            <h5 class="card-title fw-semibold">Funda de silicona iPhone</h5>
+            <p class="text-secondary small">Color medianoche · Compatible iPhone 15</p>
+            <p class="fw-bold text-primary">S/. 229.00</p>
+          </div>
+          <div class="card-footer bg-white border-0 d-flex justify-content-between">
+            <button class="btn btn-outline-danger btn-sm">Eliminar</button>
+            <button class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal"
+              data-bs-target="#modalEditarProducto">Editar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cargador MagSafe -->
+      <div class="col">
+        <div class="card product h-100 shadow-sm border-0">
+          <img src="../../img/accesorios/cargador-magsafe.png" class="card-img-top product-image" alt="Cargador MagSafe">
+          <div class="card-body text-center">
+            <h5 class="card-title fw-semibold">Cargador MagSafe</h5>
+            <p class="text-secondary small">Carga rápida inalámbrica</p>
+            <p class="fw-bold text-primary">S/. 229.00</p>
+          </div>
+          <div class="card-footer bg-white border-0 d-flex justify-content-between">
+            <button class="btn btn-outline-danger btn-sm">Eliminar</button>
+            <button class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal"
+              data-bs-target="#modalEditarProducto">Editar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Correa Apple Watch -->
+      <div class="col">
+        <div class="card product h-100 shadow-sm border-0">
+          <img src="../../img/accesorios/correa-deportiva.png" class="card-img-top product-image" alt="Correa Apple Watch">
+          <div class="card-body text-center">
+            <h5 class="card-title fw-semibold">Correa deportiva Apple Watch</h5>
+            <p class="text-secondary small">Talla M/L · Color azul marino</p>
+            <p class="fw-bold text-primary">S/. 179.00</p>
+          </div>
+          <div class="card-footer bg-white border-0 d-flex justify-content-between">
+            <button class="btn btn-outline-danger btn-sm">Eliminar</button>
+            <button class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal"
+              data-bs-target="#modalEditarProducto">Editar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="mt-auto border-top py-3">
+    <div class="container text-center">
+      <small class="text-apple-secondary">© 2025 iStore. Gestión de empleados.</small>
+    </div>
+  </footer>
+
+  <!-- MODAL EDITAR PRODUCTO -->
+  <div class="modal fade" id="modalEditarProducto" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header">
+          <h5 class="modal-title">✏️ Editar producto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="editarNombre" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="editarNombre" value="Funda de silicona iPhone">
+            </div>
+            <div class="mb-3">
+              <label for="editarDescripcion" class="form-label">Descripción</label>
+              <textarea class="form-control" id="editarDescripcion"
+                rows="2">Color medianoche · Compatible iPhone 15</textarea>
+            </div>
+            <div class="mb-3">
+              <label for="editarPrecio" class="form-label">Precio</label>
+              <input type="number" class="form-control" id="editarPrecio" value="229.00">
+            </div>
+            <div class="mb-3">
+              <label for="editarStock" class="form-label">Stock disponible</label>
+              <input type="number" class="form-control" id="editarStock" value="40">
+            </div>
+            <div class="mb-3">
+              <label for="editarImagen" class="form-label">Imagen</label>
+              <input type="file" class="form-control" id="editarImagen">
+              <small class="text-secondary">Si no seleccionas una nueva, se mantendrá la actual.</small>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button class="btn btn-primary">Guardar cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL AGREGAR -->
+  <div class="modal fade" id="modalAgregar" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header">
+          <h5 class="modal-title">➕ Añadir nuevo accesorio</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="nombreProducto" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="nombreProducto" placeholder="Ej: Funda de cuero iPhone">
+            </div>
+            <div class="mb-3">
+              <label for="descripcionProducto" class="form-label">Descripción</label>
+              <textarea class="form-control" id="descripcionProducto" rows="2"
+                placeholder="Ej: Color negro · Compatible iPhone 16"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="precioProducto" class="form-label">Precio</label>
+              <input type="number" class="form-control" id="precioProducto" placeholder="Ej: 199.00">
+            </div>
+            <div class="mb-3">
+              <label for="imgProducto" class="form-label">Imagen</label>
+              <input type="file" class="form-control" id="imgProducto">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button class="btn btn-primary">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

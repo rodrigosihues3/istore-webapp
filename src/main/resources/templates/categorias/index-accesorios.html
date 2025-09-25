@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iStore · Accesorios</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+  <!-- NAVBAR -->
+  <header class="sticky-top">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm">
+      <div class="container-fluid justify-content-between">
+        <a class="navbar-brand fw-semibold" href="../index.html">✌️iStore</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarScroll">
+          <div class="w-25"></div>
+          <form class="d-flex w-25" role="search">
+            <input class="form-control me-2" type="search" placeholder="¿Qué estás buscando?">
+            <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+          </form>
+          <ul class="navbar-nav my-2 my-lg-0 navbar-nav-scroll">
+            <li class="nav-item me-lg-3 my-auto">
+              <span class="nav-link">📍 Ica, Perú</span>
+            </li>
+            <li class="nav-item me-lg-2 my-auto">
+              <a href="#" class="btn btn-outline-dark border-0" data-bs-toggle="modal" data-bs-target="#cartModal">
+                🛒 Carrito <span class="badge bg-primary ms-1">0</span>
+              </a>
+            </li>
+            <li class="nav-item me-2">
+              <a href="../login.html" class="btn btn-outline-primary">Iniciar sesión</a>
+            </li>
+            <li class="nav-item">
+              <a href="../register.html" class="btn btn-primary">Registrarse</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- NAVBAR CATEGORÍAS -->
+    <nav class="navbar navbar-expand-lg border-top bg-light-subtle nav-categorias">
+      <div class="container">
+        <div class="collapse navbar-collapse justify-content-center" id="menuCategorias">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="../index.html#productos">Equipos</a></li>
+            <li class="nav-item"><a class="nav-link" href="index-smartwatches.html">Applewatchs</a></li>
+            <li class="nav-item"><a class="nav-link" href="index-audifonos.html">Audífonos</a></li>
+            <li class="nav-item"><a class="nav-link active fw-semibold" href="#">Accesorios</a></li>
+            <li class="nav-item"><a class="nav-link" href="../nosotros.html">Nosotros</a></li>
+            <li class="nav-item"><a class="nav-link" href="../tiendas.html">Tiendas</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- LISTADO ACCESORIOS -->
+  <main id="productos" class="py-5">
+    <div class="container">
+      <h2 class="text-center fw-bold mb-4">Nuestros Accesorios</h2>
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 text-center">
+
+        <!-- MagSafe -->
+        <div class="col">
+          <div class="card product h-100 pb-2">
+            <button type="button" class="border-0 bg-transparent p-0 w-100" data-bs-toggle="modal"
+              data-bs-target="#modalMagsafe">
+              <img src="../img/accesorios/cargador-magsafe.png" class="card-img-top product-image">
+              <div class="card-body p-0">
+                <h5 class="card-title">Cargador MagSafe</h5>
+                <p class="card-text">Carga rápida e inalámbrica</p>
+                <p class="product-price">S/. 249.00</p>
+              </div>
+            </button>
+            <div class="card-footer bg-white border-0">
+              <a href="#" class="btn btn-primary w-75">Agregar al carrito</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Funda transparente -->
+        <div class="col">
+          <div class="card product h-100 pb-2">
+            <button type="button" class="border-0 bg-transparent p-0 w-100" data-bs-toggle="modal"
+              data-bs-target="#modalFunda">
+              <img src="../img/accesorios/funda-silicona-iphone-15.png" class="card-img-top product-image">
+              <div class="card-body p-0">
+                <h5 class="card-title">Funda Transparente</h5>
+                <p class="card-text">Compatible con MagSafe</p>
+                <p class="product-price">S/. 199.00</p>
+              </div>
+            </button>
+            <div class="card-footer bg-white border-0">
+              <a href="#" class="btn btn-primary w-75">Agregar al carrito</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cable -->
+        <div class="col">
+          <div class="card product h-100 pb-2">
+            <button type="button" class="border-0 bg-transparent p-0 w-100" data-bs-toggle="modal"
+              data-bs-target="#modalCable">
+              <img src="../img/accesorios/cable-usb-c.png" class="card-img-top product-image">
+              <div class="card-body p-0">
+                <h5 class="card-title">Cable USB-C</h5>
+                <p class="card-text">1 metro · Original Apple</p>
+                <p class="product-price">S/. 129.00</p>
+              </div>
+            </button>
+            <div class="card-footer bg-white border-0">
+              <a href="#" class="btn btn-primary w-75">Agregar al carrito</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="mt-auto border-top py-4 text-center">
+    <small class="text-secondary">© 2025 iStore. Todos los derechos reservados.</small>
+  </footer>
+
+  <!-- MODALES -->
+  <!-- MagSafe -->
+  <div class="modal fade" id="modalMagsafe" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Cargador MagSafe</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body row">
+          <div class="col-md-6 text-center">
+            <img src="../img/accesorios/cargador-magsafe.png" class="img-fluid">
+          </div>
+          <div class="col-md-6">
+            <p><strong>Precio:</strong> S/. 249.00</p>
+            <p><strong>Función:</strong> Carga rápida e inalámbrica</p>
+            <p>El cargador oficial de Apple con tecnología MagSafe, práctico y eficiente.</p>
+            <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Funda -->
+  <div class="modal fade" id="modalFunda" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Funda Transparente</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body row">
+          <div class="col-md-6 text-center">
+            <img src="../img/accesorios/funda-silicona-iphone-15.png" class="img-fluid">
+          </div>
+          <div class="col-md-6">
+            <p><strong>Precio:</strong> S/. 199.00</p>
+            <p><strong>Compatibilidad:</strong> MagSafe</p>
+            <p>Diseño minimalista que protege tu iPhone sin ocultar su estilo.</p>
+            <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cable -->
+  <div class="modal fade" id="modalCable" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Cable USB-C</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body row">
+          <div class="col-md-6 text-center">
+            <img src="../img/accesorios/cable-usb-c.png" class="img-fluid">
+          </div>
+          <div class="col-md-6">
+            <p><strong>Precio:</strong> S/. 129.00</p>
+            <p><strong>Longitud:</strong> 1 metro</p>
+            <p>Conexión rápida y segura, perfecto para cargar y sincronizar tus dispositivos Apple.</p>
+            <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iStore · Nosotros</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+  <!-- NAVBAR -->
+  <header class="sticky-top">
+    <div th:replace="fragments/navbars :: navbarPrincipal"></div>
+
+    <!-- NAVBAR CATEGORÍAS -->
+    <div th:replace="fragments/navbars :: nabvarCategorias"></div>
+  </header>
+
+  <!-- CONTENIDO -->
+  <main class="py-5">
+    <div class="container">
+
+      <!-- HERO -->
+      <section class="text-center mb-5">
+        <h1 class="fw-bold">Sobre iStore</h1>
+        <p class="lead text-secondary">Tu destino en Ica para lo mejor de Apple</p>
+      </section>
+
+      <!-- Misión y Visión -->
+      <section class="row text-center mb-5">
+        <div class="col-md-6 mb-4">
+          <div class="card border-0 shadow h-100 border-1">
+            <div class="card-body">
+              <h3 class="fw-bold">🌱 Misión</h3>
+              <p class="mb-0">Brindar a nuestros clientes la mejor experiencia en la compra de productos Apple,
+                ofreciendo soporte, confianza y garantía oficial.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mb-4">
+          <div class="card border-0 shadow h-100 border-1">
+            <div class="card-body">
+              <h3 class="fw-bold">🚀 Visión</h3>
+              <p class="mb-0">Convertirnos en la tienda líder de productos Apple en Perú, reconocida por su servicio al
+                cliente y excelencia tecnológica.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Historia -->
+      <section class="row align-items-center mb-5">
+        <div class="col-md-6 mb-4 mb-md-0">
+          <img src="img/tienda.png" alt="Nuestra tienda iStore" class="img-fluid rounded shadow">
+        </div>
+        <div class="col-md-6">
+          <h3 class="fw-bold">📖 Nuestra historia</h3>
+          <p>Desde nuestros inicios en Ica, hemos acompañado a miles de clientes en su camino tecnológico. Nos apasiona
+            ofrecer productos de calidad con el respaldo de Apple y un equipo dispuesto a ayudarte en cada paso.</p>
+        </div>
+      </section>
+
+      <!-- Beneficios -->
+      <section class="mb-5">
+        <h2 class="text-center fw-bold mb-4">¿Por qué elegirnos?</h2>
+        <div class="row text-center g-4">
+          <div class="col-md-4">
+            <div class="border rounded p-4 h-100">
+              <h5>📦 Envío Gratis</h5>
+              <p class="mb-0">Recibe tu iPhone en casa sin costo adicional en todo el país.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="border rounded p-4 h-100">
+              <h5>💳 Pago Seguro</h5>
+              <p class="mb-0">Transacciones cifradas y seguras con múltiples métodos de pago.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="border rounded p-4 h-100">
+              <h5>✅ Garantía Oficial</h5>
+              <p class="mb-0">Todos los productos cuentan con garantía original de Apple.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Call to Action -->
+      <section class="text-center bg-light py-5 rounded shadow-sm">
+        <h3 class="fw-bold mb-3">📍 Visítanos en nuestras Tiendas</h3>
+        <p class="mb-4">Vive la experiencia Apple en persona y recibe atención personalizada.</p>
+        <a href="tiendas.html" class="btn btn-secondary btn-lg">Ver Tiendas</a>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="mt-auto border-top py-4 text-center">
+    <small class="text-secondary">© 2025 iStore. Todos los derechos reservados.</small>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

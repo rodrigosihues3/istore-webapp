@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iStore · Pago</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body class="bg-light d-flex flex-column min-vh-100">
+
+  <!-- NAVBAR PRINCIPAL -->
+  <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm">
+    <div class="container-fluid justify-content-between">
+      <a class="navbar-brand fw-semibold" href="../index.html">
+        ✌️iStore
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+        aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+
+      <div class="collapse navbar-collapse justify-content-between" id="navbarScroll">
+        <div class="w-25"> </div>
+
+        <form class="d-flex w-25" role="search">
+          <input class="form-control me-2" type="search" placeholder="¿Qué estas buscando?" aria-label="Search" />
+          <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+        </form>
+
+        <ul class="navbar-nav my-2 my-lg-0 navbar-nav-scroll">
+          <li class="nav-item me-lg-3 me-2 my-auto">
+            <span class="nav-link text-apple-secondary">📍 Ica, Perú</span>
+          </li>
+
+          <li class="nav-item me-lg-2 me-2 my-auto">
+            <a href="#" class="btn btn-outline-dark border-0" data-bs-toggle="modal" data-bs-target="#cartModal">
+              🛒 Carrito <span class="badge bg-primary ms-1">2</span>
+            </a>
+          </li>
+          <li class="nav-item me-2">
+            <a href="../login.html" class="btn btn-outline-primary">Iniciar sesión</a>
+          </li>
+          <li class="nav-item">
+            <a href="../register.html" class="btn btn-primary">Registrarse</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CONTENIDO -->
+  <main class="flex-grow-1 py-5">
+    <div class="container">
+      <h2 class="fw-bold mb-4 text-center">Finalizar compra</h2>
+
+      <div class="row g-4">
+        <!-- RESUMEN DEL CARRITO -->
+        <div class="col-lg-6">
+          <div class="card shadow-sm border-0 rounded-3">
+            <div class="card-body">
+              <h5 class="fw-semibold mb-3">Resumen de tu pedido</h5>
+
+              <!-- Producto -->
+              <div class="d-flex align-items-center mb-3 pb-3 border-bottom">
+                <img src="../img/iphones/iphone-15-pro.png" class="rounded me-3"
+                  style="width: 80px; height: 80px; object-fit: cover;" alt="iPhone 15 Pro">
+                <div>
+                  <h6 class="mb-1 fw-semibold">iPhone 15 Pro</h6>
+                  <p class="small text-secondary mb-0">Cantidad: 1</p>
+                  <p class="small text-secondary mb-0">S/. 5,199.00</p>
+                </div>
+              </div>
+
+              <!-- Producto -->
+              <div class="d-flex align-items-center mb-3 pb-3 border-bottom">
+                <img src="../img/iphones/iphone-14.png" class="rounded me-3"
+                  style="width: 80px; height: 80px; object-fit: cover;" alt="iPhone 14">
+                <div>
+                  <h6 class="mb-1 fw-semibold">iPhone 14</h6>
+                  <p class="small text-secondary mb-0">Cantidad: 1</p>
+                  <p class="small text-secondary mb-0">S/. 3,299.00</p>
+                </div>
+              </div>
+
+              <!-- Total -->
+              <div class="d-flex justify-content-between align-items-center mt-3">
+                <h6 class="fw-bold mb-0">Total</h6>
+                <h5 class="fw-bold text-primary mb-0">S/. 8,498.00</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FORMULARIO DE PAGO -->
+        <div class="col-lg-6">
+          <div class="card shadow-sm border-0 rounded-3">
+            <div class="card-body">
+              <h5 class="fw-semibold mb-3 text-center">Datos de pago y envío</h5>
+
+              <form action="../index.html" method="get" novalidate>
+                <!-- Datos personales -->
+                <div class="mb-3">
+                  <label class="form-label">Nombre completo</label>
+                  <input type="text" class="form-control" placeholder="Tu nombre" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Correo electrónico</label>
+                  <input type="email" class="form-control" placeholder="ejemplo@correo.com" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Dirección</label>
+                  <input type="text" class="form-control" placeholder="Av. Principal 123, Ica" required>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">Ciudad</label>
+                    <input type="text" class="form-control" placeholder="Ica" required>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">Código postal</label>
+                    <input type="text" class="form-control" placeholder="11000" required>
+                  </div>
+                </div>
+
+                <!-- Método de pago -->
+                <div class="mb-3">
+                  <label class="form-label">Método de pago</label>
+                  <select class="form-select" required>
+                    <option selected disabled>Selecciona una opción</option>
+                    <option>Tarjeta de crédito</option>
+                    <option>Tarjeta de débito</option>
+                    <option>Yape / Plin</option>
+                  </select>
+                </div>
+
+                <!-- Datos tarjeta -->
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">Número de tarjeta</label>
+                    <input type="text" class="form-control" placeholder="**** **** **** 1234">
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label class="form-label">Expira</label>
+                    <input type="text" class="form-control" placeholder="MM/AA">
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label class="form-label">CVV</label>
+                    <input type="text" class="form-control" placeholder="123">
+                  </div>
+                </div>
+
+                <!-- Botón pagar -->
+                <button type="submit" class="btn btn-primary w-100 mt-3">Pagar ahora</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="mt-auto border-top py-3 bg-white">
+    <div class="container text-center">
+      <small class="text-secondary">© 2025 iStore. Todos los derechos reservados.</small>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

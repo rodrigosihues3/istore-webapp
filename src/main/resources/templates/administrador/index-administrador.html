@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iStore · Inicio</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+  <!-- CSS LOCAL -->
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+  <!-- NAVBAR SUPERIOR -->
+  <header class="sticky-top">
+    <!-- NAVBAR PRINCIPAL -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm position-relative" style="z-index: 1040;">
+      <div class="container-fluid justify-content-between">
+        <a class="navbar-brand fw-semibold" href="../index.html">✌️iStore</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+          aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-between" id="navbarScroll">
+          <div class="w-25"></div>
+
+          <!-- Barra de búsqueda -->
+          <form class="d-flex w-25" role="search">
+            <input class="form-control me-2" type="search" placeholder="¿Qué estás buscando?" aria-label="Search">
+            <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+          </form>
+
+          <!-- Opciones derecha -->
+          <ul class="navbar-nav navbar-nav-scroll">
+            <li class="nav-item me-lg-3 me-2 my-auto">
+              <span class="nav-link">📍 Ica, Perú</span>
+            </li>
+            <li class="nav-item me-lg-2 me-2 my-auto">
+              <a href="#" class="btn btn-outline-dark border-0">
+                🛒 Carrito <span class="badge bg-primary ms-1">0</span>
+              </a>
+            </li>
+
+            <!-- PERFIL DESPLEGABLE -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="rounded-circle bg-light d-flex justify-content-center align-items-center me-2"
+                  style="width: 32px; height: 32px; border: 1px solid var(--border-medium);">
+                  <span>👤</span>
+                </div>
+                Perfil
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end shadow-sm position-absolute"
+                style="min-width: 240px; border-radius: var(--radius-medium); z-index: 1050;">
+
+                <!-- Avatar + nombre -->
+                <li class="px-3 py-2 text-center border-bottom">
+                  <div class="rounded-circle bg-light d-flex justify-content-center align-items-center mx-auto mb-2"
+                    style="width: 64px; height: 64px; border: 1px solid var(--border-medium);">
+                    <span class="fs-3">👤</span>
+                  </div>
+                  <p class="mb-0 fw-semibold">María López</p>
+                  <small class="text-secondary">empleado@istore.com</small>
+                </li>
+
+                <!-- Opciones base -->
+                <li><a class="dropdown-item" href="">👤 Mi cuenta</a></li>
+                <li><a class="dropdown-item" href="">📦 Mis pedidos</a></li>
+
+                <!-- Separador -->
+                <li class="mt-2 mb-1 px-3 text-uppercase small fw-semibold text-secondary text-center"
+                  style="letter-spacing: 0.5px; font-size: 0.75rem;">
+                  Funciones de admin
+                </li>
+                <li><a class="dropdown-item" href="catalogo.html">🛠️ Gestionar catálogos</a></li>
+                <li><a class="dropdown-item" href="inventario.html">📦 Gestionar inventario</a></li>
+                <li><a class="dropdown-item" href="pedidos.html">📑 Ver pedidos</a></li>
+                <li><a class="dropdown-item" href="devoluciones.html">🔄 Devoluciones</a></li>
+                <li><a class="dropdown-item" href="usuarios.html">👤 Gestionar usuarios y roles</a></li>
+                <li><a class="dropdown-item" href="errores.html">⚠️ Supervisar errores</a></li>
+                <li><a class="dropdown-item" href="tablasBD.html">🗄️ Ver tablas BD</a></li>
+
+                <!-- Divider final -->
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item text-danger" href="../index.html">Cerrar sesión</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- NAVBAR MENÚ / CATEGORÍAS -->
+    <nav class="navbar navbar-expand-lg border-top bg-light-subtle nav-categorias position-relative"
+      style="z-index: 1030;">
+      <div class="container">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuCategorias"
+          aria-controls="menuCategorias" aria-expanded="false" aria-label="Abrir menú">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="menuCategorias">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link active fw-semibold" href="#productos">Equipos</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Applewatchs</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Audifonos</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Accesorios</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Nosotros</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Tiendas</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- CARRUSEL -->
+  <section>
+    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" aria-label="Galería destacada">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true"
+          aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+      </div>
+
+      <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="4500">
+          <img src="../img/carrusel-img-1.png" class="d-block w-100" alt="Imagen 1" />
+        </div>
+        <div class="carousel-item" data-bs-interval="4500">
+          <img src="../img/carrusel-img-2.png" class="d-block w-100" alt="Imagen 2" />
+        </div>
+        <div class="carousel-item" data-bs-interval="4500">
+          <img src="../img/carrusel-img-3.png" class="d-block w-100" alt="Imagen 3" />
+        </div>
+        <div class="carousel-item" data-bs-interval="4500">
+          <img src="../img/carrusel-img-4.png" class="d-block w-100" alt="Imagen 4" />
+        </div>
+        <div class="carousel-item" data-bs-interval="4500">
+          <img src="../img/carrusel-img-5.png" class="d-block w-100" alt="Imagen 5" />
+        </div>
+      </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev"
+        aria-label="Anterior">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next"
+        aria-label="Siguiente">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      </button>
+    </div>
+  </section>
+
+  <!-- LISTADO DE PRODUCTOS -->
+  <main id="productos" class="py-5">
+    <div class="container">
+      <h2 class="text-center fw-bold mb-4">Nuestros iPhones</h2>
+
+      <!-- Filtros rápidos -->
+      <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
+        <button class="btn btn-secondary">Todos</button>
+        <button class="btn btn-secondary">iPhone 16</button>
+        <button class="btn btn-secondary">iPhone 15</button>
+        <button class="btn btn-secondary">iPhone 14</button>
+        <button class="btn btn-secondary">iPhone 13</button>
+      </div>
+
+      <!-- PRODUCTOS CON GRID RESPONSIVO -->
+      <div class="container text-center px-4">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-4">
+          <div class="col">
+            <div class="card product h-100 pb-2">
+              <button type="button" class="border-0 bg-transparent p-0 w-100" data-bs-toggle="modal"
+                data-bs-target="#modalIphone16ProMax" aria-label="Clic para ver más detalles del iPhone 16 Pro Max"
+                title="Clic para ver más detalles de este producto">
+                <img src="../img/iphones/iphone-16-pro-max.png" class="card-img-top product-image">
+                <div class="card-body p-0">
+                  <h5 class="card-title product-title">iPhone 16 Pro Max</h5>
+                  <p class="card-text">256 GB · Titanio</p>
+                  <p class="product-price">S/. 6,199.00</p>
+                  <!-- <a href="#" class="btn btn-primary">Agregar al carrito</a> -->
+                </div>
+              </button>
+
+              <div class="card-footer bg-white border-0">
+                <a href="#" class="btn btn-primary w-75">Agregar al carrito</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card product h-100 pb-2">
+              <button type="button" class="border-0 bg-transparent p-0 w-100" data-bs-toggle="modal"
+                data-bs-target="#modalIphone15ProMax" aria-label="Clic para ver más detalles del iPhone 15 Pro Max"
+                title="Clic para ver más detalles de este producto">
+                <img src="../img/iphones/iphone-15-pro-max.png" class="card-img-top product-image">
+                <div class="card-body p-0">
+                  <h5 class="card-title product-title">iPhone 15 Pro Max</h5>
+                  <p class="card-text">256 GB · Titanio</p>
+                  <p class="product-price">S/. 5,199.00</p>
+                </div>
+              </button>
+              <div class="card-footer bg-white border-0">
+                <a href="#" class="btn btn-primary w-75">Agregar al carrito</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card product h-100 pb-2">
+              <button type="button" class="border-0 bg-transparent p-0 w-100" data-bs-toggle="modal"
+                data-bs-target="#modalIphone15Pro" aria-label="Clic para ver más detalles del iPhone 15 Pro"
+                title="Clic para ver más detalles de este producto">
+                <img src="../img/iphones/iphone-15-pro.png" class="card-img-top product-image">
+                <div class="card-body p-0">
+                  <h5 class="card-title product-title">iPhone 15 Pro</h5>
+                  <p class="card-text">8 GB RAM · Azul</p>
+                  <p class="product-price">S/. 4,999.00</p>
+                </div>
+              </button>
+              <div class="card-footer bg-white border-0">
+                <a href="#" class="btn btn-primary w-75">Agregar al carrito</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card product h-100 pb-2">
+              <button type="button" class="border-0 bg-transparent p-0 w-100" data-bs-toggle="modal"
+                data-bs-target="#modalIphone15Plus" aria-label="Clic para ver más detalles del iPhone 15 Plus"
+                title="Clic para ver más detalles de este producto">
+                <img src="../img/iphones/iphone-15-plus.png" class="card-img-top product-image">
+                <div class="card-body p-0">
+                  <h5 class="card-title product-title">iPhone 15 Plus</h5>
+                  <p class="card-text">256 GB · Rosa</p>
+                  <p class="product-price">S/. 4,199.00</p>
+                </div>
+              </button>
+              <div class="card-footer bg-white border-0">
+                <a href="#" class="btn btn-primary w-75">Agregar al carrito</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card product h-100 pb-2">
+              <button type="button" class="border-0 bg-transparent p-0 w-100" data-bs-toggle="modal"
+                data-bs-target="#modalIphone15" aria-label="Clic para ver más detalles del iPhone 15"
+                title="Clic para ver más detalles de este producto">
+                <img src="../img/iphones/iphone-15.png" class="card-img-top product-image">
+                <div class="card-body p-0">
+                  <h5 class="card-title product-title">iPhone 15</h5>
+                  <p class="card-text">256 GB · Amarillo</p>
+                  <p class="product-price">S/. 3,799.00</p>
+                </div>
+              </button>
+              <div class="card-footer bg-white border-0">
+                <a href="#" class="btn btn-primary w-75">Agregar al carrito</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card product h-100 pb-2">
+              <button type="button" class="border-0 bg-transparent p-0 w-100" data-bs-toggle="modal"
+                data-bs-target="#modalIphone14Pro" aria-label="Clic para ver más detalles del iPhone 14 Pro"
+                title="Clic para ver más detalles de este producto">
+                <img src="../img/iphones/iphone-14-pro.png" class="card-img-top product-image">
+                <div class="card-body p-0">
+                  <h5 class="card-title product-title">iPhone 14 Pro</h5>
+                  <p class="card-text">256 GB · Morado</p>
+                  <p class="product-price">S/. 4,299.00</p>
+                </div>
+              </button>
+              <div class="card-footer bg-white border-0">
+                <a href="#" class="btn btn-primary w-75">Agregar al carrito</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card product h-100 pb-2">
+              <button type="button" class="border-0 bg-transparent p-0 w-100" data-bs-toggle="modal"
+                data-bs-target="#modalIphone14" aria-label="Clic para ver más detalles del iPhone 14"
+                title="Clic para ver más detalles de este producto">
+                <img src="../img/iphones/iphone-14.png" class="card-img-top product-image">
+                <div class="card-body p-0">
+                  <h5 class="card-title product-title">iPhone 14</h5>
+                  <p class="card-text">256 GB · Medianoche</p>
+                  <p class="product-price">S/. 3,299.00</p>
+                </div>
+              </button>
+              <div class="card-footer bg-white border-0">
+                <a href="#" class="btn btn-primary w-75">Agregar al carrito</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card product h-100 pb-2">
+              <button type="button" class="border-0 bg-transparent p-0 w-100" data-bs-toggle="modal"
+                data-bs-target="#modalIphone13" aria-label="Clic para ver más detalles del iPhone 13"
+                title="Clic para ver más detalles de este producto">
+                <img src="../img/iphones/iphone-13.png" class="card-img-top product-image">
+                <div class="card-body p-0">
+                  <h5 class="card-title product-title">iPhone 13</h5>
+                  <p class="card-text">256 GB · Verde</p>
+                  <p class="product-price">S/. 2,699.00</p>
+                </div>
+              </button>
+              <div class="card-footer bg-white border-0">
+                <a href="#" class="btn btn-primary w-75">Agregar al carrito</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="mt-auto border-top py-4">
+    <div class="container">
+      <div class="row gy-3">
+        <div class="col-12 col-md-4">
+          <h5 class="mb-3">iStore</h5>
+          <p class="mb-0">
+            Tu destino para iPhone y accesorios Apple en Perú. Garantía oficial y soporte dedicado.
+          </p>
+        </div>
+        <div class="col-6 col-md-2">
+          <h6 class="mb-2">Compañía</h6>
+          <ul class="list-unstyled">
+            <li><a href="#" class="link-dark">Nosotros</a></li>
+            <li><a href="#" class="link-dark">Tiendas</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-2">
+          <h6 class="mb-2">Soporte</h6>
+          <ul class="list-unstyled">
+            <li><a href="#" class="link-dark">Garantía</a></li>
+          </ul>
+        </div>
+        <div class="col-12 col-md-4">
+          <h6 class="mb-2">Suscríbete</h6>
+          <form class="d-flex gap-2">
+            <input type="email" class="form-control" placeholder="Tu correo" aria-label="Correo" />
+            <button class="btn btn-primary" type="submit">Enviar</button>
+          </form>
+          <p class="text-apple-secondary mt-2 mb-0">Recibe ofertas y novedades (puedes darte de baja cuando
+            quieras).
+          </p>
+        </div>
+      </div>
+      <hr class="my-3" />
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+        <small class="text-apple-secondary">© 2025 iStore. Todos los derechos reservados.</small>
+        <div class="d-flex gap-3">
+          <a href="#" class="link-dark"><small>Privacidad</small></a>
+          <a href="../empleado/index-empleado.html" class="link-dark"><small>Términos</small></a>
+          <a href="index-administrador.html" class="link-dark"><small>Cookies</small></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- MODALES -->
+  <!-- Modal iPhone 16 Pro Max -->
+  <div class="modal fade" id="modalIphone16ProMax" tabindex="-1" aria-labelledby="modalIphone16ProMaxLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalIphone16ProMaxLabel">iPhone 16 Pro Max</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <div class="modal-body row">
+          <div class="col-md-6 text-center">
+            <img src="../img/iphones/iphone-16-pro-max.png" alt="iPhone 16 Pro Max" class="img-fluid">
+          </div>
+          <div class="col-md-6">
+            <p><strong>Precio:</strong> S/. 6,199.00</p>
+            <p><strong>Memoria:</strong> 256 GB</p>
+            <p><strong>Color:</strong> Titanio</p>
+            <p>El iPhone más avanzado hasta la fecha, con chip A18 y cámara ProMotion.</p>
+            <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal iPhone 15 Pro Max -->
+  <div class="modal fade" id="modalIphone15ProMax" tabindex="-1" aria-labelledby="modalIphone15ProMaxLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalIphone15ProMaxLabel">iPhone 15 Pro Max</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <div class="modal-body row">
+          <div class="col-md-6 text-center">
+            <img src="../img/iphones/iphone-15-pro-max.png" alt="iPhone 15 Pro Max" class="img-fluid">
+          </div>
+          <div class="col-md-6">
+            <p><strong>Precio:</strong> S/. 5,199.00</p>
+            <p><strong>Memoria:</strong> 256 GB</p>
+            <p><strong>Color:</strong> Titanio</p>
+            <p>Potente, elegante y con el chip A17 Pro para un rendimiento excepcional.</p>
+            <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal iPhone 15 Pro -->
+  <div class="modal fade" id="modalIphone15Pro" tabindex="-1" aria-labelledby="modalIphone15ProLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalIphone15ProLabel">iPhone 15 Pro</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <div class="modal-body row">
+          <div class="col-md-6 text-center">
+            <img src="../img/iphones/iphone-15-pro.png" alt="iPhone 15 Pro" class="img-fluid">
+          </div>
+          <div class="col-md-6">
+            <p><strong>Precio:</strong> S/. 4,999.00</p>
+            <p><strong>Memoria RAM:</strong> 8 GB</p>
+            <p><strong>Color:</strong> Azul</p>
+            <p>El iPhone perfecto para quienes buscan potencia y ligereza en un diseño premium.</p>
+            <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal iPhone 15 Plus -->
+  <div class="modal fade" id="modalIphone15Plus" tabindex="-1" aria-labelledby="modalIphone15PlusLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalIphone15PlusLabel">iPhone 15 Plus</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <div class="modal-body row">
+          <div class="col-md-6 text-center">
+            <img src="../img/iphones/iphone-15-plus.png" alt="iPhone 15 Plus" class="img-fluid">
+          </div>
+          <div class="col-md-6">
+            <p><strong>Precio:</strong> S/. 4,199.00</p>
+            <p><strong>Memoria:</strong> 256 GB</p>
+            <p><strong>Color:</strong> Rosa</p>
+            <p>Disfruta de una pantalla más grande y batería de larga duración con estilo vibrante.</p>
+            <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal iPhone 15 -->
+  <div class="modal fade" id="modalIphone15" tabindex="-1" aria-labelledby="modalIphone15Label" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalIphone15Label">iPhone 15</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <div class="modal-body row">
+          <div class="col-md-6 text-center">
+            <img src="../img/iphones/iphone-15.png" alt="iPhone 15" class="img-fluid">
+          </div>
+          <div class="col-md-6">
+            <p><strong>Precio:</strong> S/. 3,799.00</p>
+            <p><strong>Memoria:</strong> 256 GB</p>
+            <p><strong>Color:</strong> Amarillo</p>
+            <p>Un smartphone versátil con cámara avanzada y los colores más modernos.</p>
+            <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal iPhone 14 Pro -->
+  <div class="modal fade" id="modalIphone14Pro" tabindex="-1" aria-labelledby="modalIphone14ProLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalIphone14ProLabel">iPhone 14 Pro</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <div class="modal-body row">
+          <div class="col-md-6 text-center">
+            <img src="../img/iphones/iphone-14-pro.png" alt="iPhone 14 Pro" class="img-fluid">
+          </div>
+          <div class="col-md-6">
+            <p><strong>Precio:</strong> S/. 4,299.00</p>
+            <p><strong>Memoria:</strong> 256 GB</p>
+            <p><strong>Color:</strong> Morado</p>
+            <p>Una joya tecnológica con Dynamic Island y cámaras de nivel profesional.</p>
+            <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal iPhone 14 -->
+  <div class="modal fade" id="modalIphone14" tabindex="-1" aria-labelledby="modalIphone14Label" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalIphone14Label">iPhone 14</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <div class="modal-body row">
+          <div class="col-md-6 text-center">
+            <img src="../img/iphones/iphone-14.png" alt="iPhone 14" class="img-fluid">
+          </div>
+          <div class="col-md-6">
+            <p><strong>Precio:</strong> S/. 3,299.00</p>
+            <p><strong>Memoria:</strong> 256 GB</p>
+            <p><strong>Color:</strong> Medianoche</p>
+            <p>El equilibrio ideal entre potencia y precio con diseño elegante.</p>
+            <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal iPhone 13 -->
+  <div class="modal fade" id="modalIphone13" tabindex="-1" aria-labelledby="modalIphone13Label" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalIphone13Label">iPhone 13</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <div class="modal-body row">
+          <div class="col-md-6 text-center">
+            <img src="../img/iphones/iphone-13.png" alt="iPhone 13" class="img-fluid">
+          </div>
+          <div class="col-md-6">
+            <p><strong>Precio:</strong> S/. 2,699.00</p>
+            <p><strong>Memoria:</strong> 256 GB</p>
+            <p><strong>Color:</strong> Verde</p>
+            <p>Una opción confiable con gran batería y cámaras de excelente calidad.</p>
+            <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL CARRITO -->
+  <div class="modal fade" id="cartModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content border-0 rounded-3 shadow">
+
+        <!-- Header -->
+        <div class="modal-header">
+          <h5 class="modal-title fw-semibold">Tu carrito</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <!-- Body -->
+        <div class="modal-body">
+          <!-- Producto 1 -->
+          <div class="d-flex align-items-center mb-3 pb-3 border-bottom">
+            <img src="img/iphones/iphone-15-pro.png" alt="iPhone 15 Pro" class="rounded me-3"
+              style="width: 80px; height: 80px; object-fit: cover;">
+            <div class="flex-grow-1">
+              <h6 class="fw-semibold mb-1">iPhone 15 Pro</h6>
+              <p class="text-secondary small mb-1">Cantidad: 1</p>
+              <p class="fw-bold mb-0">S/. 5,199.00</p>
+            </div>
+            <button class="btn btn-sm btn-outline-danger">✕</button>
+          </div>
+
+          <!-- Producto 2 -->
+          <div class="d-flex align-items-center mb-3 pb-3 border-bottom">
+            <img src="img/iphones/iphone-14.png" alt="iPhone 14" class="rounded me-3"
+              style="width: 80px; height: 80px; object-fit: cover;">
+            <div class="flex-grow-1">
+              <h6 class="fw-semibold mb-1">iPhone 14</h6>
+              <p class="text-secondary small mb-1">Cantidad: 1</p>
+              <p class="fw-bold mb-0">S/. 3,299.00</p>
+            </div>
+            <button class="btn btn-sm btn-outline-danger">✕</button>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="modal-footer d-flex justify-content-between align-items-center">
+          <h6 class="fw-bold mb-0">Total: S/. 8,498.00</h6>
+          <div>
+            <button class="btn btn-outline-secondary me-2" data-bs-dismiss="modal">Seguir comprando</button>
+            <a href="clientes/pago.html" class="btn btn-primary">Finalizar compra</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
