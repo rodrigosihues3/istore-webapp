@@ -3,6 +3,7 @@ package com.istore.appweb.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.istore.appweb.entities.Usuarios;
@@ -15,7 +16,7 @@ public class UsuariosServices {
   private UsuariosRepository repositorio;
 
   public List<Usuarios> getUsuarios() {
-    return repositorio.findAll().reversed();
+    return repositorio.findAll(Sort.by(Sort.Direction.DESC, "idUsuario"));
   }
 
   public Usuarios getUsuarioById(Integer id) {

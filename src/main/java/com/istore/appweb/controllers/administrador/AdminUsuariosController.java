@@ -1,5 +1,6 @@
 package com.istore.appweb.controllers.administrador;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.istore.appweb.DTO.usuarios.UsuarioEditarDTO;
+import com.istore.appweb.DTO.usuarios.UsuarioEliminarDTO;
 import com.istore.appweb.entities.Usuarios;
 import com.istore.appweb.services.UsuariosServices;
 
@@ -37,6 +40,34 @@ public class AdminUsuariosController {
   @PostMapping("/agregar")
   public String agregarUsuario(@ModelAttribute Usuarios usuario) {
     usuariosServices.createUsuario(usuario);
+
+    return REDIRECCIONAR;
+  }
+
+  @PostMapping("/editar")
+  public String editarUsuario(@ModelAttribute UsuarioEditarDTO usuarioDto) {
+    Usuarios usuarioExistente = usuariosServices.getUsuarioById(usuarioDto.getIdUsuario());
+
+    usuarioExistente.setNombres(usuarioDto.getNombres());
+    usuarioExistente.setApellidos(usuarioDto.getApellidos());
+    usuarioExistente.setEmail(usuarioDto.getEmail());
+    usuarioExistente.setNombreUsuario(usuarioDto.getNombreUsuario());
+    usuarioExistente.setPassword(usuarioDto.getPassword());
+    usuarioExistente.setDni(usuarioDto.getDni());
+    usuarioExistente.setTelefono(usuarioDto.getTelefono());
+    usuarioExistente.setDireccion(usuarioDto.getDireccion());
+    usuarioExistente.setRol(usuarioDto.getRol());
+
+    usuarioExistente.setFechaCreacion(LocalDateTime.now());
+
+    usuariosServices.updateUsuario(usuarioExistente);
+
+    return REDIRECCIONAR;
+  }
+
+  @PostMapping("/eliminar")
+  public String eliminarUsuario(@ModelAttribute UsuarioEliminarDTO usuarioDto) {
+    usuariosServices.deleteUsuario(usuarioDto.getIdUsuario());
 
     return REDIRECCIONAR;
   }

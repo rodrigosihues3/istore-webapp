@@ -21,7 +21,9 @@
   <main class="container-fluid px-5 my-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h1 class="fw-bold">👥 Tabla Usuarios</h1>
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAgregarUsuario">➕ Agregar usuario</button>
+      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAgregar">
+        <span><i class="bi bi-person-plus"></i><span> Agregar usuario
+      </button>
     </div>
 
     <!-- Tabla -->
@@ -46,23 +48,36 @@
               </tr>
             </thead>
             <tbody>
-              <tr th:each="user : ${usuarios}">
-                <td th:text="${user.idUsuario}">ID</td>
-                <td th:text="${user.nombres}">Nombres</td>
-                <td th:text="${user.apellidos}">Apellidos</td>
-                <td th:text="${user.email}">Correo</td>
-                <td th:text="${user.nombreUsuario}">Usuario</td>
-                <td th:text="${user.password}">Contraseña</td>
-                <td th:text="${user.dni}">DNI</td>
-                <td th:text="${user.telefono}">Teléfono</td>
-                <td th:text="${user.direccion}">Direccion</td>
-                <td th:text="${user.rol}">Rol</td>
-                <td th:text="${#temporals.format(user.fechaCreacion, 'dd/MM/yyyy HH:mm')}">Fecha registro</td>
+              <tr th:each="usuario : ${usuarios}">
+                <td th:text="${usuario.idUsuario}">ID</td>
+                <td th:text="${usuario.nombres}">Nombres</td>
+                <td th:text="${usuario.apellidos}">Apellidos</td>
+                <td th:text="${usuario.email}">Correo</td>
+                <td th:text="${usuario.nombreUsuario}">Usuario</td>
+                <td th:text="${usuario.password}">Contraseña</td>
+                <td th:text="${usuario.dni}">DNI</td>
+                <td th:text="${usuario.telefono}">Teléfono</td>
+                <td th:text="${usuario.direccion}">Direccion</td>
+                <td th:text="${usuario.rol}">Rol</td>
+                <td th:text="${#temporals.format(usuario.fechaCreacion, 'dd/MM/yyyy HH:mm')}">Fecha registro</td>
                 <td>
-                  <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#modalEditar">Editar</button>
-                  <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                    data-bs-target="#modalEliminar">Eliminar</button>
+                  <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#modalEditar" title="Editar" data-entidad="usuario"
+                    th:data-id="${usuario.idUsuario}" th:data-nombres="${usuario.nombres}"
+                    th:data-apellidos="${usuario.apellidos}" th:data-email="${usuario.email}"
+                    th:data-nombre-usuario="${usuario.nombreUsuario}" th:data-password="${usuario.password}"
+                    th:data-dni="${usuario.dni}" th:data-telefono="${usuario.telefono}"
+                    th:data-direccion="${usuario.direccion}" th:data-rol="${usuario.rol}">
+                    <span><i class="bi bi-pencil-square"></i></span>
+                  </button>
+                  <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-entidad="usuario"
+                    th:data-id="${usuario.idUsuario}"
+                    th:data-nombre-completo="${usuario.nombres + ' ' + usuario.apellidos}"
+                    th:data-dni="${usuario.dni}" data-email="${usuario.email}"
+                    th:data-nombre-usuario="${usuario.nombreUsuario}" th:data-rol="${usuario.rol}"
+                    data-bs-target="#modalEliminar" title="Eliminar">
+                    <span><i class="bi bi-trash3-fill"></i></span>
+                  </button>
                 </td>
               </tr>
 
@@ -81,66 +96,13 @@
 
   <!-- MODALES -->
   <!-- Modal Agregar -->
-  <div th:replace="~{fragments/BD/modalAgregarBD :: modalAgregarUsuario}"></div>
+  <div th:replace="~{fragments/BD/modalAgregarRegistro :: modalAgregarUsuario}"></div>
 
   <!-- Modal Editar -->
-  <div class="modal fade" id="modalEditar" tabindex="-1">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-      <div class="modal-content border-0 shadow">
-        <div class="modal-header">
-          <h5 class="modal-title">✏️ Editar usuario</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <form class="row g-3">
-            <div class="col-md-6">
-              <label class="form-label">Nombre completo</label>
-              <input type="text" class="form-control" value="Juan Pérez">
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Correo</label>
-              <input type="email" class="form-control" value="juanperez@gmail.com">
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Teléfono</label>
-              <input type="text" class="form-control" value="+51 987654321">
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Rol</label>
-              <select class="form-select">
-                <option selected>Cliente</option>
-                <option>Empleado</option>
-                <option>Administrador</option>
-              </select>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button class="btn btn-primary">Guardar cambios</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div th:replace="~{fragments/BD/modalEditarRegistro :: modalEditarUsuario}"></div>
 
   <!-- Modal Eliminar -->
-  <div class="modal fade" id="modalEliminar" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content border-0 shadow">
-        <div class="modal-header">
-          <h5 class="modal-title">⚠️ Confirmar eliminación</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <p>¿Seguro que deseas eliminar este usuario?</p>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <a class="btn btn-danger">Eliminar</a>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div th:replace="~{fragments/BD/modalEliminarRegistro :: modalEliminarUsuario}"></div>
 
   <!-- FOOTER -->
   <footer class="mt-auto border-top py-3 text-center">
@@ -148,6 +110,8 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script th:src="@{/js/administrador/modalDataRegistro.js}"></script>
+  <script th:src="@{/js/administrador/modalEliminarRegistro.js}"></script>
 </body>
 
 </html>
