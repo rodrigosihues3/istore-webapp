@@ -22,7 +22,7 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h1 class="fw-bold">👥 Tabla Usuarios</h1>
       <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAgregar">
-        <span><i class="bi bi-person-plus"></i><span> Agregar usuario
+        <span><i class="bi bi-person-plus"></i><span> Agregar
       </button>
     </div>
 
@@ -73,7 +73,7 @@
                   <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-entidad="usuario"
                     th:data-id="${usuario.idUsuario}"
                     th:data-nombre-completo="${usuario.nombres + ' ' + usuario.apellidos}"
-                    th:data-dni="${usuario.dni}" data-email="${usuario.email}"
+                    th:data-dni="${usuario.dni}" th:data-email="${usuario.email}"
                     th:data-nombre-usuario="${usuario.nombreUsuario}" th:data-rol="${usuario.rol}"
                     data-bs-target="#modalEliminar" title="Eliminar">
                     <span><i class="bi bi-trash3-fill"></i></span>

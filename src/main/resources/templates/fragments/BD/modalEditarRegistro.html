@@ -61,15 +61,51 @@
               <label class="form-label ms-2 mt-2" for="password">Contraseña</label>
               <input type="password" class="form-control" placeholder="Ingresa la contraseña" name="password">
             </div>
-          </div>
 
-          <div class="col-6">
-            <label class="form-label ms-2 mt-2">Rol</label>
-            <select class="form-select" name="rol">
-              <option value="CLIENTE" selected>Cliente</option>
-              <option value="EMPLEADO">Empleado</option>
-              <option value="ADMINISTRADOR">Administrador</option>
-            </select>
+            <div class="col-6">
+              <label class="form-label ms-2 mt-2">Rol</label>
+              <select class="form-select" name="rol">
+                <option value="CLIENTE" selected>Cliente</option>
+                <option value="EMPLEADO">Empleado</option>
+                <option value="ADMINISTRADOR">Administrador</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer justify-content-end g-3 pe-4">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- EDITAR ROL -->
+<div th:fragment="modalEditarRol" class="modal fade" id="modalEditar" tabindex="-1">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content border-0 shadow">
+      <div class="modal-header bg-primary text-light fw-bold">
+        <h5 class="modal-title">
+          <span></span> Editar rol
+        </h5>
+        <button type="button" class="btn-close bg-light" data-bs-dismiss="modal"></button>
+      </div>
+
+      <form class="row g-3" method="post" th:action="@{/admin/roles/editar}">
+        <div class="modal-body">
+          <input type="hidden" name="idRol">
+
+          <div class="row">
+            <div class="col-8">
+              <label class="form-label ms-2 mt-2">Nombre del rol</label>
+              <input type="text" class="form-control" placeholder="Ingresa el nombre del rol" name="nombre">
+            </div>
+            <div class="col-4">
+              <label class="form-label ms-2 mt-2">Nivel de acceso</label>
+              <input type="number" class="form-control" name="nivel">
+            </div>
           </div>
         </div>
 

@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
           const nombreUsuario = boton.getAttribute("data-nombre-usuario");
           const rol = boton.getAttribute("data-rol");
 
-          modal.querySelector("#id").textContent = id || "";
+          modal.querySelector("#idSpan").textContent = id || "";
           modal.querySelector("#nombreCompleto").textContent = nombreCompleto || "";
           modal.querySelector("#dni").textContent = dni || "";
           modal.querySelector("#email").textContent = email || "";
@@ -32,11 +32,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         case "rol": {
-          const titulo = boton.getAttribute("data-titulo");
-          const precio = boton.getAttribute("data-precio");
+          const id = boton.getAttribute("data-id");
+          const nombre = boton.getAttribute("data-nombre");
+          const nivel = boton.getAttribute("data-nivel");
 
-          modal.querySelector("input[name='titulo']").value = titulo || "";
-          modal.querySelector("input[name='precio']").value = precio || "";
+          modal.querySelector("#idSpan").textContent = id;
+          modal.querySelector("#nombre").textContent = nombre || "";
+          modal.querySelector("#nivel").textContent = nivel || "";
+
+          modal.querySelector("#id").value = id || "";
 
           break;
         }

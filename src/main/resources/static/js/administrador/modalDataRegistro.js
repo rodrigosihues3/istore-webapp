@@ -38,11 +38,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         case "rol": {
-          const titulo = boton.getAttribute("data-titulo");
-          const precio = boton.getAttribute("data-precio");
+          const id = parseInt(boton.getAttribute("data-id")) || 0;
+          const nombre = boton.getAttribute("data-nombre");
+          const nivel = boton.getAttribute("data-nivel");
 
-          modal.querySelector("input[name='titulo']").value = titulo || "";
-          modal.querySelector("input[name='precio']").value = precio || "";
+          modal.querySelector("input[name='idRol']").value = id;
+          modal.querySelector("input[name='nombre']").value = nombre || "";
+          modal.querySelector("input[name='nivel']").value = nivel || "";
           
           break;
         }

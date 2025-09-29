@@ -25,11 +25,11 @@ public class AdminUsuariosController {
   private final String REDIRECCIONAR = "redirect:/admin/usuarios";
 
   @Autowired
-  private UsuariosServices usuariosServices;
+  private UsuariosServices servicio;
 
   @GetMapping
-  public String listarUsuarios(Model model) {
-    List<Usuarios> usuarios = usuariosServices.getUsuarios();
+  public String listarTodo(Model model) {
+    List<Usuarios> usuarios = servicio.getUsuarios();
 
     model.addAttribute("usuarios", usuarios);
     model.addAttribute("usuario", new Usuarios());
@@ -38,36 +38,42 @@ public class AdminUsuariosController {
   }
 
   @PostMapping("/agregar")
-  public String agregarUsuario(@ModelAttribute Usuarios usuario) {
-    usuariosServices.createUsuario(usuario);
+  public String agregar(@ModelAttribute Usuarios usuario) {
+    usuario.setNombres(usuario.getNombres().toUpperCase());
+    usuario.setApellidos(usuario.getApellidos().toUpperCase());
+    usuario.setDireccion(usuario.getDireccion().toUpperCase());
+    usuario.setEmail(usuario.getEmail().toLowerCase());
+    usuario.setNombreUsuario(usuario.getNombreUsuario().toLowerCase());
+
+    servicio.createUsuario(usuario);
 
     return REDIRECCIONAR;
   }
 
   @PostMapping("/editar")
-  public String editarUsuario(@ModelAttribute UsuarioEditarDTO usuarioDto) {
-    Usuarios usuarioExistente = usuariosServices.getUsuarioById(usuarioDto.getIdUsuario());
+  public String editar(@ModelAttribute UsuarioEditarDTO usuarioDto) {
+    Usuarios usuarioExistente = servicio.getUsuarioById(usuarioDto.getIdUsuario());
 
-    usuarioExistente.setNombres(usuarioDto.getNombres());
-    usuarioExistente.setApellidos(usuarioDto.getApellidos());
-    usuarioExistente.setEmail(usuarioDto.getEmail());
-    usuarioExistente.setNombreUsuario(usuarioDto.getNombreUsuario());
+    usuarioExistente.setNombres(usuarioDto.getNombres().toUpperCase());
+    usuarioExistente.setApellidos(usuarioDto.getApellidos().toUpperCase());
+    usuarioExistente.setEmail(usuarioDto.getEmail().toUpperCase());
+    usuarioExistente.setNombreUsuario(usuarioDto.getNombreUsuario().toUpperCase());
     usuarioExistente.setPassword(usuarioDto.getPassword());
     usuarioExistente.setDni(usuarioDto.getDni());
     usuarioExistente.setTelefono(usuarioDto.getTelefono());
-    usuarioExistente.setDireccion(usuarioDto.getDireccion());
+    usuarioExistente.setDireccion(usuarioDto.getDireccion().toUpperCase());
     usuarioExistente.setRol(usuarioDto.getRol());
 
     usuarioExistente.setFechaCreacion(LocalDateTime.now());
 
-    usuariosServices.updateUsuario(usuarioExistente);
+    servicio.updateUsuario(usuarioExistente);
 
     return REDIRECCIONAR;
   }
 
   @PostMapping("/eliminar")
-  public String eliminarUsuario(@ModelAttribute UsuarioEliminarDTO usuarioDto) {
-    usuariosServices.deleteUsuario(usuarioDto.getIdUsuario());
+  public String eliminar(@ModelAttribute UsuarioEliminarDTO usuarioDto) {
+    servicio.deleteUsuario(usuarioDto.getIdUsuario());
 
     return REDIRECCIONAR;
   }
