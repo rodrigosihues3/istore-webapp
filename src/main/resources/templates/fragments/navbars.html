@@ -32,7 +32,8 @@
                         class="btn btn-outline-primary">Iniciar sesión</a>
                 </li>
                 <li class="nav-item">
-                    <a sec:authorize="isAnonymous()" th:href="@{/registrarse}" class="btn btn-primary">Registrarse</a>
+                    <a sec:authorize="isAnonymous()" th:href="@{/registrarse}"
+                        class="btn btn-outline-primary">Registrarse</a>
                 </li>
 
                 <!-- PERFIL DESPLEGABLE -->
@@ -80,7 +81,8 @@
 </nav>
 
 <!-- NAVBAR DE CATEGORIAS -->
-<nav class="navbar navbar-expand-lg border-top bg-light-subtle nav-categorias" th:fragment="navbarCategorias">
+<nav class="navbar navbar-expand-lg border-top bg-light-subtle nav-categorias nav-underline"
+    th:fragment="navbarCategorias">
     <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuCategorias"
             aria-controls="menuCategorias" aria-expanded="false" aria-label="Abrir menú">
@@ -89,12 +91,27 @@
 
         <div class="collapse navbar-collapse justify-content-center" id="menuCategorias">
             <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link" th:href="@{/catalogo/iphones}">Iphones</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/catalogo/relojes}">Relojes</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/catalogo/audifonos}">Audifonos</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/catalogo/accesorios}">Accesorios</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/nosotros}">Nosotros</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/tiendas}">Tiendas</a></li>
+                <li class="nav-item"><a class="nav-link"
+                        th:classappend="${currentPath == '/' or currentPath.isEmpty()} ? ' active' : ''"
+                        th:href="@{/}">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link"
+                        th:classappend="${currentPath.startsWith('/catalogo/iphones')} ? ' active' : ''"
+                        th:href="@{/catalogo/iphones}">Iphones</a></li>
+                <li class="nav-item"><a class="nav-link"
+                        th:classappend="${currentPath.startsWith('/catalogo/relojes')} ? ' active' : ''"
+                        th:href="@{/catalogo/relojes}">Relojes</a></li>
+                <li class="nav-item"><a class="nav-link"
+                        th:classappend="${currentPath.startsWith('/catalogo/audifonos')} ? ' active' : ''"
+                        th:href="@{/catalogo/audifonos}">Audifonos</a></li>
+                <li class="nav-item"><a class="nav-link"
+                        th:classappend="${currentPath.startsWith('/catalogo/accesorios')} ? ' active' : ''"
+                        th:href="@{/catalogo/accesorios}">Accesorios</a></li>
+                <li class="nav-item"><a class="nav-link"
+                        th:classappend="${currentPath.startsWith('/nosotros')} ? ' active' : ''"
+                        th:href="@{/nosotros}">Nosotros</a></li>
+                <li class="nav-item"><a class="nav-link"
+                        th:classappend="${currentPath.startsWith('/tiendas')} ? ' active' : ''"
+                        th:href="@{/tiendas}">Tiendas</a></li>
             </ul>
         </div>
     </div>
