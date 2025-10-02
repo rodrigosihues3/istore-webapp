@@ -1,6 +1,5 @@
 package com.istore.appweb.controllers.administrador;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +10,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.istore.appweb.DTO.usuarios.UsuarioAgregarDTO;
 import com.istore.appweb.DTO.usuarios.UsuarioEditarDTO;
 import com.istore.appweb.DTO.usuarios.UsuarioEliminarDTO;
+import com.istore.appweb.entities.Roles;
 import com.istore.appweb.entities.Usuarios;
+import com.istore.appweb.services.RolesServices;
 import com.istore.appweb.services.UsuariosServices;
 
 @Controller
@@ -27,23 +29,33 @@ public class AdminUsuariosController {
   @Autowired
   private UsuariosServices servicio;
 
+  @Autowired
+  private RolesServices servicioRoles;
+
   @GetMapping
   public String listarTodo(Model model) {
     List<Usuarios> usuarios = servicio.getUsuarios();
+    List<Roles> roles = servicioRoles.getRoles();
 
     model.addAttribute("usuarios", usuarios);
-    model.addAttribute("usuario", new Usuarios());
+    model.addAttribute("roles", roles);
 
     return VISTA_LISTAR;
   }
 
   @PostMapping("/agregar")
-  public String agregar(@ModelAttribute Usuarios usuario) {
-    usuario.setNombres(usuario.getNombres().toUpperCase());
-    usuario.setApellidos(usuario.getApellidos().toUpperCase());
-    usuario.setDireccion(usuario.getDireccion().toUpperCase());
-    usuario.setEmail(usuario.getEmail().toLowerCase());
-    usuario.setNombreUsuario(usuario.getNombreUsuario().toLowerCase());
+  public String agregar(@ModelAttribute UsuarioAgregarDTO usuarioDTO) {
+    Usuarios usuario = new Usuarios();
+
+    usuario.setNombres(usuarioDTO.getNombres().toUpperCase());
+    usuario.setApellidos(usuarioDTO.getApellidos().toUpperCase());
+    usuario.setDireccion(usuarioDTO.getDireccion().toUpperCase());
+    usuario.setEmail(usuarioDTO.getEmail().toUpperCase());
+    usuario.setNombreUsuario(usuarioDTO.getNombreUsuario().toUpperCase());
+    usuario.setPassword(usuarioDTO.getPassword());
+    usuario.setDni(usuarioDTO.getDni());
+    usuario.setTelefono(usuarioDTO.getTelefono());
+    usuario.setRol(servicioRoles.getRolById(usuarioDTO.getIdRol()));
 
     servicio.createUsuario(usuario);
 
@@ -51,22 +63,9 @@ public class AdminUsuariosController {
   }
 
   @PostMapping("/editar")
-  public String editar(@ModelAttribute UsuarioEditarDTO usuarioDto) {
-    Usuarios usuarioExistente = servicio.getUsuarioById(usuarioDto.getIdUsuario());
+  public String editar(@ModelAttribute UsuarioEditarDTO usuarioDto) {    
 
-    usuarioExistente.setNombres(usuarioDto.getNombres().toUpperCase());
-    usuarioExistente.setApellidos(usuarioDto.getApellidos().toUpperCase());
-    usuarioExistente.setEmail(usuarioDto.getEmail().toUpperCase());
-    usuarioExistente.setNombreUsuario(usuarioDto.getNombreUsuario().toUpperCase());
-    usuarioExistente.setPassword(usuarioDto.getPassword());
-    usuarioExistente.setDni(usuarioDto.getDni());
-    usuarioExistente.setTelefono(usuarioDto.getTelefono());
-    usuarioExistente.setDireccion(usuarioDto.getDireccion().toUpperCase());
-    usuarioExistente.setRol(usuarioDto.getRol());
-
-    usuarioExistente.setFechaCreacion(LocalDateTime.now());
-
-    servicio.updateUsuario(usuarioExistente);
+    servicio.updateUsuario(usuarioDto);
 
     return REDIRECCIONAR;
   }

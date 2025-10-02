@@ -1,18 +1,7 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iStore · Inicio</title>
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-
-    <!-- CSS LOCAL -->
-    <link rel="stylesheet" href="css/styles.css">
-</head>
+<head th:replace="~{fragments/heads :: head('iStore')}"></head>
 
 <body class="d-flex flex-column min-vh-100">
 
@@ -53,7 +42,7 @@
                 <div class="carousel-item" data-bs-interval="4500">
                     <img src="img/carrusel-img-5.png" class="d-block w-100" alt="Imagen 5" />
                 </div>
-            </div> 
+            </div>
 
             <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev"
                 aria-label="Anterior">

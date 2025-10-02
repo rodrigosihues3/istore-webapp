@@ -1,4 +1,3 @@
-// archivo: modalEditarEntidad.js
 document.addEventListener("DOMContentLoaded", () => {
   const botonesEditar = document.querySelectorAll("[data-bs-toggle='modal'][data-entidad]");
 
@@ -20,8 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
           const telefono = boton.getAttribute("data-telefono");
           const direccion = boton.getAttribute("data-direccion");
           const nombreUsuario = boton.getAttribute("data-nombre-usuario");
-          const password = boton.getAttribute("data-password");
-          const rol = boton.getAttribute("data-rol");
+          const idRol = parseInt(boton.getAttribute("data-id-rol"));
 
           modal.querySelector("input[name='idUsuario']").value = id || "";
           modal.querySelector("input[name='nombres']").value = nombres || "";
@@ -31,8 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
           modal.querySelector("input[name='telefono']").value = telefono || "";
           modal.querySelector("input[name='direccion']").value = direccion || "";
           modal.querySelector("input[name='nombreUsuario']").value = nombreUsuario || "";
-          modal.querySelector("input[name='password']").value = password || "";
-          modal.querySelector("select[name='rol']").value = rol || "CLIENTE";
+          modal.querySelector("select[name='idRol']").value = idRol || 0;
 
           break;
         }
@@ -44,8 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
           modal.querySelector("input[name='idRol']").value = id;
           modal.querySelector("input[name='nombre']").value = nombre || "";
-          modal.querySelector("input[name='nivel']").value = nivel || "";
-          
+          modal.querySelector("input[name='nivel']").value = nivel || 0;
+
           break;
         }
 

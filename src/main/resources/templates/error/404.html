@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{fragments/heads :: headErrores('404 - Página no encontrada')}"></head>
+
+<body>
+    <div class="error-container">
+        <h1 class="text-error">404</h1>
+        <p class="lead">¡Oops! La página que buscas no existe.</p>
+        <a th:href="@{/}" class="btn btn-primary mt-3">Volver al inicio</a>
+    </div>
+</body>
+
+</html>

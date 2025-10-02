@@ -9,9 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UsuarioEditarDTO {
-
-  private Integer idUsuario;
+public class UsuarioAgregarDTO {
 
   private String nombres;
 

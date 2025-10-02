@@ -1,4 +1,3 @@
-// archivo: modalEditarEntidad.js
 document.addEventListener("DOMContentLoaded", () => {
   const botonesEditar = document.querySelectorAll("[data-bs-toggle='modal'][data-entidad]");
 
@@ -25,7 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
           modal.querySelector("#email").textContent = email || "";
           modal.querySelector("#nombreUsuario").textContent = nombreUsuario || "";
           modal.querySelector("#rol").textContent = rol || "";
-
           modal.querySelector("#id").value = id || "";
 
           break;

@@ -4,15 +4,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class loign {
+public class Login {
 
-    @GetMapping("/login")
+    @GetMapping("/iniciar-sesion")
     public String login() {
         return "login.html"; // Retorna la vista index.html en templates/
     }
 
-    @GetMapping("/register")
+    @GetMapping("/registrarse")
     public String register() {
         return "register.html"; // Retorna la vista index.html en templates/
     }
+
+    
 }

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{fragments/heads :: headErrores('500 - Error del servidor')}"></head>
+
+<body>
+    <div class="error-container">
+        <div class="text-error">500</div>
+        <p class="lead text-muted">¡Algo salió mal en el servidor!</p>
+        <p>Estamos trabajando para solucionarlo.</p>
+        <a th:href="@{/}" class="btn btn-primary mt-3">Volver al inicio</a>
+    </div>
+</body>
+
+</html>

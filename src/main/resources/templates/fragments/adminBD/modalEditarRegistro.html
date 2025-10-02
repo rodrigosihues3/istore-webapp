@@ -1,112 +1,118 @@
-<!-- AGREGAR USUARIO -->
-<div th:fragment="modalAgregarUsuario" class="modal fade" id="modalAgregar" tabindex="-1">
+<!-- EDITAR USUARIO -->
+<div th:fragment="modalEditarUsuario" class="modal fade" id="modalEditar" tabindex="-1">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content border-0 shadow">
-      <div class="modal-header bg-success text-light fw-bold">
-        <h5 class="modal-title"> <span><i class="bi bi-person-plus"></i><span> AGREGAR USUARIO</h5>
+      <div class="modal-header bg-primary text-light fw-bold">
+        <h5 class="modal-title">
+          <span><i class="bi bi-person-gear"></i></span> Editar usuario
+        </h5>
         <button type="button" class="btn-close bg-light" data-bs-dismiss="modal"></button>
       </div>
 
-      <form class="row g-3" method="post" th:action="@{/admin/usuarios/agregar}" th:object="${usuario}">
-        <div class="modal-body">
+      <form class="row g-3" method="post" th:action="@{/admin/usuarios/editar}">
+        <div class="modal-body px-5">
+          <input type="hidden" name="idUsuario">
+
           <div class="row">
             <!-- DATOS PERSONALES -->
             <div class="col-12">
-              <h5 class="mt-4 mb-0 text-center">Datos personales</h5>
+              <h5 class="mt-3 mb-0 text-center">Datos personales</h5>
               <hr class="my-1">
             </div>
 
             <div class="col-6">
               <label class="form-label ms-2 mt-2" for="nombres">Nombres</label>
-              <input type="text" class="form-control" placeholder="Ingresa los nombres del usuario"
-                th:field="*{nombres}">
+              <input type="text" class="form-control" placeholder="Ingresa los nombres del usuario" name="nombres">
             </div>
             <div class="col-6">
               <label class="form-label ms-2 mt-2" for="apellidos">Apellidos</label>
               <input type="text" class="form-control" placeholder="Ingresa los apellidos del usuario"
-                aria-label="Apellidos" th:field="*{apellidos}">
+                aria-label="Apellidos" name="apellidos">
             </div>
 
             <div class="col-4">
               <label class="form-label ms-2 mt-2" for="dni">DNI</label>
-              <input type="text" class="form-control" placeholder="Ingresa el DNI del usuario" th:field="*{dni}">
+              <input type="text" class="form-control" placeholder="Ingresa el DNI del usuario" name="dni">
             </div>
             <div class="col-8">
               <label class="form-label ms-2 mt-2" for="email">Correo</label>
-              <input type="email" class="form-control" placeholder="Ingresa el correo del usuario" th:field="*{email}">
+              <input type="email" class="form-control" placeholder="Ingresa el correo del usuario" name="email">
             </div>
 
             <div class="col-4">
               <label class="form-label ms-2 mt-2" for="telefono">Teléfono</label>
-              <input type="text" class="form-control" placeholder="Ingresa el teléfono del usuario"
-                th:field="*{telefono}">
+              <input type="text" class="form-control" placeholder="Ingresa el teléfono del usuario" name="telefono">
             </div>
             <div class="col-8">
               <label class="form-label ms-2 mt-2" for="direccion">Dirección</label>
-              <input type="text" class="form-control" placeholder="Ingresa la dirección del usuario"
-                th:field="*{direccion}">
+              <input type="text" class="form-control" placeholder="Ingresa la dirección del usuario" name="direccion">
             </div>
 
             <!-- CREDENCIALES DE ACCESO -->
             <div class="col-12">
-              <h5 class="mt-4 mb-0 text-center">Credenciales de acceso</h5>
+              <h5 class="mt-3 mb-0 text-center">Credenciales de acceso</h5>
               <hr class="my-1">
             </div>
             <div class="col-6">
               <label class="form-label ms-2 mt-2" for="nombreUsuario">Usuario</label>
-              <input type="text" class="form-control" placeholder="Ingresa el usuario" th:field="*{nombreUsuario}">
+              <input type="text" class="form-control" placeholder="Ingresa el usuario" name="nombreUsuario"
+                autocomplete="new-password">
             </div>
             <div class="col-6">
               <label class="form-label ms-2 mt-2" for="password">Contraseña</label>
-              <input type="password" class="form-control" placeholder="Ingresa la contraseña" th:field="*{password}">
+              <input type="password" class="form-control"
+                placeholder="Dejar en blanco si no deseas cambiar la contraseña" name="password"
+                autocomplete="new-password">
             </div>
 
             <div class="col-6">
               <label class="form-label ms-2 mt-2">Rol</label>
-              <select class="form-select" th:field="*{rol}">
-                <option value="CLIENTE" selected>Cliente</option>
-                <option value="EMPLEADO">Empleado</option>
-                <option value="ADMINISTRADOR">Administrador</option>
+              <select class="form-select" name="idRol">
+                <option th:each="rol : ${roles}" th:value="${rol.idRol}" th:text="${rol.nombre}"></option>
               </select>
             </div>
           </div>
         </div>
 
-        <div class="modal-footer justify-content-end g-3 pe-4">
+        <div class="modal-footer px-5">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-success">Guardar</button>
+          <button type="submit" class="btn btn-primary">Guardar Cambios</button>
         </div>
       </form>
     </div>
   </div>
 </div>
 
-<!-- AGREGAR USUARIO -->
-<div th:fragment="modalAgregarRol" class="modal fade" id="modalAgregar" tabindex="-1">
+<!-- EDITAR ROL -->
+<div th:fragment="modalEditarRol" class="modal fade" id="modalEditar" tabindex="-1">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content border-0 shadow">
-      <div class="modal-header bg-success text-light fw-bold">
-        <h5 class="modal-title"><span><i class="bi bi-person-rolodex"></i><span> AGREGAR ROL</h5>
+      <div class="modal-header bg-primary text-light fw-bold">
+        <h5 class="modal-title">
+          <span></span> Editar rol
+        </h5>
         <button type="button" class="btn-close bg-light" data-bs-dismiss="modal"></button>
       </div>
 
-      <form class="row g-3" method="post" th:action="@{/admin/roles/agregar}" th:object="${rol}">
-        <div class="modal-body">
+      <form class="row g-3" method="post" th:action="@{/admin/roles/editar}">
+        <div class="modal-body px-5">
+          <input type="hidden" name="idRol">
+
           <div class="row">
             <div class="col-8">
               <label class="form-label ms-2 mt-2">Nombre del rol</label>
-              <input type="text" class="form-control" placeholder="Ingresa el nombre del rol" th:field="*{nombre}">
+              <input type="text" class="form-control" placeholder="Ingresa el nombre del rol" name="nombre">
             </div>
             <div class="col-4">
               <label class="form-label ms-2 mt-2">Nivel de acceso</label>
-              <input type="number" class="form-control" min="0" th:field="*{nivel}">
+              <input type="number" class="form-control" name="nivel">
             </div>
           </div>
         </div>
 
-        <div class="modal-footer justify-content-end g-3 pe-4">
+        <div class="modal-footer px-5">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-success">Guardar</button>
+          <button type="submit" class="btn btn-primary">Guardar Cambios</button>
         </div>
       </form>
     </div>

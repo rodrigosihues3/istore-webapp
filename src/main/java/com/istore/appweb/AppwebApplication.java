@@ -7,7 +7,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.istore.appweb.entities.Roles;
 import com.istore.appweb.entities.Usuarios;
+import com.istore.appweb.services.RolesServices;
 import com.istore.appweb.services.UsuariosServices;
 
 @SpringBootApplication
@@ -33,8 +35,28 @@ public class AppwebApplication {
 
 	@Bean
 	@SuppressWarnings("unused")
-	CommandLineRunner init(UsuariosServices servicioUsuarios) {
+	CommandLineRunner init(RolesServices servicioRoles, UsuariosServices servicioUsuarios) {
 		return args -> {
+			if (servicioRoles.getRoles().isEmpty()) {
+				Roles admin = new Roles();
+				admin.setNombre("ADMINISTRADOR");
+				admin.setNivel(2);
+
+				servicioRoles.createRol(admin);
+
+				Roles empleado = new Roles();
+				empleado.setNombre("EMPLEADO");
+				empleado.setNivel(1);
+
+				servicioRoles.createRol(empleado);
+
+				Roles cliente = new Roles();
+				cliente.setNombre("CLIENTE");
+				cliente.setNivel(0);
+
+				servicioRoles.createRol(cliente);
+			}
+
 			if (servicioUsuarios.getUsuarios().isEmpty()) {
 				Usuarios admin = new Usuarios();
 				admin.setNombreUsuario("admin");
@@ -44,7 +66,7 @@ public class AppwebApplication {
 				admin.setEmail("admin@istore.com");
 				admin.setTelefono("0000000000");
 				admin.setDireccion("IStore - Admin");
-				admin.setRol("ADMINISTRADOR");
+				admin.setRol(servicioRoles.getRolById(2));
 
 				servicioUsuarios.createUsuario(admin);
 			}
