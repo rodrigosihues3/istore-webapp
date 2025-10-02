@@ -12,7 +12,7 @@ public class UsuariosController {
     private final String VISTA_MI_CUENTA = "account";
     private final String CARPETA_BASE = "clientes/";
     private final String VISTA_PEDIDOS = CARPETA_BASE + "pedidos";
-    private final String REDIRECCIONAR = "redirect:/";
+    // private final String REDIRECCIONAR = "redirect:/";
 
     @GetMapping
     public String miCuenta() {
