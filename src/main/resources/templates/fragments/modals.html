@@ -1,6 +1,6 @@
 <!-- MODAL DETALLES DE IPHONE -->
-<div th:fragment="detallesIphone" class="modal fade" id="modalIphone16ProMax" tabindex="-1" aria-labelledby="modalIphone16ProMaxLabel"
-    aria-hidden="true">
+<div th:fragment="detallesIphone" class="modal fade" id="modalIphone16ProMax" tabindex="-1"
+    aria-labelledby="modalIphone16ProMaxLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
 
@@ -21,6 +21,57 @@
                     <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL CARRITO -->
+<div th:fragment="carrito" class="modal fade" id="cartModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="false">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 rounded-3 shadow">
+
+            <!-- Header -->
+            <div class="modal-header">
+                <h5 class="modal-title fw-semibold">Tu carrito</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body">
+                <!-- Producto 1 -->
+                <div class="d-flex align-items-center mb-3 pb-3 border-bottom">
+                    <img src="img/iphones/iphone-15-pro.png" alt="iPhone 15 Pro" class="rounded me-3"
+                        style="width: 80px; height: 80px; object-fit: cover;">
+                    <div class="flex-grow-1">
+                        <h6 class="fw-semibold mb-1">iPhone 15 Pro</h6>
+                        <p class="text-secondary small mb-1">Cantidad: 1</p>
+                        <p class="fw-bold mb-0">S/. 5,199.00</p>
+                    </div>
+                    <button class="btn btn-sm btn-outline-danger">✕</button>
+                </div>
+
+                <!-- Producto 2 -->
+                <div class="d-flex align-items-center mb-3 pb-3 border-bottom">
+                    <img src="img/iphones/iphone-14.png" alt="iPhone 14" class="rounded me-3"
+                        style="width: 80px; height: 80px; object-fit: cover;">
+                    <div class="flex-grow-1">
+                        <h6 class="fw-semibold mb-1">iPhone 14</h6>
+                        <p class="text-secondary small mb-1">Cantidad: 1</p>
+                        <p class="fw-bold mb-0">S/. 3,299.00</p>
+                    </div>
+                    <button class="btn btn-sm btn-outline-danger">✕</button>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer d-flex justify-content-between align-items-center">
+                <h6 class="fw-bold mb-0">Total: S/. 8,498.00</h6>
+                <div>
+                    <button class="btn btn-outline-secondary me-2" data-bs-dismiss="modal">Seguir comprando</button>
+                    <a th:href="@{cliente/pagar-carrito}" class="btn btn-primary">Finalizar compra</a>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
