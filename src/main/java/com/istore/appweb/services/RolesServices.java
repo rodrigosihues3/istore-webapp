@@ -35,4 +35,10 @@ public class RolesServices {
     repositorio.deleteById(id);
   }
 
+  // OTRAS FUNCIONES
+
+  public Roles getByNombre(String nombre) {
+    return repositorio.findByNombre(nombre);
+  }
+
 }

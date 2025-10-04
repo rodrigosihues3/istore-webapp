@@ -299,7 +299,7 @@ a:hover {
   transform: scale(1.05);
 }
 
-.product-title {
+.card-title {
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
@@ -317,7 +317,7 @@ a:hover {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
   color: var(--primary-700);
-  margin-bottom: 1rem;
+  margin-bottom: .2rem;
   letter-spacing: -0.02em;
 }
 
@@ -363,6 +363,17 @@ a:hover {
   background-color: var(--hover-primary);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
+}
+
+.btn-login {
+  font-size: 1rem;
+  width: 50%;
+  transition: width 0.7s ease;
+}
+
+.btn-login:hover {
+  width: 100%;
+  font-weight: bold;
 }
 
 .btn-primary:active {
@@ -745,4 +756,13 @@ html {
 ::-moz-selection {
   background-color: var(--primary-200);
   color: var(--text-primary);
+}
+
+.link-footer {
+  color: var(--primary-950);
+}
+
+.link-footer:hover {
+  color: var(--primary-500);
+  font-weight: 600;
 }

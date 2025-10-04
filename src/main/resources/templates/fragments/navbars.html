@@ -68,7 +68,7 @@
                             <li><a class="dropdown-item" th:href="@{/admin/usuarios}">
                                     <span><i class="bi bi-database"></i></span> Usuarios</a>
                             </li>
-                            <li><a class="dropdown-item" th:href="@{/admin/usuarios}">
+                            <li><a class="dropdown-item" th:href="@{/admin/roles}">
                                     <span><i class="bi bi-database"></i></span> Roles</a>
                             </li>
                         </div>
@@ -106,12 +106,6 @@
                 <li class="nav-item"><a class="nav-link"
                         th:classappend="${currentPath.startsWith('/catalogo/accesorios')} ? ' active' : ''"
                         th:href="@{/catalogo/accesorios}">Accesorios</a></li>
-                <li class="nav-item"><a class="nav-link"
-                        th:classappend="${currentPath.startsWith('/nosotros')} ? ' active' : ''"
-                        th:href="@{/nosotros}">Nosotros</a></li>
-                <li class="nav-item"><a class="nav-link"
-                        th:classappend="${currentPath.startsWith('/tiendas')} ? ' active' : ''"
-                        th:href="@{/tiendas}">Tiendas</a></li>
             </ul>
         </div>
     </div>
