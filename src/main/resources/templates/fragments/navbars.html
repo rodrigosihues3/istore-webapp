@@ -71,7 +71,7 @@
                             <li><a class="dropdown-item" th:href="@{/admin/roles}">
                                     <span><i class="bi bi-database"></i></span> Roles</a>
                             </li>
-                               <li><a class="dropdown-item" th:href="@{/admin/colores}">
+                            <li><a class="dropdown-item" th:href="@{/admin/colores}">
                                     <span><i class="bi bi-database"></i></span> Colores</a>
                             </li>
                         </div>
@@ -81,6 +81,8 @@
             </ul>
         </div>
     </div>
+
+    <div th:replace="fragments/modals :: carrito"></div>
 </nav>
 
 <!-- NAVBAR DE CATEGORIAS -->
