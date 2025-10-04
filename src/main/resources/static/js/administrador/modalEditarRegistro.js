@@ -45,6 +45,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
           break;
         }
+        
+        case "color": {
+          const id = parseInt(boton.getAttribute("data-id")) || 0;
+          const nombre = boton.getAttribute("data-nombre");
+
+          modal.querySelector("input[name='idColor']").value = id;
+          modal.querySelector("input[name='nombre']").value = nombre || "";
+
+          break;
+        }
 
         default:
           console.warn(`⚠️ No se configuró el modal para la entidad: ${entidad}`);

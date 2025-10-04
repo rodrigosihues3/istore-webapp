@@ -43,7 +43,7 @@
   </div>
 </div>
 
-<!-- ELIMINAR USUARIO -->
+<!-- ELIMINAR ROL -->
 <div th:fragment="modalEliminarRol" class="modal fade" id="modalEliminar" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-0 shadow-lg rounded-3">
@@ -71,6 +71,49 @@
               <p class="mb-1"><strong>ID:</strong> <span id="idSpan" class="text-dark"></span></p>
               <p class="mb-1"><strong>Nombre del rol:</strong> <span id="nombre" class="text-dark"></span></p>
               <p class="mb-1"><strong>Nivel de acceso:</strong> <span id="nivel" class="text-dark"></span></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal"> Cancelar </button>
+          <button type="submit" class="btn btn-danger px-4"> Eliminar </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ELIMINAR COLOR -->
+<div th:fragment="modalEliminarColor" class="modal fade" id="modalEliminar" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg rounded-3">
+      <!-- Header -->
+      <div class="modal-header bg-danger text-white fw-bold">
+        <h5 class="modal-title">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i> Confirmar eliminación
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Body -->
+      <form th:action="@{/admin/colores/eliminar}" method="post">
+        <input type="hidden" id="id" name="idColor" />
+
+        <div class="modal-body">
+          <p class="text-center mb-4 fs-5">
+            ¿Seguro que deseas <strong>eliminar este color</strong>?
+            Esta acción no se puede deshacer.
+          </p>
+
+          <!-- Tarjeta con datos del color -->
+          <div class="card border-danger bg-light">
+            <div class="card-body">
+              <p class="mb-1"><strong>ID:</strong> <span id="idSpan" class="text-dark"></span></p>
+              <p class="mb-1"><strong>Nombre del color:</strong> <span id="nombre" class="text-dark"></span></p>
             </div>
           </div>
         </div>
