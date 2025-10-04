@@ -8,4 +8,6 @@ import com.istore.appweb.entities.Roles;
 @Repository
 public interface RolesRepository extends JpaRepository<Roles, Integer> {
 
+  public Roles findByNombre(String nombre);
+
 }
