@@ -108,3 +108,31 @@
     </div>
   </div>
 </div>
+
+<!-- AGREGAR COLOR -->
+<div th:fragment="modalAgregarColor" class="modal fade" id="modalAgregar" tabindex="-1">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content border-0 shadow">
+      <div class="modal-header bg-success text-light fw-bold">
+        <h5 class="modal-title"><span><i class="bi bi-person-rolodex"></i><span> AGREGAR COLOR</h5>
+        <button type="button" class="btn-close bg-light" data-bs-dismiss="modal"></button>
+      </div>
+
+      <form class="row g-3" method="post" th:action="@{/admin/colores/agregar}" th:object="${color}">
+        <div class="modal-body px-5">
+          <div class="row">
+            <div class="col-8">
+              <label class="form-label ms-2 mt-2">Nombre del Color</label>
+              <input type="text" class="form-control" placeholder="Ingresa el nombre del color" th:field="*{nombre}">
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer px-5">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-success">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

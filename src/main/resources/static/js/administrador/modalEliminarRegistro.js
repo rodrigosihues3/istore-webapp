@@ -43,6 +43,19 @@ document.addEventListener("DOMContentLoaded", () => {
           break;
         }
 
+        
+        case "color": {
+          const id = boton.getAttribute("data-id");
+          const nombre = boton.getAttribute("data-nombre");
+
+          modal.querySelector("#idSpan").textContent = id;
+          modal.querySelector("#nombre").textContent = nombre || "";
+
+          modal.querySelector("#id").value = id || "";
+
+          break;
+        }
+
         default:
           console.warn(`⚠️ No se configuró el modal para la entidad: ${entidad}`);
       }

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{fragments/heads :: head('BD - Colores')}"></head>
+
+<body class="bg-light d-flex flex-column min-vh-100">
+
+  <!-- NAVBAR -->
+  <header class="sticky-top">
+    <nav th:replace="~{fragments/navbars :: navbarPrincipal}">
+    </nav>
+  </header>
+
+  <!-- CONTENIDO -->
+  <main class="container-fluid px-5 my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="fw-bold">Tabla Colores</h1>
+      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAgregar">
+        <span><i class="bi bi-person-rolodex"></i><span> Agregar
+      </button>
+    </div>
+
+    <!-- Tabla -->
+    <div class="card shadow-sm border-0">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle">
+            <thead class="table-light">
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Fecha registro</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="color : ${colores}">
+                <td th:text="${color.idColor}">ID</td>
+                <td th:text="${color.nombre}">Nombres</td>
+                <td th:text="${#temporals.format(color.fechaCreacion, 'dd/MM/yyyy HH:mm')}">Fecha registro</td>
+                <td>
+                  <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#modalEditar" title="Editar" data-entidad="color" th:data-id="${color.idColor}"
+                    th:data-nombre="${color.nombre}" >
+                    <span><i class="bi bi-pencil-square"></i></span>
+                  </button>
+                  <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-entidad="color"
+                    th:data-id="${color.idColor}" th:data-nombre="${color.nombre}" 
+                    data-bs-target="#modalEliminar" title="Eliminar">
+                    <span><i class="bi bi-trash3-fill"></i></span>
+                  </button>
+                </td>
+              </tr>
+
+              <!-- En caso de estar vacios -->
+              <tr th:if="${colores.empty}">
+                <td colspan="7" class="text-center text-muted py-3">
+                  No hay colores registrados.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- MODALES -->
+  <!-- Modal Agregar -->
+  <div th:replace="~{fragments/adminBD/modalAgregarRegistro :: modalAgregarColor}"></div>
+
+  <!-- Modal Editar -->
+  <div th:replace="~{fragments/adminBD/modalEditarRegistro :: modalEditarColor}"></div>
+
+  <!-- Modal Eliminar -->
+  <div th:replace="~{fragments/adminBD/modalEliminarRegistro :: modalEliminarColor}"></div>
+
+  <!-- FOOTER -->
+  <footer th:replace="~{fragments/footers :: footerAdmin}"></footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script th:src="@{/js/administrador/modalEditarRegistro.js}"></script>
+  <script th:src="@{/js/administrador/modalEliminarRegistro.js}"></script>
+</body>
+
+</html>
