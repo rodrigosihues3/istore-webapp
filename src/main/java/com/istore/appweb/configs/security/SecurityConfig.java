@@ -23,7 +23,7 @@ public class SecurityConfig {
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/mi-cuenta").authenticated()
+            .requestMatchers("/mi-cuenta/**").authenticated()
             .requestMatchers("/admin/**").hasAnyRole("ADMINISTRADOR", "OWNER")
             .anyRequest().permitAll())
         .formLogin(form -> form

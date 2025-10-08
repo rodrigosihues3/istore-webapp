@@ -20,7 +20,7 @@ public class AppwebApplication {
 
 		SpringApplication.run(AppwebApplication.class, args);
 
-		// abrirNavegador("http://localhost:" + puerto);
+		abrirNavegador("http://localhost:" + puerto);
 	}
 
 	// Abre el navegador en la URL de la aplicación
