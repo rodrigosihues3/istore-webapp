@@ -43,6 +43,12 @@ public class UsuariosServices {
   }
 
   public Usuarios createUsuario(Usuarios usuario) {
+    usuario.setNombres(usuario.getNombres().toUpperCase());
+    usuario.setApellidos(usuario.getApellidos().toUpperCase());
+    usuario.setEmail(usuario.getEmail().toUpperCase());
+    usuario.setNombreUsuario(usuario.getNombreUsuario().toUpperCase());
+    usuario.setDireccion(usuario.getDireccion().toUpperCase());
+
     usuario.setPassword(encoder.encode(usuario.getPassword()));
 
     return repositorio.save(usuario);
