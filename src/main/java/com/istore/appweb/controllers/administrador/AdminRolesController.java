@@ -1,20 +1,20 @@
 package com.istore.appweb.controllers.administrador;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.istore.appweb.DTO.roles.RolAgregarDTO;
 import com.istore.appweb.DTO.roles.RolEditarDTO;
 import com.istore.appweb.DTO.roles.RolEliminarDTO;
-import com.istore.appweb.entities.Roles;
 import com.istore.appweb.services.RolesServices;
+
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/admin/roles")
@@ -29,35 +29,69 @@ public class AdminRolesController {
 
   @GetMapping
   public String listarTodo(Model model) {
-    List<Roles> roles = servicio.getRoles();
-    Roles rol = new Roles();
-    rol.setNivel(0);
-
-    model.addAttribute("roles", roles);
-    model.addAttribute("rol", rol);
+    prepararVista(model);
 
     return VISTA_LISTAR;
   }
 
   @PostMapping("/agregar")
-  public String agregar(@ModelAttribute Roles rol) {
-    rol.setNombre(rol.getNombre().toUpperCase());
+  public String agregar(@Valid @ModelAttribute("rolAgregarDto") RolAgregarDTO rolAgregarDto,
+      BindingResult result,
+      Model model) {
+    if (result.hasErrors()) {
+      model.addAttribute("rolAgregarDto", rolAgregarDto);
+      prepararVista(model);
+      model.addAttribute("mostrarModal", "#modalAgregar");
 
-    servicio.createRol(rol);
+      return VISTA_LISTAR;
+    }
+
+    try {
+      servicio.createRol(rolAgregarDto);
+    } catch (IllegalArgumentException e) {
+      String[] partes = e.getMessage().split(":", 2);
+
+      if (partes.length == 2) {
+        result.rejectValue(partes[0], "error." + partes[0], partes[1]);
+      }
+
+      model.addAttribute("rolAgregarDto", rolAgregarDto);
+      prepararVista(model);
+      model.addAttribute("mostrarModal", "#modalAgregar");
+
+      return VISTA_LISTAR;
+    }
 
     return REDIRECCIONAR;
   }
 
   @PostMapping("/editar")
-  public String editar(@ModelAttribute RolEditarDTO rolDto) {
-    Roles rolExistente = servicio.getRolById(rolDto.getIdRol());
+  public String editar(@Valid @ModelAttribute("rolEditarDto") RolEditarDTO rolEditarDto,
+      BindingResult result,
+      Model model) {
+    if (result.hasErrors()) {
+      model.addAttribute("rolEditarDto", rolEditarDto);
+      prepararVista(model);
+      model.addAttribute("mostrarModal", "#modalEditar");
 
-    rolExistente.setNombre(rolDto.getNombre().toUpperCase());
-    rolExistente.setNivel(rolDto.getNivel());
+      return VISTA_LISTAR;
+    }
 
-    rolExistente.setFechaCreacion(LocalDateTime.now());
+    try {
+      servicio.updateRol(rolEditarDto);
+    } catch (IllegalArgumentException e) {
+      String[] partes = e.getMessage().split(":", 2);
 
-    servicio.updateRol(rolExistente);
+      if (partes.length == 2) {
+        result.rejectValue(partes[0], "error." + partes[0], partes[1]);
+      }
+
+      model.addAttribute("rolEditarDto", rolEditarDto);
+      prepararVista(model);
+      model.addAttribute("mostrarModal", "#modalEditar");
+
+      return VISTA_LISTAR;
+    }
 
     return REDIRECCIONAR;
   }
@@ -69,4 +103,14 @@ public class AdminRolesController {
     return REDIRECCIONAR;
   }
 
+  private void prepararVista(Model model) {
+    if (!model.containsAttribute("rolAgregarDto")) {
+      model.addAttribute("rolAgregarDto", new RolAgregarDTO("", 0));
+    }
+    if (!model.containsAttribute("rolEditarDto")) {
+      model.addAttribute("rolEditarDto", new RolEditarDTO());
+    }
+
+    model.addAttribute("roles", servicio.getRoles());
+  }
 }

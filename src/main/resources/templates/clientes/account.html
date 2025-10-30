@@ -30,46 +30,86 @@
       <div class="row g-4">
         <!-- Datos personales -->
         <div class="col-lg-6">
-          <div class="card shadow" style="border-radius: var(--radius-large);">
+          <div th:if="${successMyAccount}" class="alert alert-success alert-dismissible fade show text-center"
+            role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            <span th:text="${successMyAccount}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          <div class="card shadow" style="border-radius: var(--radius-md);">
             <div class="card-body p-4">
               <h4 class="fw-semibold mb-3 text-center">Datos personales</h4>
               <form th:action="@{/mi-cuenta/actualizar}" method="post" th:object="${clienteDto}">
                 <div class="row mb-3">
                   <div class="col-6">
                     <label class="form-label">Nombres</label>
-                    <input type="text" class="form-control" th:field="*{nombres}">
+                    <input type="text" class="form-control"
+                      th:classappend="${#fields.hasErrors('nombres')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                      th:field="*{nombres}" required>
+                    <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nombres')}"
+                      th:errors="*{nombres}">
+                    </div>
                   </div>
                   <div class="col-6">
                     <label class="form-label">Apellidos</label>
-                    <input type="text" class="form-control" th:field="*{apellidos}">
+                    <input type="text" class="form-control"
+                      th:classappend="${#fields.hasErrors('apellidos')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                      th:field="*{apellidos}" required>
+                    <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('apellidos')}"
+                      th:errors="*{apellidos}">
+                    </div>
                   </div>
                 </div>
 
                 <div class="row mb-3">
                   <div class="col-6">
                     <label class="form-label">Correo electrónico</label>
-                    <input type="email" class="form-control" th:field="*{email}">
+                    <input type="email" class="form-control"
+                      th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                      th:field="*{email}">
+                    <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('email')}"
+                      th:errors="*{email}">
+                    </div>
                   </div>
                   <div class="col-6">
                     <label class="form-label">Nombre de usuario</label>
-                    <input type="text" class="form-control" th:field="*{nombreUsuario}">
+                    <input type="text" class="form-control"
+                      th:classappend="${#fields.hasErrors('nombreUsuario')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                      th:field="*{nombreUsuario}" required>
+                    <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nombreUsuario')}"
+                      th:errors="*{nombreUsuario}">
+                    </div>
                   </div>
                 </div>
 
                 <div class="row mb-3">
                   <div class="col-6">
                     <label class="form-label">D.N.I.</label>
-                    <input type="tel" class="form-control" th:field="*{dni}">
+                    <input type="tel" class="form-control"
+                      th:classappend="${#fields.hasErrors('dni')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                      th:field="*{dni}">
+                    <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}">
+                    </div>
                   </div>
                   <div class="col-6">
                     <label class="form-label">Teléfono</label>
-                    <input type="tel" class="form-control" th:field="*{telefono}">
+                    <input type="tel" class="form-control"
+                      th:classappend="${#fields.hasErrors('telefono')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                      th:field="*{telefono}">
+                    <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('telefono')}"
+                      th:errors="*{telefono}">
+                    </div>
                   </div>
                 </div>
 
                 <div class="mb-3">
                   <label class="form-label">Dirección</label>
-                  <textarea class="form-control" rows="2" th:field="*{direccion}"></textarea>
+                  <textarea class="form-control"
+                    th:classappend="${#fields.hasErrors('direccion')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                    rows="2" th:field="*{direccion}"></textarea>
+                  <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('direccion')}"
+                    th:errors="*{direccion}">
+                  </div>
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Guardar cambios</button>
               </form>
@@ -79,21 +119,46 @@
 
         <!-- Seguridad -->
         <div class="col-lg-6">
-          <div class="card shadow" style="border-radius: var(--radius-large);">
+          <div th:if="${errorFormNewPassword}" class="alert alert-danger alert-dismissible fade show text-center"
+            role="alert">
+            <span th:text="${errorFormNewPassword}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          <div th:if="${successFormNewPassword}" class="alert alert-success alert-dismissible fade show text-center"
+            role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            <span th:text="${successFormNewPassword}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+
+          <div class="card shadow" style="border-radius: var(--radius-md);">
             <div class="card-body p-4">
               <h4 class="fw-semibold mb-3 text-center">Seguridad</h4>
               <form th:action="@{/mi-cuenta/cambiar-password}" method="post" th:object="${clienteContrasenaDto}">
                 <div class="mb-3">
                   <label class="form-label">Contraseña actual</label>
-                  <input type="password" class="form-control" th:field="*{password}">
+                  <input type="password" class="form-control"
+                    th:classappend="${#fields.hasErrors('password')} ? 'is-invalid'" th:field="*{password}">
+                  <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('password')}"
+                    th:errors="*{password}">
+                  </div>
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Nueva contraseña</label>
-                  <input type="password" class="form-control" th:field="*{newPassword}">
+                  <input type="password" class="form-control"
+                    th:classappend="${#fields.hasErrors('newPassword')} ? 'is-invalid'" th:field="*{newPassword}">
+                  <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('newPassword')}"
+                    th:errors="*{newPassword}">
+                  </div>
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Confirmar nueva contraseña</label>
-                  <input type="password" class="form-control" th:field="*{confirmPassword}">
+                  <input type="password" class="form-control"
+                    th:classappend="${#fields.hasErrors('confirmPassword')} ? 'is-invalid'"
+                    th:field="*{confirmPassword}">
+                  <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('confirmPassword')}"
+                    th:errors="*{confirmPassword}">
+                  </div>
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Actualizar contraseña</button>
               </form>

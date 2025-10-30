@@ -3,7 +3,7 @@
 
 <head th:replace="~{fragments/heads :: head('BD - Colores')}"></head>
 
-<body class="bg-light d-flex flex-column min-vh-100">
+<body class="bg-light d-flex flex-column min-vh-100" th:attr="data-mostrar-modal=${mostrarModal}">
 
   <!-- NAVBAR -->
   <header class="sticky-top">
@@ -30,7 +30,7 @@
                 <th>ID</th>
                 <th>Nombre</th>
                 <th>Fecha registro</th>
-                <th>Acciones</th>
+                <th class="text-center">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -38,23 +38,23 @@
                 <td th:text="${color.idColor}">ID</td>
                 <td th:text="${color.nombre}">Nombres</td>
                 <td th:text="${#temporals.format(color.fechaCreacion, 'dd/MM/yyyy HH:mm')}">Fecha registro</td>
-                <td>
+                <td class="text-center">
                   <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
                     data-bs-target="#modalEditar" title="Editar" data-entidad="color" th:data-id="${color.idColor}"
-                    th:data-nombre="${color.nombre}" >
+                    th:data-nombre="${color.nombre}">
                     <span><i class="bi bi-pencil-square"></i></span>
                   </button>
                   <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-entidad="color"
-                    th:data-id="${color.idColor}" th:data-nombre="${color.nombre}" 
-                    data-bs-target="#modalEliminar" title="Eliminar">
+                    th:data-id="${color.idColor}" th:data-nombre="${color.nombre}" data-bs-target="#modalEliminar"
+                    title="Eliminar">
                     <span><i class="bi bi-trash3-fill"></i></span>
                   </button>
                 </td>
               </tr>
 
               <!-- En caso de estar vacios -->
-              <tr th:if="${colores.empty}">
-                <td colspan="7" class="text-center text-muted py-3">
+              <tr th:if="${colores==null or #lists.isEmpty(colores)}">
+                <td colspan="4" class="text-center text-muted py-3">
                   No hay colores registrados.
                 </td>
               </tr>
@@ -79,6 +79,7 @@
   <footer th:replace="~{fragments/footers :: footerAdmin}"></footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script th:src="@{/js/administrador/index-admin.js}"></script>
   <script th:src="@{/js/administrador/modalEditarRegistro.js}"></script>
   <script th:src="@{/js/administrador/modalEliminarRegistro.js}"></script>
 </body>

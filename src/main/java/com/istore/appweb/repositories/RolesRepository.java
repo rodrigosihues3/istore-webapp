@@ -10,4 +10,8 @@ public interface RolesRepository extends JpaRepository<Roles, Integer> {
 
   public Roles findByNombre(String nombre);
 
+  boolean existsByNombre(String nombre);
+
+  boolean existsByNivel(Integer nivel);
+
 }

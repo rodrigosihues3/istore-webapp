@@ -15,9 +15,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RolEditarDTO {
-
-  private Integer idRol;
+public class RolAgregarDTO {
 
   @NotNull(message = "{NotNull.roles.nombre}")
   @NotBlank(message = "{NotBlank.roles.nombre}")

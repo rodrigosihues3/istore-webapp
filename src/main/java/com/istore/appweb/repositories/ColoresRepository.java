@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 import com.istore.appweb.entities.Colores;
 
 @Repository
-public interface ColoresRepository extends JpaRepository<Colores, Integer>{
+public interface ColoresRepository extends JpaRepository<Colores, Integer> {
+
+  boolean existsByNombre(String nombre);
 
 }

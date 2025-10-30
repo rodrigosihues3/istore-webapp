@@ -3,8 +3,10 @@ package com.istore.appweb.controllers.administrador;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,9 +16,10 @@ import com.istore.appweb.DTO.usuarios.UsuarioAgregarDTO;
 import com.istore.appweb.DTO.usuarios.UsuarioEditarDTO;
 import com.istore.appweb.DTO.usuarios.UsuarioEliminarDTO;
 import com.istore.appweb.entities.Roles;
-import com.istore.appweb.entities.Usuarios;
 import com.istore.appweb.services.RolesServices;
 import com.istore.appweb.services.UsuariosServices;
+
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/admin/usuarios")
@@ -33,48 +36,110 @@ public class AdminUsuariosController {
   private RolesServices servicioRoles;
 
   @GetMapping
-  public String listarTodo(Model model) {
-    List<Usuarios> usuarios = servicio.getUsuarios();
-    List<Roles> roles = servicioRoles.getRoles();
-
-    model.addAttribute("usuarios", usuarios);
-    model.addAttribute("roles", roles);
+  public String listarTodo(Model model, Authentication auth) {
+    prepararVistaUsuarios(model, auth);
 
     return VISTA_LISTAR;
   }
 
   @PostMapping("/agregar")
-  public String agregar(@ModelAttribute UsuarioAgregarDTO usuarioDTO) {
-    Usuarios usuario = new Usuarios();
+  public String agregar(@Valid @ModelAttribute("usuarioAgregarDto") UsuarioAgregarDTO usuarioAgregarDto,
+      BindingResult result,
+      Model model,
+      Authentication auth) {
+    if (result.hasErrors()) {
+      model.addAttribute("usuarioAgregarDto", usuarioAgregarDto);
+      prepararVistaUsuarios(model, auth);
+      model.addAttribute("mostrarModal", "#modalAgregar");
 
-    usuario.setNombres(usuarioDTO.getNombres().toUpperCase());
-    usuario.setApellidos(usuarioDTO.getApellidos().toUpperCase());
-    usuario.setDireccion(usuarioDTO.getDireccion().toUpperCase());
-    usuario.setEmail(usuarioDTO.getEmail().toUpperCase());
-    usuario.setNombreUsuario(usuarioDTO.getNombreUsuario().toUpperCase());
-    usuario.setPassword(usuarioDTO.getPassword());
-    usuario.setDni(usuarioDTO.getDni());
-    usuario.setTelefono(usuarioDTO.getTelefono());
-    usuario.setRol(servicioRoles.getRolById(usuarioDTO.getIdRol()));
+      return VISTA_LISTAR;
+    }
 
-    servicio.createUsuario(usuario);
+    try {
+      servicio.createUsuario(usuarioAgregarDto);
+    } catch (IllegalArgumentException e) {
+      String[] partes = e.getMessage().split(":", 2);
+
+      if (partes.length == 2) {
+        result.rejectValue(partes[0], "error." + partes[0], partes[1]);
+      }
+
+      model.addAttribute("usuarioAgregarDto", usuarioAgregarDto);
+      prepararVistaUsuarios(model, auth);
+      model.addAttribute("mostrarModal", "#modalAgregar");
+
+      return VISTA_LISTAR;
+    }
 
     return REDIRECCIONAR;
   }
 
   @PostMapping("/editar")
-  public String editar(@ModelAttribute UsuarioEditarDTO usuarioDto) {    
+  public String editar(@Valid @ModelAttribute("usuarioEditarDto") UsuarioEditarDTO usuarioEditarDto,
+      BindingResult result,
+      Model model,
+      Authentication auth) {
+    if (result.hasErrors()) {
+      model.addAttribute("usuarioEditarDto", usuarioEditarDto);
+      prepararVistaUsuarios(model, auth);
+      model.addAttribute("mostrarModal", "#modalEditar");
 
-    servicio.updateUsuario(usuarioDto);
+      return VISTA_LISTAR;
+    }
+
+    try {
+      servicio.updateUsuario(usuarioEditarDto);
+    } catch (IllegalArgumentException e) {
+      String[] partes = e.getMessage().split(":", 2);
+
+      if (partes.length == 2) {
+        result.rejectValue(partes[0], "error." + partes[0], partes[1]);
+      }
+
+      model.addAttribute("usuarioEditarDto", usuarioEditarDto);
+      prepararVistaUsuarios(model, auth);
+      model.addAttribute("mostrarModal", "#modalEditar");
+
+      return VISTA_LISTAR;
+    }
 
     return REDIRECCIONAR;
   }
 
   @PostMapping("/eliminar")
-  public String eliminar(@ModelAttribute UsuarioEliminarDTO usuarioDto) {
-    servicio.deleteUsuario(usuarioDto.getIdUsuario());
+  public String eliminar(@ModelAttribute UsuarioEliminarDTO usuarioEliminarDto) {
+    servicio.deleteUsuario(usuarioEliminarDto.getIdUsuario());
 
     return REDIRECCIONAR;
+  }
+
+  private void prepararVistaUsuarios(Model model, Authentication auth) {
+    if (!model.containsAttribute("usuarioAgregarDto")) {
+      model.addAttribute("usuarioAgregarDto", new UsuarioAgregarDTO());
+    }
+    if (!model.containsAttribute("usuarioEditarDto")) {
+      model.addAttribute("usuarioEditarDto", new UsuarioEditarDTO());
+    }
+
+    // Obtener usuario actual
+    var usuarioActualOpt = servicio.getUsuarioByNombreUsuario(auth.getName());
+
+    // Si existe, filtramos roles por nivel
+    if (usuarioActualOpt.isPresent()) {
+      var usuarioActual = usuarioActualOpt.get();
+      List<Roles> rolesDisponibles = servicioRoles.getRoles()
+          .stream()
+          .filter(rol -> rol.getNivel() <= usuarioActual.getRol().getNivel())
+          .toList();
+
+      model.addAttribute("usuarioActual", usuarioActual);
+      model.addAttribute("roles", rolesDisponibles);
+    } else {
+      // Si no hay usuario logueado, evita NullPointerException
+      model.addAttribute("roles", servicioRoles.getRoles());
+    }
+
+    model.addAttribute("usuarios", servicio.getUsuarios());
   }
 
 }

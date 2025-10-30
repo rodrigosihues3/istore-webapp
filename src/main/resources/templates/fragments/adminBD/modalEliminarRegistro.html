@@ -3,10 +3,8 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-0 shadow-lg rounded-3">
       <!-- Header -->
-      <div class="modal-header bg-danger text-white fw-bold">
-        <h5 class="modal-title">
-          <i class="bi bi-exclamation-triangle-fill me-2"></i> Confirmar eliminación
-        </h5>
+      <div class="modal-header bg-danger">
+        <h5 class="modal-title text-light fw-bold">CONFIRMAR ELIMINACIÓN</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
 
@@ -17,7 +15,7 @@
         <div class="modal-body">
           <p class="text-center mb-4 fs-5">
             ¿Seguro que deseas <strong>eliminar este usuario</strong>?
-            Esta acción no se puede deshacer.
+            <br> Esta acción no se puede deshacer.
           </p>
 
           <!-- Tarjeta con datos del usuario -->
@@ -84,8 +82,6 @@
     </div>
   </div>
 </div>
-
-
 
 <!-- ELIMINAR COLOR -->
 <div th:fragment="modalEliminarColor" class="modal fade" id="modalEliminar" tabindex="-1">

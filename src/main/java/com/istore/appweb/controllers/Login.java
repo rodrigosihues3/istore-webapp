@@ -3,14 +3,15 @@ package com.istore.appweb.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.istore.appweb.DTO.usuarios.ClienteRegistrarDTO;
-import com.istore.appweb.entities.Usuarios;
-import com.istore.appweb.services.RolesServices;
 import com.istore.appweb.services.UsuariosServices;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class Login {
@@ -18,37 +19,43 @@ public class Login {
     @Autowired
     private UsuariosServices servicio;
 
-    @Autowired
-    private RolesServices servicioRoles;
-
     @GetMapping("/iniciar-sesion")
     public String login() {
         return "login"; // Retorna la vista index.html en templates/
     }
 
     @GetMapping("/registrarse")
-    public String register() {
+    public String register(Model model) {
+        model.addAttribute("clienteDto", new ClienteRegistrarDTO());
+
         return "register"; // Retorna la vista index.html en templates/
     }
 
     @PostMapping("/registrarse")
-    public String crearRegistro(@ModelAttribute ClienteRegistrarDTO clienteDto, Model model) {
-        // Validar contraseñas
+    public String crearRegistro(@Valid @ModelAttribute("clienteDto") ClienteRegistrarDTO clienteDto,
+            BindingResult result,
+            Model model) {
+        if (result.hasErrors()) {
+            return "register";
+        }
+
+        // Validar que las contraseñas sean iguales
         if (!clienteDto.getPassword().equals(clienteDto.getConfirmPassword())) {
             model.addAttribute("error", "Las contraseñas no coinciden.");
             return "register";
         }
 
-        Usuarios usuario = new Usuarios();
+        try {
+            servicio.createUsuario(clienteDto);
+        } catch (IllegalArgumentException e) {
+            String[] partes = e.getMessage().split(":", 2);
 
-        usuario.setNombres(clienteDto.getNombres().toUpperCase());
-        usuario.setApellidos(clienteDto.getApellidos().toUpperCase());
-        usuario.setEmail(clienteDto.getEmail().toUpperCase());
-        usuario.setNombreUsuario(clienteDto.getNombreUsuario().toUpperCase());
-        usuario.setPassword(clienteDto.getPassword());
-        usuario.setRol(servicioRoles.getByNombre("CLIENTE"));
+            if (partes.length == 2) {
+                result.rejectValue(partes[0], "error." + partes[0], partes[1]);
+            }
 
-        servicio.createUsuario(usuario);
+            return "register";
+        }
 
         return "redirect:/iniciar-sesion";
     }

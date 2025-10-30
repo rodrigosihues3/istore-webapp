@@ -30,7 +30,4 @@ public class Roles {
 
   private LocalDateTime fechaCreacion = LocalDateTime.now();
 
-  private Boolean eliminado = false;
-    
-    
 }

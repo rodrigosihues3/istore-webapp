@@ -20,7 +20,7 @@ public class AppwebApplication {
 
 		SpringApplication.run(AppwebApplication.class, args);
 
-		//abrirNavegador("http://localhost:" + puerto);
+		// abrirNavegador("http://localhost:" + puerto);
 	}
 
 	// Abre el navegador en la URL de la aplicación
@@ -38,9 +38,15 @@ public class AppwebApplication {
 	CommandLineRunner init(RolesServices servicioRoles, UsuariosServices servicioUsuarios) {
 		return args -> {
 			if (servicioRoles.getRoles().isEmpty()) {
+				Roles owner = new Roles();
+				owner.setNombre("OWNER");
+				owner.setNivel(10);
+
+				servicioRoles.createRol(owner);
+
 				Roles admin = new Roles();
 				admin.setNombre("ADMINISTRADOR");
-				admin.setNivel(2);
+				admin.setNivel(9);
 
 				servicioRoles.createRol(admin);
 
@@ -58,6 +64,18 @@ public class AppwebApplication {
 			}
 
 			if (servicioUsuarios.getUsuarios().isEmpty()) {
+				Usuarios owner = new Usuarios();
+				owner.setNombreUsuario("rodrigosy");
+				owner.setPassword("rodrigosy");
+				owner.setNombres("Rodrigo");
+				owner.setApellidos("Sihues Yanqui");
+				owner.setEmail("sihues3@gmail.com");
+				owner.setTelefono("961211119");
+				owner.setDireccion("IStore - Owner");
+				owner.setRol(servicioRoles.getByNombre("OWNER"));
+
+				servicioUsuarios.createUsuario(owner);
+
 				Usuarios admin = new Usuarios();
 				admin.setNombreUsuario("admin");
 				admin.setPassword("admin");
@@ -66,7 +84,7 @@ public class AppwebApplication {
 				admin.setEmail("admin@istore.com");
 				admin.setTelefono("0000000000");
 				admin.setDireccion("IStore - Admin");
-				admin.setRol(servicioRoles.getRolById(2));
+				admin.setRol(servicioRoles.getByNombre("ADMINISTRADOR"));
 
 				servicioUsuarios.createUsuario(admin);
 			}

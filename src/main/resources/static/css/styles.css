@@ -146,7 +146,6 @@ h6 {
   font-weight: var(--font-weight-semibold);
   line-height: var(--line-height-tight);
   color: var(--text-primary);
-  letter-spacing: -0.02em;
 }
 
 h1 {
@@ -367,12 +366,12 @@ a:hover {
 
 .btn-login {
   font-size: 1rem;
+  letter-spacing: .15rem;
   width: 50%;
   transition: width 0.7s ease;
 }
 
 .btn-login:hover {
-  width: 100%;
   font-weight: bold;
 }
 
@@ -391,6 +390,19 @@ a:hover {
 .btn-secondary:hover {
   background-color: var(--gray-200);
   border-color: var(--border-strong);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-danger {
+  background-color: var(--error);
+  color: var(--text-inverse);
+  border: 1px solid var(--error);
+}
+
+.btn-danger:hover {
+  background-color: var(--error-dark);
+  border-color: var(--error-dark);
   transform: translateY(-2px);
   box-shadow: var(--shadow-sm);
 }
@@ -456,16 +468,19 @@ a:hover {
 /* ============================================
    FORMULARIOS
    ============================================ */
+.form-label {
+  letter-spacing: .1rem;
+}
 
 .form-control {
   font-family: var(--font-family);
   font-size: var(--font-size-base);
-  padding: 0.75rem 1rem;
+  padding: 0.55rem 1rem;
   border: 1.5px solid var(--border-medium);
   border-radius: var(--radius-md);
   background-color: var(--surface-primary);
   color: var(--text-primary);
-  transition: all var(--transition-fast);
+  transition: all var(--transition-base);
   width: 100%;
 }
 
@@ -473,22 +488,15 @@ a:hover {
   color: var(--text-tertiary);
 }
 
-.form-control:hover {
-  border-color: var(--border-strong);
-}
-
 .form-control:focus {
-  border-color: var(--border-focus);
-  box-shadow: 0 0 0 3px var(--primary-100);
-  outline: none;
-  background-color: var(--white);
+  border: 1px solid var(--border-focus);
 }
 
 .form-control:disabled {
   background-color: var(--disabled-bg);
   color: var(--disabled-text);
   cursor: not-allowed;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 /* Estados de validación */
@@ -765,4 +773,13 @@ html {
 .link-footer:hover {
   color: var(--primary-500);
   font-weight: 600;
+}
+
+.text-error-validation {
+  color: var(--error) !important;
+  font-size: var(--font-size-sm) !important;
+  font-weight: var(--font-weight-medium) !important;
+  margin-top: .15rem;
+  margin-left: .5rem;
+  line-height: 1rem;
 }

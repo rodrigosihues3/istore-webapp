@@ -17,16 +17,14 @@
             <div class="row justify-content-center">
                 <div class="col-12 col-sm-8 col-md-6 col-lg-4">
                     <div class="card shadow-lg rounded-4 border-0 p-4">
-                        <div class="text-center mb-4">
+                        <div class="text-center mb-2">
                             <h1 class="fw-semibold text-apple-primary">✌️iStore</h1>
                             <p class="text-apple-secondary">Inicia sesión en tu cuenta</p>
                         </div>
 
-                        <div th:if="${param.error}" class="alert alert-danger p-2 text-sm-center">
-                            Usuario o contraseña inválidos.
-                        </div>
-                        <div th:if="${param.logout}" class="alert alert-success p-2 text-center">
-                            Has cerrado sesión correctamente.
+                        <div th:if="${param.error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <span>Usuario o contraseña <strong>inválidos</strong>.</span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
 
                         <form th:action="@{/iniciar-sesion}" method="post">
@@ -67,7 +65,7 @@
     </main>
 
     <!-- FOOTER -->
-    <footer th:replace="~{fragments/footers :: footer-principal}"></footer>
+    <footer th:replace="~{fragments/footers :: footer-secundario}"></footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>

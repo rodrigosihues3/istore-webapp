@@ -17,7 +17,7 @@ public class UsuariosDetailsService implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String nombreUsuarioOrEmail) throws UsernameNotFoundException {
-    Usuarios usuario = servicio.getUsuarioByNombreUsuario(nombreUsuarioOrEmail.toUpperCase())
+    Usuarios usuario = servicio.getUsuarioByNombreUsuario(nombreUsuarioOrEmail)
         .or(() -> servicio.getUsuarioByEmail(nombreUsuarioOrEmail.toUpperCase()))
         .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
 

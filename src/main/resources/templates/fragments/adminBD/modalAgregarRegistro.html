@@ -2,12 +2,19 @@
 <div th:fragment="modalAgregarUsuario" class="modal fade" id="modalAgregar" tabindex="-1">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content border-0 shadow">
-      <div class="modal-header bg-success text-light fw-bold">
-        <h5 class="modal-title"> <span><i class="bi bi-person-plus"></i><span> AGREGAR USUARIO</h5>
+      <div class="modal-header bg-success">
+        <h5 class="modal-title text-light fw-bold">AGREGAR USUARIO</h5>
         <button type="button" class="btn-close bg-light" data-bs-dismiss="modal"></button>
       </div>
 
-      <form class="row g-3" method="post" th:action="@{/admin/usuarios/agregar}">
+      <div class="container">
+        <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+          <span th:text="${error}"></span>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+
+      <form class="row g-3" method="post" th:action="@{/admin/usuarios/agregar}" th:object="${usuarioAgregarDto}">
         <div class="modal-body px-5">
           <div class="row">
             <!-- DATOS PERSONALES -->
@@ -18,30 +25,54 @@
 
             <div class="col-6">
               <label class="form-label ms-2 mt-2" for="nombres">Nombres</label>
-              <input type="text" class="form-control" placeholder="Ingresa los nombres del usuario" name="nombres">
+              <input type="text" class="form-control"
+                th:classappend="${#fields.hasErrors('nombres')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                placeholder="Ingresa los nombres del usuario" th:field="*{nombres}" autofocus required>
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nombres')}"
+                th:errors="*{nombres}"></div>
             </div>
+
             <div class="col-6">
               <label class="form-label ms-2 mt-2" for="apellidos">Apellidos</label>
-              <input type="text" class="form-control" placeholder="Ingresa los apellidos del usuario"
-                aria-label="Apellidos" name="apellidos">
+              <input type="text" class="form-control"
+                th:classappend="${#fields.hasErrors('apellidos')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                placeholder="Ingresa los apellidos del usuario" aria-label="Apellidos" th:field="*{apellidos}" required>
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('apellidos')}"
+                th:errors="*{apellidos}"></div>
             </div>
 
             <div class="col-4">
               <label class="form-label ms-2 mt-2" for="dni">DNI</label>
-              <input type="text" class="form-control" placeholder="Ingresa el DNI del usuario" name="dni">
+              <input type="text" class="form-control" minlength="8" maxlength="8"
+                th:classappend="${#fields.hasErrors('dni')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                placeholder="Ingresa el DNI del usuario" th:field="*{dni}">
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></div>
             </div>
             <div class="col-8">
               <label class="form-label ms-2 mt-2" for="email">Correo</label>
-              <input type="email" class="form-control" placeholder="Ingresa el correo del usuario" name="email">
+              <input type="email" class="form-control"
+                th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                placeholder="Ingresa el correo del usuario" th:field="*{email}" autocomplete="off">
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+              </div>
             </div>
 
             <div class="col-4">
               <label class="form-label ms-2 mt-2" for="telefono">Teléfono</label>
-              <input type="text" class="form-control" placeholder="Ingresa el teléfono del usuario" name="telefono">
+              <input type="text" class="form-control" minlength="9" maxlength="9"
+                th:classappend="${#fields.hasErrors('telefono')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                placeholder="Ingresa el teléfono del usuario" th:field="*{telefono}">
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('telefono')}"
+                th:errors="*{telefono}"></div>
             </div>
+
             <div class="col-8">
               <label class="form-label ms-2 mt-2" for="direccion">Dirección</label>
-              <input type="text" class="form-control" placeholder="Ingresa la dirección del usuario" name="direccion">
+              <input type="text" class="form-control"
+                th:classappend="${#fields.hasErrors('direccion')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                placeholder="Ingresa la dirección del usuario" th:field="*{direccion}">
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('direccion')}"
+                th:errors="*{direccion}"></div>
             </div>
 
             <!-- CREDENCIALES DE ACCESO -->
@@ -51,18 +82,29 @@
             </div>
             <div class="col-6">
               <label class="form-label ms-2 mt-2">Usuario</label>
-              <input type="text" class="form-control" placeholder="Ingresa el usuario" name="nombreUsuario">
+              <input type="text" class="form-control" minlength="4"
+                th:classappend="${#fields.hasErrors('nombreUsuario')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                placeholder="Ingresa el usuario" th:field="*{nombreUsuario}">
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nombreUsuario')}"
+                th:errors="*{nombreUsuario}"></div>
             </div>
+
             <div class="col-6">
               <label class="form-label ms-2 mt-2">Contraseña</label>
-              <input type="password" class="form-control" placeholder="Ingresa la contraseña" name="password">
+              <input type="password" class="form-control"
+                th:classappend="${#fields.hasErrors('password')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                placeholder="Ingresa la contraseña" th:field="*{password}" autocomplete="new-password">
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('password')}"
+                th:errors="*{password}"></div>
             </div>
 
             <div class="col-6">
               <label class="form-label ms-2 mt-2">Rol</label>
-              <select class="form-select" name="idRol" required>
+              <select class="form-select" th:field="*{idRol}" required>
                 <option value="" disabled selected>-- Selecciona un rol --</option>
-                <option th:each="rol : ${roles}" th:value="${rol.idRol}" th:text="${rol.nombre}"></option>
+                <option th:each="rol : ${roles}"
+                  th:if="${rol.nivel < usuarioActual.rol.nivel or usuarioActual.rol.nombre == 'OWNER'}"
+                  th:value="${rol.idRol}" th:text="${rol.nombre}"></option>
               </select>
             </div>
           </div>
@@ -77,25 +119,35 @@
   </div>
 </div>
 
+
+
 <!-- AGREGAR ROL -->
 <div th:fragment="modalAgregarRol" class="modal fade" id="modalAgregar" tabindex="-1">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content border-0 shadow">
       <div class="modal-header bg-success text-light fw-bold">
-        <h5 class="modal-title"><span><i class="bi bi-person-rolodex"></i><span> AGREGAR ROL</h5>
+        <h5 class="modal-title">AGREGAR ROL</h5>
         <button type="button" class="btn-close bg-light" data-bs-dismiss="modal"></button>
       </div>
 
-      <form class="row g-3" method="post" th:action="@{/admin/roles/agregar}" th:object="${rol}">
+      <form class="row g-3" method="post" th:action="@{/admin/roles/agregar}" th:object="${rolAgregarDto}">
         <div class="modal-body px-5">
           <div class="row">
             <div class="col-8">
               <label class="form-label ms-2 mt-2">Nombre del rol</label>
-              <input type="text" class="form-control" placeholder="Ingresa el nombre del rol" th:field="*{nombre}">
+              <input type="text" class="form-control"
+                th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                placeholder="Ingresa el nombre del rol" th:field="*{nombre}" required>
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
+              </div>
             </div>
             <div class="col-4">
               <label class="form-label ms-2 mt-2">Nivel de acceso</label>
-              <input type="number" class="form-control" min="0" th:field="*{nivel}">
+              <input type="number" class="form-control"
+                th:classappend="${#fields.hasErrors('nivel')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                min="0" max="10" th:field="*{nivel}">
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nivel')}" th:errors="*{nivel}">
+              </div>
             </div>
           </div>
         </div>
@@ -109,21 +161,27 @@
   </div>
 </div>
 
+
+
 <!-- AGREGAR COLOR -->
 <div th:fragment="modalAgregarColor" class="modal fade" id="modalAgregar" tabindex="-1">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content border-0 shadow">
       <div class="modal-header bg-success text-light fw-bold">
-        <h5 class="modal-title"><span><i class="bi bi-person-rolodex"></i><span> AGREGAR COLOR</h5>
+        <h5 class="modal-title">AGREGAR COLOR</h5>
         <button type="button" class="btn-close bg-light" data-bs-dismiss="modal"></button>
       </div>
 
-      <form class="row g-3" method="post" th:action="@{/admin/colores/agregar}" th:object="${color}">
+      <form class="row g-3" method="post" th:action="@{/admin/colores/agregar}" th:object="${colorAgregarDto}">
         <div class="modal-body px-5">
           <div class="row">
             <div class="col-8">
               <label class="form-label ms-2 mt-2">Nombre del Color</label>
-              <input type="text" class="form-control" placeholder="Ingresa el nombre del color" th:field="*{nombre}">
+              <input type="text" class="form-control"
+                th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                placeholder="Ingresa el nombre del color" th:field="*{nombre}" required>
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
+              </div>
             </div>
           </div>
         </div>

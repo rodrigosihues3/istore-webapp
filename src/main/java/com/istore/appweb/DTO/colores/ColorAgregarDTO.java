@@ -12,9 +12,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ColorEditarDTO {
-
-  private Integer idColor;
+public class ColorAgregarDTO {
 
   @NotNull(message = "{NotNull.colores.nombre}")
   @NotBlank(message = "{NotBlank.colores.nombre}")

@@ -27,19 +27,12 @@ public class Usuarios {
   private Integer idUsuario;
 
   private String nombres;
-
   private String apellidos;
-
   private String email;
-
   private String nombreUsuario;
-
   private String password;
-
   private String dni;
-
   private String telefono;
-
   private String direccion;
 
   @ManyToOne
@@ -47,7 +40,6 @@ public class Usuarios {
   private Roles rol;
 
   private LocalDateTime fechaCreacion = LocalDateTime.now();
-
   private Boolean eliminado = false;
 
 }
