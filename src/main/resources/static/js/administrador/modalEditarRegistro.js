@@ -66,6 +66,36 @@ document.addEventListener("DOMContentLoaded", () => {
           break;
         }
 
+        case "estadoPago": {
+          const id = parseInt(boton.getAttribute("data-id")) || 0;
+          const nombre = boton.getAttribute("data-nombre");
+
+          modal.querySelector("input[name='idEstadoPago']").value = id;
+          modal.querySelector("input[name='nombre']").value = nombre || "";
+
+          break;
+        }
+
+        case "metodoPago": {
+          const id = parseInt(boton.getAttribute("data-id")) || 0;
+          const nombre = boton.getAttribute("data-nombre");
+
+          modal.querySelector("input[name='idMetodoPago']").value = id;
+          modal.querySelector("input[name='nombre']").value = nombre || "";
+
+          break;
+        }
+
+        case "tipoComprobante": {
+          const id = parseInt(boton.getAttribute("data-id")) || 0;
+          const nombre = boton.getAttribute("data-nombre");
+
+          modal.querySelector("input[name='idTipoComprobante']").value = id;
+          modal.querySelector("input[name='nombre']").value = nombre || "";
+
+          break;
+        }
+
         default:
           console.warn(`⚠️ No se configuró el modal para la entidad: ${entidad}`);
       }

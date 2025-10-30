@@ -26,12 +26,12 @@ public class EstadosComprasServices {
         return repo.findById(id).get();
     }
 
-    public EstadosCompras create(EstadosCompras estadosCompras) {
-        return repo.save(estadosCompras);
+    public EstadosCompras create(EstadosCompras estadoCompra) {
+        return repo.save(estadoCompra);
     }
 
-    public EstadosCompras update(EstadosCompras estadosCompras) {
-        return repo.save(estadosCompras);
+    public EstadosCompras update(EstadosCompras estadoCompra) {
+        return repo.save(estadoCompra);
     }
 
     public void deleteById(Integer id) {

@@ -229,3 +229,108 @@
     </div>
   </div>
 </div>
+
+
+
+<!-- AGREGAR ESTADO PAGO -->
+<div th:fragment="modalAgregarEstadoPago" class="modal fade" id="modalAgregar" tabindex="-1">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content border-0 shadow">
+      <div class="modal-header bg-success text-light fw-bold">
+        <h5 class="modal-title">AGREGAR ESTADO DE PAGO</h5>
+        <button type="button" class="btn-close bg-light" data-bs-dismiss="modal"></button>
+      </div>
+
+      <form class="row g-3" method="post" th:action="@{/admin/estados-pagos/agregar}"
+        th:object="${estadoPagoAgregarDto}">
+        <div class="modal-body px-5">
+          <div class="row">
+            <div class="col-8">
+              <label class="form-label ms-2 mt-2">Nombre de Estado de pago</label>
+              <input type="text" class="form-control"
+                th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                placeholder="Ingresa el nombre del estado de pago" th:field="*{nombre}" required>
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer px-5">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-success">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- AGREGAR METODO PAGO -->
+<div th:fragment="modalAgregarMetodoPago" class="modal fade" id="modalAgregar" tabindex="-1">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content border-0 shadow">
+      <div class="modal-header bg-success text-light fw-bold">
+        <h5 class="modal-title">AGREGAR METODO DE PAGO</h5>
+        <button type="button" class="btn-close bg-light" data-bs-dismiss="modal"></button>
+      </div>
+
+      <form class="row g-3" method="post" th:action="@{/admin/metodos-pagos/agregar}"
+        th:object="${metodoPagoAgregarDto}">
+        <div class="modal-body px-5">
+          <div class="row">
+            <div class="col-8">
+              <label class="form-label ms-2 mt-2">Nombre de Metodo de Pago</label>
+              <input type="text" class="form-control"
+                th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                placeholder="Ingresa el nombre del metodo de pago" th:field="*{nombre}" required>
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer px-5">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-success">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- AGREGAR TIPO DE COMPROBANTE -->
+<div th:fragment="modalAgregarTipoComprobante" class="modal fade" id="modalAgregar" tabindex="-1">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content border-0 shadow">
+      <div class="modal-header bg-success text-light fw-bold">
+        <h5 class="modal-title">AGREGAR TIPO DE COMPROBANTE</h5>
+        <button type="button" class="btn-close bg-light" data-bs-dismiss="modal"></button>
+      </div>
+
+      <form class="row g-3" method="post" th:action="@{/admin/tipos-comprobantes/agregar}"
+        th:object="${tipoComprobanteAgregarDto}">
+        <div class="modal-body px-5">
+          <div class="row">
+            <div class="col-8">
+              <label class="form-label ms-2 mt-2">Nombre de Tipo de Comprobante</label>
+              <input type="text" class="form-control"
+                th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                placeholder="Ingresa el nombre del tipo de comprobante" th:field="*{nombre}" required>
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer px-5">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-success">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

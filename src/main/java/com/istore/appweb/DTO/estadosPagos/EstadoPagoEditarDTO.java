@@ -1,4 +1,4 @@
-package com.istore.appweb.DTO.estadosCompras;
+package com.istore.appweb.DTO.estadosPagos;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -12,11 +12,13 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EstadoCompraAgregarDTO {
+public class EstadoPagoEditarDTO {
 
-  @NotNull(message = "{NotNull.estadosCompras.nombre}")
-  @NotBlank(message = "{NotBlank.estadosCompras.nombre}")
-  @Pattern(regexp = "^(?=.*\\p{L}.*\\p{L})\\s*[\\p{L}\\s]+\\s*$", message = "{Pattern.estadosCompras.nombre}")
+  private Integer idEstadoPago;
+
+  @NotNull(message = "{NotNull.estadosPagos.nombre}")
+  @NotBlank(message = "{NotBlank.estadosPagos.nombre}")
+  @Pattern(regexp = "^(?=.*\\p{L}.*\\p{L})\\s*[\\p{L}\\s]+\\s*$", message = "{Pattern.estadosPagos.nombre}")
   private String nombre;
 
 }
