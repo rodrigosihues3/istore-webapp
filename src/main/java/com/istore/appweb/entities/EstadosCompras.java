@@ -14,9 +14,7 @@ public class EstadosCompras {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idEstadoCompra;
 
-
     private String nombre;
-
 
     private LocalDateTime fechaCreacion = LocalDateTime.now();
 
