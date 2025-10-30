@@ -44,7 +44,8 @@
                             style="width: 32px; height: 32px; border: 1px solid var(--border-medium);">
                             <span>👤</span>
                         </div>
-                        <span sec:authentication="principal.usuario.nombres" class="fw-bold" style="font-size: .9rem;"></span>
+                        <span sec:authentication="principal.usuario.nombres" class="fw-bold"
+                            style="font-size: .9rem;"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end shadow-sm"
                         style="min-width: 220px; border-radius: var(--radius-medium);">
@@ -73,6 +74,9 @@
                             </li>
                             <li><a class="dropdown-item" th:href="@{/admin/colores}">
                                     <span><i class="bi bi-database"></i></span> Colores</a>
+                            </li>
+                            <li><a class="dropdown-item" th:href="@{/admin/estados-compras}">
+                                    <span><i class="bi bi-database"></i></span> Estados de compras</a>
                             </li>
                         </div>
                         <li><a class="dropdown-item text-danger" th:href="@{/cerrar-sesion}">Cerrar sesión</a></li>

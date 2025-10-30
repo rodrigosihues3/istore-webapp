@@ -45,12 +45,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
           break;
         }
-        
+
         case "color": {
           const id = parseInt(boton.getAttribute("data-id")) || 0;
           const nombre = boton.getAttribute("data-nombre");
 
           modal.querySelector("input[name='idColor']").value = id;
+          modal.querySelector("input[name='nombre']").value = nombre || "";
+
+          break;
+        }
+
+        case "estadoCompra": {
+          const id = parseInt(boton.getAttribute("data-id")) || 0;
+          const nombre = boton.getAttribute("data-nombre");
+
+          modal.querySelector("input[name='idEstadoCompra']").value = id;
           modal.querySelector("input[name='nombre']").value = nombre || "";
 
           break;

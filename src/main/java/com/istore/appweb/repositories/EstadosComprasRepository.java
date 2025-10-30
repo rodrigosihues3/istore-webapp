@@ -6,5 +6,8 @@ import org.springframework.stereotype.Repository;
 import com.istore.appweb.entities.EstadosCompras;
 
 @Repository
-public interface EstadosComprasRepository extends JpaRepository<EstadosCompras, Integer>{
+public interface EstadosComprasRepository extends JpaRepository<EstadosCompras, Integer> {
+
+  boolean existsByNombre(String nombre);
+
 }
