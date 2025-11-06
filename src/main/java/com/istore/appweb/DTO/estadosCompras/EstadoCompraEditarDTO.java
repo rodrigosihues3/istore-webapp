@@ -14,6 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class EstadoCompraEditarDTO {
 
+  @NotNull(message = "{NotNull.estadosCompras.idEstadoCompra}")
   private Integer idEstadoCompra;
 
   @NotNull(message = "{NotNull.colores.nombre}")

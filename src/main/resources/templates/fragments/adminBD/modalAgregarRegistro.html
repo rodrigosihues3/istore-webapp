@@ -1,4 +1,4 @@
-<!-- AGREGAR USUARIO -->
+<!-- MODAL AGREGAR USUARIO -->
 <div th:fragment="modalAgregarUsuario" class="modal fade" id="modalAgregar" tabindex="-1">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content border-0 shadow">
@@ -121,7 +121,7 @@
 
 
 
-<!-- AGREGAR ROL -->
+<!-- MODAL AGREGAR ROL -->
 <div th:fragment="modalAgregarRol" class="modal fade" id="modalAgregar" tabindex="-1">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content border-0 shadow">
@@ -163,7 +163,7 @@
 
 
 
-<!-- AGREGAR COLOR -->
+<!-- MODAL AGREGAR COLOR -->
 <div th:fragment="modalAgregarColor" class="modal fade" id="modalAgregar" tabindex="-1">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content border-0 shadow">
@@ -197,7 +197,7 @@
 
 
 
-<!-- AGREGAR ESTADO COMPRA -->
+<!-- MODAL AGREGAR ESTADO COMPRA -->
 <div th:fragment="modalAgregarEstadoCompra" class="modal fade" id="modalAgregar" tabindex="-1">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content border-0 shadow">
@@ -232,7 +232,7 @@
 
 
 
-<!-- AGREGAR ESTADO PAGO -->
+<!-- MODAL AGREGAR ESTADO PAGO -->
 <div th:fragment="modalAgregarEstadoPago" class="modal fade" id="modalAgregar" tabindex="-1">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content border-0 shadow">
@@ -267,7 +267,7 @@
 
 
 
-<!-- AGREGAR METODO PAGO -->
+<!-- MODAL AGREGAR METODO PAGO -->
 <div th:fragment="modalAgregarMetodoPago" class="modal fade" id="modalAgregar" tabindex="-1">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content border-0 shadow">
@@ -302,7 +302,7 @@
 
 
 
-<!-- AGREGAR TIPO DE COMPROBANTE -->
+<!-- MODAL AGREGAR TIPO DE COMPROBANTE -->
 <div th:fragment="modalAgregarTipoComprobante" class="modal fade" id="modalAgregar" tabindex="-1">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content border-0 shadow">
@@ -329,6 +329,166 @@
         <div class="modal-footer px-5">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
           <button type="submit" class="btn btn-success">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- MODAL AGREGAR PEDIDO -->
+<div th:fragment="modalAgregarPedido" class="modal fade" id="modalAgregar" tabindex="-1">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content border-0 shadow">
+
+      <div class="modal-header bg-success">
+        <h5 class="modal-title text-light fw-bold">AGREGAR PEDIDO</h5>
+        <button type="button" class="btn-close bg-light" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="m-3">
+        <div th:if="${errorNullAgregar}" class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Error:</strong> <span th:text="${errorNullAgregar}"></span>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+
+      <form class="row g-3" method="post" th:action="@{/admin/pedidos/agregar}" th:object="${pedidoAgregarDto}">
+        <div class="modal-body px-5">
+          <div class="row">
+
+            <div class="col-6">
+              <label class="form-label ms-2 mt-2">Usuario (Cliente)</label>
+              <select class="form-select" th:field="*{idUsuario}"
+                th:classappend="${#fields.hasErrors('idUsuario')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                required>
+                <option value="" disabled selected>-- Selecciona un usuario --</option>
+                <option th:each="usuario : ${usuarios}" th:value="${usuario.idUsuario}"
+                  th:text="${usuario.nombres + ' ' + usuario.apellidos + ' (' + usuario.nombreUsuario + ')'}"></option>
+              </select>
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('idUsuario')}"
+                th:errors="*{idUsuario}"></div>
+            </div>
+
+            <div class="col-6">
+              <label class="form-label ms-2 mt-2">Estado del Pedido</label>
+              <select class="form-select" th:field="*{idEstadoCompra}"
+                th:classappend="${#fields.hasErrors('idEstadoCompra')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                required>
+                <option value="" disabled selected>-- Selecciona un estado --</option>
+                <option th:each="estado : ${estadosCompras}" th:value="${estado.idEstadoCompra}"
+                  th:text="${estado.nombre}"></option>
+              </select>
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('idEstadoCompra')}"
+                th:errors="*{idEstadoCompra}"></div>
+            </div>
+
+            <div class="col-6">
+              <label class="form-label ms-2 mt-2">Método de Pago</label>
+              <select class="form-select" th:field="*{idMetodoPago}"
+                th:classappend="${#fields.hasErrors('idMetodoPago')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                required>
+                <option value="" disabled selected>-- Selecciona un método de pago --</option>
+                <option th:each="metodo : ${metodosPagos}" th:value="${metodo.idMetodoPago}" th:text="${metodo.nombre}">
+                </option>
+              </select>
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('idMetodoPago')}"
+                th:errors="*{idMetodoPago}"></div>
+            </div>
+
+            <div class="col-6">
+              <label class="form-label ms-2 mt-2">Tipo de Comprobante</label>
+              <select class="form-select" th:field="*{idTipoComprobante}"
+                th:classappend="${#fields.hasErrors('idTipoComprobante')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                required>
+                <option value="" disabled selected>-- Selecciona un comprobante --</option>
+                <option th:each="comprobante : ${tiposComprobantes}" th:value="${comprobante.idTipoComprobante}"
+                  th:text="${comprobante.nombre}"></option>
+              </select>
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('idTipoComprobante')}"
+                th:errors="*{idTipoComprobante}"></div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="modal-footer px-5">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-success">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- MODAL AGREGAR PEDIDO ITEM -->
+<div th:fragment="modalAgregarPedidoItem" class="modal fade" id="modalAgregar" tabindex="-1">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content border-0 shadow">
+
+      <div class="modal-header bg-success">
+        <h5 class="modal-title text-light fw-bold">AGREGAR ITEM AL PEDIDO</h5>
+        <button type="button" class="btn-close bg-light" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="m-3">
+        <div th:if="${errorNullAgregarPedidoItem}" class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Error:</strong> <span th:text="${errorNullAgregarPedidoItem}"></span>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+
+      <form class="row g-3" method="post" th:action="@{/admin/pedido-items/agregar}"
+        th:object="${pedidoItemAgregarDto}">
+        <div class="modal-body px-5">
+
+          <input type="hidden" name="idPedido" th:value="${pedido.idPedido}">
+
+          <div class="row">
+
+            <div class="col-12">
+              <label class="form-label ms-2 mt-2">Producto</label>
+              <select class="form-select" th:field="*{idProducto}" id="itemAddProductoSelect"
+                th:classappend="${#fields.hasErrors('idProducto')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                required>
+                <option th:value="''" selected>-- Selecciona un producto --</option>
+                <option th:each="producto : ${productos}" th:value="${producto.idProducto}" th:text="${producto.nombre}"
+                  th:data-precio="${producto.precio}"> </option>
+              </select>
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('idProducto')}"
+                th:errors="*{idProducto}"></div>
+            </div>
+
+            <div class="col-6">
+              <label class="form-label ms-2 mt-2">Cantidad</label>
+              <input type="number" class="form-control"
+                th:classappend="${#fields.hasErrors('cantidad')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                placeholder="Ingresa la cantidad" th:field="*{cantidad}" id="itemAddCantidadInput" min="1" required>
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('cantidad')}"
+                th:errors="*{cantidad}"></div>
+            </div>
+
+            <div class="col-6">
+              <label class="form-label ms-2 mt-2">Precio Unitario (S/.)</label>
+              <input type="number" class="form-control" step="0.01"
+                th:classappend="${#fields.hasErrors('precio')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                placeholder="Ingresa el precio" th:field="*{precio}" id="itemAddPrecioInput" min="0.01" required>
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}">
+              </div>
+            </div>
+
+            <div class="col-4">
+              <label class="form-label ms-2 mt-2">Total Item (Preview)</label>
+              <input type="text" class="form-control" id="itemAddTotalPreview" value="S/ 0.00" disabled readonly
+                style="font-weight: bold; background-color: #e9ecef;">
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer px-5">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-success">Guardar Item</button>
         </div>
       </form>
     </div>

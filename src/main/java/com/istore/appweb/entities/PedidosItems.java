@@ -31,7 +31,7 @@ public class PedidosItems {
   private Integer cantidad;
 
   @Column(precision = 12, scale = 2)
-  private BigDecimal precioUnitario;
+  private BigDecimal precio;
 
   @Column(precision = 14, scale = 2)
   private BigDecimal total;

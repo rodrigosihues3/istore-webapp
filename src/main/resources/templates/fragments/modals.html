@@ -11,7 +11,7 @@
 
             <div class="modal-body row">
                 <div class="col-md-6 text-center">
-                    <img src="img/iphones/iphone-16-pro-max.png" alt="iPhone 16 Pro Max" class="img-fluid">
+                    <img th:src="@{/img/iphones/iphone-16-pro-max.png}" alt="iPhone 16 Pro Max" class="img-fluid">
                 </div>
                 <div class="col-md-6">
                     <p><strong>Precio:</strong> S/. 6,199.00</p>
@@ -40,7 +40,7 @@
             <div class="modal-body">
                 <!-- Producto 1 -->
                 <div class="d-flex align-items-center mb-3 pb-3 border-bottom">
-                    <img src="img/iphones/iphone-15-pro.png" alt="iPhone 15 Pro" class="rounded me-3"
+                    <img th:src="@{/img/iphones/iphone-15-pro.png}" alt="iPhone 15 Pro" class="rounded me-3"
                         style="width: 80px; height: 80px; object-fit: cover;">
                     <div class="flex-grow-1">
                         <h6 class="fw-semibold mb-1">iPhone 15 Pro</h6>
@@ -52,7 +52,7 @@
 
                 <!-- Producto 2 -->
                 <div class="d-flex align-items-center mb-3 pb-3 border-bottom">
-                    <img src="img/iphones/iphone-14.png" alt="iPhone 14" class="rounded me-3"
+                    <img th:src="@{/img/iphones/iphone-14.png}" alt="iPhone 14" class="rounded me-3"
                         style="width: 80px; height: 80px; object-fit: cover;">
                     <div class="flex-grow-1">
                         <h6 class="fw-semibold mb-1">iPhone 14</h6>
@@ -68,7 +68,7 @@
                 <h6 class="fw-bold mb-0">Total: S/. 8,498.00</h6>
                 <div>
                     <button class="btn btn-outline-secondary me-2" data-bs-dismiss="modal">Seguir comprando</button>
-                    <a th:href="@{cliente/pagar-carrito}" class="btn btn-primary">Finalizar compra</a>
+                    <a th:href="@{/cliente/pagar-carrito}" class="btn btn-primary">Finalizar compra</a>
                 </div>
             </div>
 

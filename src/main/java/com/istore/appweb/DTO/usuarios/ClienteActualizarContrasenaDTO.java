@@ -15,6 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ClienteActualizarContrasenaDTO {
 
+  @NotNull(message = "{NotNull.usuarios.idUsuario}")
   private Integer idUsuario;
 
   @NotBlank(message = "La contraseña ingresada es incorrecta.")

@@ -1,11 +1,6 @@
 package com.istore.appweb.DTO.pedidos;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,13 +12,16 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PedidoEditarDTO {
 
-  private BigDecimal total;
+  @NotNull(message = "{NotNull.pedidos.idPedido}")
+  private Integer idPedido;
 
-  private Integer metodoPago;
-  private Integer tipoComprobante;
-  private Integer usuario;
-  private Integer estadoCompra;
+  @NotNull(message = "{NotNull.metodosPagos.idMetodoPago}")
+  private Integer idMetodoPago;
 
-  private LocalDateTime fechaActualizacion;
+  @NotNull(message = "{NotNull.tiposComprobantes.idTipoComprobante}")
+  private Integer idTipoComprobante;
+
+  @NotNull(message = "{NotNull.estadosCompras.idEstadoCompra}")
+  private Integer idEstadoCompra;
 
 }

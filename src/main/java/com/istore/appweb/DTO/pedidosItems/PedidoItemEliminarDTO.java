@@ -1,4 +1,4 @@
-package com.istore.appweb.DTO.roles;
+package com.istore.appweb.DTO.pedidosItems;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -10,9 +10,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RolEliminarDTO {
+public class PedidoItemEliminarDTO {
 
-  @NotNull(message = "{NotNull.roles.idRol}")
-  private Integer idRol;
-
+  @NotNull(message = "{NotNull.pedidosItems.idPedidoItem}")
+  private Integer idPedidoItem;
+  
 }

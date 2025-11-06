@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head th:replace="~{fragments/heads :: head('iStore')}"></head>
+<head th:replace="~{fragments/heads :: cabeceraPrincipal('iStore')}"></head>
 
 <body class="bg-light d-flex flex-column min-vh-100">
 
-    <!-- NAVBAR SUPERIOR -->
-    <header class="sticky-top">
-        <!-- NAVBAR PRINCIPAL -->
-        <nav th:replace="~{fragments/navbars :: navbarPrincipal}"></nav>
-    </header>
+  <!-- NAVBAR SUPERIOR -->
+  <header class="sticky-top">
+    <!-- NAVBAR PRINCIPAL -->
+    <nav th:replace="~{fragments/navbars :: navbarPrincipal}"></nav>
+  </header>
 
   <!-- CONTENIDO -->
   <main class="flex-grow-1 py-5">
@@ -25,7 +25,7 @@
 
               <!-- Producto -->
               <div class="d-flex align-items-center mb-3 pb-3 border-bottom">
-                <img src="../img/iphones/iphone-15-pro.png" class="rounded me-3"
+                <img th:src="@{/img/iphones/iphone-15-pro.png}" class="rounded me-3"
                   style="width: 80px; height: 80px; object-fit: cover;" alt="iPhone 15 Pro">
                 <div>
                   <h6 class="mb-1 fw-semibold">iPhone 15 Pro</h6>
@@ -36,7 +36,7 @@
 
               <!-- Producto -->
               <div class="d-flex align-items-center mb-3 pb-3 border-bottom">
-                <img src="../img/iphones/iphone-14.png" class="rounded me-3"
+                <img th:src="@{/img/iphones/iphone-14.png}" class="rounded me-3"
                   style="width: 80px; height: 80px; object-fit: cover;" alt="iPhone 14">
                 <div>
                   <h6 class="mb-1 fw-semibold">iPhone 14</h6>

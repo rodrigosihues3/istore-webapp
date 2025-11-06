@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head th:replace="~{fragments/heads :: head('iStore')}"></head>
+<head th:replace="~{fragments/heads :: cabeceraPrincipal('iStore')}"></head>
 
 <body class="d-flex flex-column min-vh-100">
 
@@ -28,19 +28,19 @@
 
             <div class="carousel-inner">
                 <div class="carousel-item active" data-bs-interval="4500">
-                    <img src="img/carrusel-img-5.png" class="d-block w-100" alt="Imagen 5" />
+                    <img th:src="@{/img/carrusel-img-5.png}" class="d-block w-100" alt="Imagen 5" />
                 </div>
                 <div class="carousel-item" data-bs-interval="4500">
-                    <img src="img/carrusel-img-1.png" class="d-block w-100" alt="Imagen 1" />
+                    <img th:src="@{/img/carrusel-img-1.png}" class="d-block w-100" alt="Imagen 1" />
                 </div>
                 <div class="carousel-item" data-bs-interval="4500">
-                    <img src="img/carrusel-img-2.png" class="d-block w-100" alt="Imagen 2" />
+                    <img th:src="@{/img/carrusel-img-2.png}" class="d-block w-100" alt="Imagen 2" />
                 </div>
                 <div class="carousel-item" data-bs-interval="4500">
-                    <img src="img/carrusel-img-3.png" class="d-block w-100" alt="Imagen 3" />
+                    <img th:src="@{/img/carrusel-img-3.png}" class="d-block w-100" alt="Imagen 3" />
                 </div>
                 <div class="carousel-item" data-bs-interval="4500">
-                    <img src="img/carrusel-img-4.png" class="d-block w-100" alt="Imagen 4" />
+                    <img th:src="@{/img/carrusel-img-4.png}" class="d-block w-100" alt="Imagen 4" />
                 </div>
             </div>
 
@@ -78,7 +78,7 @@
                                 data-bs-target="#modalIphone16ProMax"
                                 aria-label="Clic para ver más detalles del iPhone 16 Pro Max"
                                 title="Clic para ver más detalles de este producto">
-                                <img src="img/iphones/iphone-16-pro-max.png" class="card-img-top product-image">
+                                <img th:src="@{/img/iphones/iphone-16-pro-max.png}" class="card-img-top product-image">
                                 <div class="card-body p-0">
                                     <h5 class="card-title product-title">iPhone 16 Pro Max</h5>
                                     <p class="card-text">256 GB · Titanio</p>
@@ -99,7 +99,7 @@
                                 data-bs-target="#modalIphone15ProMax"
                                 aria-label="Clic para ver más detalles del iPhone 15 Pro Max"
                                 title="Clic para ver más detalles de este producto">
-                                <img src="img/iphones/iphone-15-pro-max.png" class="card-img-top product-image">
+                                <img th:src="@{/img/iphones/iphone-15-pro-max.png}" class="card-img-top product-image">
                                 <div class="card-body p-0">
                                     <h5 class="card-title product-title">iPhone 15 Pro Max</h5>
                                     <p class="card-text">256 GB · Titanio</p>
@@ -118,7 +118,7 @@
                                 data-bs-target="#modalIphone15Pro"
                                 aria-label="Clic para ver más detalles del iPhone 15 Pro"
                                 title="Clic para ver más detalles de este producto">
-                                <img src="img/iphones/iphone-15-pro.png" class="card-img-top product-image">
+                                <img th:src="@{/img/iphones/iphone-15-pro.png}" class="card-img-top product-image">
                                 <div class="card-body p-0">
                                     <h5 class="card-title product-title">iPhone 15 Pro</h5>
                                     <p class="card-text">256 GB · Azul</p>
@@ -137,7 +137,7 @@
                                 data-bs-target="#modalIphone15Plus"
                                 aria-label="Clic para ver más detalles del iPhone 15 Plus"
                                 title="Clic para ver más detalles de este producto">
-                                <img src="img/iphones/iphone-15-plus.png" class="card-img-top product-image">
+                                <img th:src="@{/img/iphones/iphone-15-plus.png}" class="card-img-top product-image">
                                 <div class="card-body p-0">
                                     <h5 class="card-title product-title">iPhone 15 Plus</h5>
                                     <p class="card-text">256 GB · Rosa</p>
@@ -155,7 +155,7 @@
                             <button type="button" class="border-0 bg-transparent p-0 w-100" data-bs-toggle="modal"
                                 data-bs-target="#modalIphone15" aria-label="Clic para ver más detalles del iPhone 15"
                                 title="Clic para ver más detalles de este producto">
-                                <img src="img/iphones/iphone-15.png" class="card-img-top product-image">
+                                <img th:src="@{/img/iphones/iphone-15.png}" class="card-img-top product-image">
                                 <div class="card-body p-0">
                                     <h5 class="card-title product-title">iPhone 15</h5>
                                     <p class="card-text">256 GB · Amarillo</p>
@@ -174,7 +174,7 @@
                                 data-bs-target="#modalIphone14Pro"
                                 aria-label="Clic para ver más detalles del iPhone 14 Pro"
                                 title="Clic para ver más detalles de este producto">
-                                <img src="img/iphones/iphone-14-pro.png" class="card-img-top product-image">
+                                <img th:src="@{/img/iphones/iphone-14-pro.png}" class="card-img-top product-image">
                                 <div class="card-body p-0">
                                     <h5 class="card-title product-title">iPhone 14 Pro</h5>
                                     <p class="card-text">256 GB · Morado</p>
@@ -192,7 +192,7 @@
                             <button type="button" class="border-0 bg-transparent p-0 w-100" data-bs-toggle="modal"
                                 data-bs-target="#modalIphone14" aria-label="Clic para ver más detalles del iPhone 14"
                                 title="Clic para ver más detalles de este producto">
-                                <img src="img/iphones/iphone-14.png" class="card-img-top product-image">
+                                <img th:src="@{/img/iphones/iphone-14.png}" class="card-img-top product-image">
                                 <div class="card-body p-0">
                                     <h5 class="card-title product-title">iPhone 14</h5>
                                     <p class="card-text">256 GB · Medianoche</p>
@@ -210,7 +210,7 @@
                             <button type="button" class="border-0 bg-transparent p-0 w-100" data-bs-toggle="modal"
                                 data-bs-target="#modalIphone13" aria-label="Clic para ver más detalles del iPhone 13"
                                 title="Clic para ver más detalles de este producto">
-                                <img src="img/iphones/iphone-13.png" class="card-img-top product-image">
+                                <img th:src="@{/img/iphones/iphone-13.png}" class="card-img-top product-image">
                                 <div class="card-body p-0">
                                     <h5 class="card-title product-title">iPhone 13</h5>
                                     <p class="card-text">256 GB · Verde</p>
@@ -244,7 +244,7 @@
 
                 <div class="modal-body row">
                     <div class="col-md-6 text-center">
-                        <img src="img/iphones/iphone-16-pro-max.png" alt="iPhone 16 Pro Max" class="img-fluid">
+                        <img th:src="@{/img/iphones/iphone-16-pro-max.png}" alt="iPhone 16 Pro Max" class="img-fluid">
                     </div>
                     <div class="col-md-6">
                         <p><strong>Precio:</strong> S/. 6,199.00</p>
@@ -271,7 +271,7 @@
 
                 <div class="modal-body row">
                     <div class="col-md-6 text-center">
-                        <img src="img/iphones/iphone-15-pro-max.png" alt="iPhone 15 Pro Max" class="img-fluid">
+                        <img th:src="@{/img/iphones/iphone-15-pro-max.png}" alt="iPhone 15 Pro Max" class="img-fluid">
                     </div>
                     <div class="col-md-6">
                         <p><strong>Precio:</strong> S/. 5,199.00</p>
@@ -298,7 +298,7 @@
 
                 <div class="modal-body row">
                     <div class="col-md-6 text-center">
-                        <img src="img/iphones/iphone-15-pro.png" alt="iPhone 15 Pro" class="img-fluid">
+                        <img th:src="@{/img/iphones/iphone-15-pro.png}" alt="iPhone 15 Pro" class="img-fluid">
                     </div>
                     <div class="col-md-6">
                         <p><strong>Precio:</strong> S/. 4,999.00</p>
@@ -325,7 +325,7 @@
 
                 <div class="modal-body row">
                     <div class="col-md-6 text-center">
-                        <img src="img/iphones/iphone-15-plus.png" alt="iPhone 15 Plus" class="img-fluid">
+                        <img th:src="@{/img/iphones/iphone-15-plus.png}" alt="iPhone 15 Plus" class="img-fluid">
                     </div>
                     <div class="col-md-6">
                         <p><strong>Precio:</strong> S/. 4,199.00</p>
@@ -351,7 +351,7 @@
 
                 <div class="modal-body row">
                     <div class="col-md-6 text-center">
-                        <img src="img/iphones/iphone-15.png" alt="iPhone 15" class="img-fluid">
+                        <img th:src="@{/img/iphones/iphone-15.png}" alt="iPhone 15" class="img-fluid">
                     </div>
                     <div class="col-md-6">
                         <p><strong>Precio:</strong> S/. 3,799.00</p>
@@ -378,7 +378,7 @@
 
                 <div class="modal-body row">
                     <div class="col-md-6 text-center">
-                        <img src="img/iphones/iphone-14-pro.png" alt="iPhone 14 Pro" class="img-fluid">
+                        <img th:src="@{/img/iphones/iphone-14-pro.png}" alt="iPhone 14 Pro" class="img-fluid">
                     </div>
                     <div class="col-md-6">
                         <p><strong>Precio:</strong> S/. 4,299.00</p>
@@ -404,7 +404,7 @@
 
                 <div class="modal-body row">
                     <div class="col-md-6 text-center">
-                        <img src="img/iphones/iphone-14.png" alt="iPhone 14" class="img-fluid">
+                        <img th:src="@{/img/iphones/iphone-14.png}" alt="iPhone 14" class="img-fluid">
                     </div>
                     <div class="col-md-6">
                         <p><strong>Precio:</strong> S/. 3,299.00</p>
@@ -430,7 +430,7 @@
 
                 <div class="modal-body row">
                     <div class="col-md-6 text-center">
-                        <img src="img/iphones/iphone-13.png" alt="iPhone 13" class="img-fluid">
+                        <img th:src="@{/img/iphones/iphone-13.png}" alt="iPhone 13" class="img-fluid">
                     </div>
                     <div class="col-md-6">
                         <p><strong>Precio:</strong> S/. 2,699.00</p>

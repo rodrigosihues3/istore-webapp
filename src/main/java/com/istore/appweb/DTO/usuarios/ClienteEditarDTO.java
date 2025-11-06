@@ -16,6 +16,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ClienteEditarDTO {
 
+  @NotNull(message = "{NotNull.usuarios.idUsuario}")
   private Integer idUsuario;
 
   @NotNull(message = "{NotNull.usuarios.nombres}")

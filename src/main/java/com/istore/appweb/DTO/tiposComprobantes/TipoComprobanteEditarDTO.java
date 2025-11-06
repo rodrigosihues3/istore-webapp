@@ -14,6 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class TipoComprobanteEditarDTO {
 
+  @NotNull(message = "{NotNull.tiposComprobantes.idTipoComprobante}") 
   private Integer idTipoComprobante;
 
   @NotNull(message = "{NotNull.tiposComprobantes.nombre}")

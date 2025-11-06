@@ -14,6 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ColorEditarDTO {
 
+  @NotNull(message = "{NotNull.colores.idColor}")
   private Integer idColor;
 
   @NotNull(message = "{NotNull.colores.nombre}")

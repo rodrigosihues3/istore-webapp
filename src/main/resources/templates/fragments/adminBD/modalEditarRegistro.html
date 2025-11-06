@@ -1,4 +1,4 @@
-<!-- EDITAR USUARIO -->
+<!-- MODAL EDITAR USUARIO -->
 <div th:fragment="modalEditarUsuario" class="modal fade" id="modalEditar" tabindex="-1">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content border-0 shadow">
@@ -123,7 +123,7 @@
 
 
 
-<!-- EDITAR ROL -->
+<!-- MODAL EDITAR ROL -->
 <div th:fragment="modalEditarRol" class="modal fade" id="modalEditar" tabindex="-1">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content border-0 shadow">
@@ -169,7 +169,7 @@
 
 
 
-<!-- EDITAR COLOR -->
+<!-- MODAL EDITAR COLOR -->
 <div th:fragment="modalEditarColor" class="modal fade" id="modalEditar" tabindex="-1">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content border-0 shadow">
@@ -208,7 +208,7 @@
 
 
 
-<!-- EDITAR ESTADO COMPRA -->
+<!-- MODAL EDITAR ESTADO COMPRA -->
 <div th:fragment="modalEditarEstadoCompra" class="modal fade" id="modalEditar" tabindex="-1">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content border-0 shadow">
@@ -246,7 +246,7 @@
 
 
 
-<!-- EDITAR ESTADO PAGO -->
+<!-- MODAL EDITAR ESTADO PAGO -->
 <div th:fragment="modalEditarEstadoPago" class="modal fade" id="modalEditar" tabindex="-1">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content border-0 shadow">
@@ -283,7 +283,7 @@
 
 
 
-<!-- EDITAR METODO PAGO -->
+<!-- MODAL EDITAR METODO PAGO -->
 <div th:fragment="modalEditarMetodoPago" class="modal fade" id="modalEditar" tabindex="-1">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content border-0 shadow">
@@ -320,7 +320,7 @@
 
 
 
-<!-- EDITAR TIPO COMPROBANTE -->
+<!-- MODAL EDITAR TIPO COMPROBANTE -->
 <div th:fragment="modalEditarTipoComprobante" class="modal fade" id="modalEditar" tabindex="-1">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content border-0 shadow">
@@ -344,6 +344,171 @@
               </div>
             </div>
 
+          </div>
+        </div>
+
+        <div class="modal-footer px-5">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- MODAL EDITAR PEDIDO -->
+<div th:fragment="modalEditarPedido" class="modal fade" id="modalEditar" tabindex="-1">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content border-0 shadow">
+
+      <div class="modal-header bg-primary">
+        <h5 class="modal-title text-light fw-bold">EDITAR PEDIDO</h5>
+        <button type="button" class="btn-close bg-light" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="m-3">
+        <div th:if="${errorNullEditar}" class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Error:</strong> <span th:text="${errorNullEditar}"></span>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+
+      <form class="row g-3" method="post" th:action="@{/admin/pedidos/editar}" th:object="${pedidoEditarDto}">
+        <div class="modal-body px-5">
+          <input type="hidden" th:field="*{idPedido}">
+
+          <div class="row">
+
+            <div class="col-12">
+              <h5 class="mt-3 mb-0 text-center">Datos del Cliente (Solo Lectura)</h5>
+              <hr class="my-1">
+            </div>
+            <div class="col-6">
+              <label class="form-label ms-2 mt-2">Email</label>
+              <input type="text" class="form-control" id="editPedidoUsuarioEmail" disabled readonly>
+
+              <label class="form-label ms-2 mt-2">Usuario</label>
+              <input type="text" class="form-control" id="editPedidoUsuarioNombreUsuario" disabled readonly>
+            </div>
+            <div class="col-6">
+              <label class="form-label ms-2 mt-2">Cliente</label>
+              <input type="text" class="form-control" id="editPedidoUsuarioNombre" disabled readonly>
+            </div>
+
+            <div class="col-12">
+              <h5 class="mt-4 mb-0 text-center">Datos del Pedido (Editable)</h5>
+              <hr class="my-1">
+            </div>
+
+            <div class="col-4">
+              <label class="form-label ms-2 mt-2">Estado del Pedido</label>
+              <select class="form-select" th:field="*{idEstadoCompra}"
+                th:classappend="${#fields.hasErrors('idEstadoCompra')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                required>
+                <option th:each="estado : ${estadosCompras}" th:value="${estado.idEstadoCompra}"
+                  th:text="${estado.nombre}"></option>
+              </select>
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('idEstadoCompra')}"
+                th:errors="*{idEstadoCompra}"></div>
+            </div>
+
+            <div class="col-4">
+              <label class="form-label ms-2 mt-2">Método de Pago</label>
+              <select class="form-select" th:field="*{idMetodoPago}"
+                th:classappend="${#fields.hasErrors('idMetodoPago')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                required>
+                <option th:each="metodo : ${metodosPagos}" th:value="${metodo.idMetodoPago}" th:text="${metodo.nombre}">
+                </option>
+              </select>
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('idMetodoPago')}"
+                th:errors="*{idMetodoPago}"></div>
+            </div>
+
+            <div class="col-4">
+              <label class="form-label ms-2 mt-2">Tipo de Comprobante</label>
+              <select class="form-select" th:field="*{idTipoComprobante}"
+                th:classappend="${#fields.hasErrors('idTipoComprobante')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                required>
+                <option th:each="comprobante : ${tiposComprobantes}" th:value="${comprobante.idTipoComprobante}"
+                  th:text="${comprobante.nombre}"></option>
+              </select>
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('idTipoComprobante')}"
+                th:errors="*{idTipoComprobante}"></div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="modal-footer px-5">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- MODAL EDITAR PEDIDO ITEM -->
+<div th:fragment="modalEditarPedidoItem" class="modal fade" id="modalEditar" tabindex="-1">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content border-0 shadow">
+
+      <div class="modal-header bg-primary">
+        <h5 class="modal-title text-light fw-bold">EDITAR ITEM DEL PEDIDO</h5>
+        <button type="button" class="btn-close bg-light" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="m-3">
+        <div th:if="${errorNullEditarPedidoItem}" class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Error:</strong> <span th:text="${errorNullEditarPedidoItem}"></span>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+
+      <form class="row g-3" method="post" th:action="@{/admin/pedido-items/editar}" th:object="${pedidoItemEditarDto}">
+        <div class="modal-body px-5">
+
+          <input type="hidden" th:field="*{idPedidoItem}">
+
+          <div class="row">
+            <div class="col-12">
+              <label class="form-label ms-2 mt-2">Producto</label>
+              <select class="form-select" th:field="*{idProducto}" id="itemEditProductoSelect"
+                th:classappend="${#fields.hasErrors('idProducto')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                required>
+                <option th:each="producto : ${productos}" th:value="${producto.idProducto}" th:text="${producto.nombre}"
+                  th:data-precio="${producto.precio}">
+                </option>
+              </select>
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('idProducto')}"
+                th:errors="*{idProducto}"></div>
+            </div>
+
+            <div class="col-6">
+              <label class="form-label ms-2 mt-2">Cantidad</label>
+              <input type="number" class="form-control"
+                th:classappend="${#fields.hasErrors('cantidad')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                th:field="*{cantidad}" id="itemEditCantidadInput" min="1" required>
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('cantidad')}"
+                th:errors="*{cantidad}"></div>
+            </div>
+
+            <div class="col-6">
+              <label class="form-label ms-2 mt-2">Precio Unitario (S/.)</label>
+              <input type="number" class="form-control" step="0.01"
+                th:classappend="${#fields.hasErrors('precio')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                th:field="*{precio}" id="itemEditPrecioInput" min="0.01" required>
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}">
+              </div>
+            </div>
+
+            <div class="col-4">
+              <label class="form-label ms-2 mt-2">Total Item (Preview)</label>
+              <input type="text" class="form-control" id="itemEditTotalPreview" value="S/ 0.00" disabled readonly
+                style="font-weight: bold; background-color: #e9ecef;">
+            </div>
           </div>
         </div>
 

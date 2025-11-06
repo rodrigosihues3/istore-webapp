@@ -17,6 +17,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class RolEditarDTO {
 
+  @NotNull(message = "{NotNull.roles.idRol}")
   private Integer idRol;
 
   @NotNull(message = "{NotNull.roles.nombre}")

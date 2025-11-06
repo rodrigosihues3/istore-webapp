@@ -1,8 +1,6 @@
 package com.istore.appweb.DTO.pedidos;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,9 +12,16 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PedidoAgregarDTO {
 
-  @NotNull(message = "{NotNull.pedidos.nombre}")
-  @NotBlank(message = "{NotBlank.pedidos.nombre}")
-  @Pattern(regexp = "^(?=.*\\p{L}.*\\p{L})\\s*[\\p{L}\\s]+\\s*$", message = "{Pattern.estadosCompras.nombre}")
-  private String nombre;
+  @NotNull(message = "{NotNull.usuarios.idUsuario}")
+  private Integer idUsuario;
+
+  @NotNull(message = "{NotNull.metodosPagos.idMetodoPago}")
+  private Integer idMetodoPago;
+
+  @NotNull(message = "{NotNull.tiposComprobantes.idTipoComprobante}")
+  private Integer idTipoComprobante;
+
+  @NotNull(message = "{NotNull.estadosCompras.idEstadoCompra}")
+  private Integer idEstadoCompra;
 
 }

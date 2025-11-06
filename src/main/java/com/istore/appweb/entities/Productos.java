@@ -1,5 +1,7 @@
 package com.istore.appweb.entities;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,4 +24,12 @@ public class Productos {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer idProducto;
 
+  // Necesario para los modales y las vistas de detalle
+  private String nombre;
+
+  // Necesario para la lógica de precios
+  private BigDecimal precio;
+
+  // Necesario para la solución de imágenes
+  private String urlImagen;
 }

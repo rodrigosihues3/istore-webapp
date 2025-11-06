@@ -89,7 +89,6 @@
   --radius-full: 9999px;
 
   /* TIPOGRAFÍA */
-  --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;
@@ -126,16 +125,11 @@
 body {
   background-color: var(--surface-primary);
   color: var(--text-primary);
-  font-family: var(--font-family);
   font-size: var(--font-size-base);
   line-height: var(--line-height-normal);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-/* ============================================
-   TIPOGRAFÍA
-   ============================================ */
 
 h1,
 h2,
@@ -330,7 +324,6 @@ a:hover {
 ============================================ */
 
 .btn {
-  font-family: var(--font-family);
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
   padding: 0.4rem 1.25rem;
@@ -473,7 +466,6 @@ a:hover {
 }
 
 .form-control {
-  font-family: var(--font-family);
   font-size: var(--font-size-base);
   padding: 0.55rem 1rem;
   border: 1.5px solid var(--border-medium);
