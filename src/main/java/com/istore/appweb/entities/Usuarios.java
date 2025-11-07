@@ -36,7 +36,7 @@ public class Usuarios {
   private String direccion;
 
   @ManyToOne
-  @JoinColumn
+  @JoinColumn(name = "id_rol")
   private Roles rol;
 
   private LocalDateTime fechaCreacion = LocalDateTime.now();

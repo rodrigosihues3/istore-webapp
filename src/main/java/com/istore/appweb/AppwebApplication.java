@@ -1,7 +1,5 @@
 package com.istore.appweb;
 
-import java.io.IOException;
-
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,74 +17,80 @@ public class AppwebApplication {
 		String puerto = "3000";
 
 		SpringApplication.run(AppwebApplication.class, args);
-
 		// abrirNavegador("http://localhost:" + puerto);
 	}
 
 	// Abre el navegador en la URL de la aplicación
-	@SuppressWarnings("deprecation")
 	private static void abrirNavegador(String url) {
 		try {
-			Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + url);
-		} catch (IOException e) {
+			// Forma moderna y multiplataforma
+			if (java.awt.Desktop.isDesktopSupported()) {
+				java.awt.Desktop.getDesktop().browse(new java.net.URI(url));
+			} else {
+				// Respaldo para sistemas muy antiguos o sin UI
+				String[] cmd = { "rundll32", "url.dll,FileProtocolHandler", url };
+				Runtime.getRuntime().exec(cmd);
+			}
+		} catch (Exception e) {
 			System.out.println("Error al intentar abrir el navegador: " + e.getMessage());
 		}
 	}
 
 	@Bean
-	@SuppressWarnings("unused")
 	CommandLineRunner init(RolesServices servicioRoles, UsuariosServices servicioUsuarios) {
 		return args -> {
+			Roles ownerRol;
+			Roles adminRol;
+
 			if (servicioRoles.getRoles().isEmpty()) {
 				Roles owner = new Roles();
 				owner.setNombre("OWNER");
 				owner.setNivel(10);
-
-				servicioRoles.createRol(owner);
+				ownerRol = servicioRoles.createRol(owner);
 
 				Roles admin = new Roles();
 				admin.setNombre("ADMINISTRADOR");
 				admin.setNivel(9);
-
-				servicioRoles.createRol(admin);
+				adminRol = servicioRoles.createRol(admin);
 
 				Roles empleado = new Roles();
 				empleado.setNombre("EMPLEADO");
 				empleado.setNivel(1);
-
 				servicioRoles.createRol(empleado);
 
 				Roles cliente = new Roles();
 				cliente.setNombre("CLIENTE");
 				cliente.setNivel(0);
-
 				servicioRoles.createRol(cliente);
+			} else {
+				ownerRol = servicioRoles.getByNombre("OWNER");
+				adminRol = servicioRoles.getByNombre("ADMINISTRADOR");
 			}
 
 			if (servicioUsuarios.getUsuarios().isEmpty()) {
-				Usuarios owner = new Usuarios();
-				owner.setNombreUsuario("rodrigosy");
-				owner.setPassword("rodrigosy");
-				owner.setNombres("Rodrigo");
-				owner.setApellidos("Sihues Yanqui");
-				owner.setEmail("sihues3@gmail.com");
-				owner.setTelefono("961211119");
-				owner.setDireccion("IStore - Owner");
-				owner.setRol(servicioRoles.getByNombre("OWNER"));
+				Usuarios user_owner = new Usuarios();
+				user_owner.setNombreUsuario("rodrigosy");
+				user_owner.setPassword("rodrigosy");
+				user_owner.setNombres("Rodrigo");
+				user_owner.setApellidos("Sihues Yanqui");
+				user_owner.setEmail("sihues3@gmail.com");
+				user_owner.setTelefono("961211119");
+				user_owner.setDireccion("IStore - Owner");
+				user_owner.setRol(ownerRol);
 
-				servicioUsuarios.createUsuario(owner);
+				servicioUsuarios.createUsuario(user_owner);
 
-				Usuarios admin = new Usuarios();
-				admin.setNombreUsuario("admin");
-				admin.setPassword("admin");
-				admin.setNombres("admin");
-				admin.setApellidos("admin admin");
-				admin.setEmail("admin@istore.com");
-				admin.setTelefono("0000000000");
-				admin.setDireccion("IStore - Admin");
-				admin.setRol(servicioRoles.getByNombre("ADMINISTRADOR"));
+				Usuarios user_admin = new Usuarios();
+				user_admin.setNombreUsuario("admin");
+				user_admin.setPassword("admin");
+				user_admin.setNombres("admin");
+				user_admin.setApellidos("admin admin");
+				user_admin.setEmail("admin@istore.com");
+				user_admin.setTelefono("0000000000");
+				user_admin.setDireccion("IStore - Admin");
+				user_admin.setRol(adminRol);
 
-				servicioUsuarios.createUsuario(admin);
+				servicioUsuarios.createUsuario(user_admin);
 			}
 		};
 	}
