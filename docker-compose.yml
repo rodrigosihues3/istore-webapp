@@ -1,0 +1,36 @@
+services:
+  # Servicio de Base de Datos
+  db:
+    image: postgres:17-alpine
+    container_name: istore-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: db-istore
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+    # Limitamos recursos para proteger el servidor
+    deploy:
+      resources:
+        limits:
+          memory: 300M
+
+  # Servicio de tu Aplicación Spring Boot
+  app:
+    build: .
+    container_name: istore-app
+    ports:
+      - "80:3000"
+    environment:
+      # Conexión a la BD
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/db-istore
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: admin
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    depends_on:
+      - db
+    restart: always
+
+volumes:
+  postgres_data:

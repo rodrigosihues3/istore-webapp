@@ -14,27 +14,27 @@ import com.istore.appweb.services.UsuariosServices;
 public class AppwebApplication {
 
 	public static void main(String[] args) {
-		String puerto = "3000";
+		// String puerto = "3000";
 
 		SpringApplication.run(AppwebApplication.class, args);
 		// abrirNavegador("http://localhost:" + puerto);
 	}
 
 	// Abre el navegador en la URL de la aplicación
-	private static void abrirNavegador(String url) {
-		try {
-			// Forma moderna y multiplataforma
-			if (java.awt.Desktop.isDesktopSupported()) {
-				java.awt.Desktop.getDesktop().browse(new java.net.URI(url));
-			} else {
-				// Respaldo para sistemas muy antiguos o sin UI
-				String[] cmd = { "rundll32", "url.dll,FileProtocolHandler", url };
-				Runtime.getRuntime().exec(cmd);
-			}
-		} catch (Exception e) {
-			System.out.println("Error al intentar abrir el navegador: " + e.getMessage());
-		}
-	}
+	// private static void abrirNavegador(String url) {
+	// 	try {
+	// 		// Forma moderna y multiplataforma
+	// 		if (java.awt.Desktop.isDesktopSupported()) {
+	// 			java.awt.Desktop.getDesktop().browse(new java.net.URI(url));
+	// 		} else {
+	// 			// Respaldo para sistemas muy antiguos o sin UI
+	// 			String[] cmd = { "rundll32", "url.dll,FileProtocolHandler", url };
+	// 			Runtime.getRuntime().exec(cmd);
+	// 		}
+	// 	} catch (Exception e) {
+	// 		System.out.println("Error al intentar abrir el navegador: " + e.getMessage());
+	// 	}
+	// }
 
 	@Bean
 	CommandLineRunner init(RolesServices servicioRoles, UsuariosServices servicioUsuarios) {
