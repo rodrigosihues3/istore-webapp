@@ -85,7 +85,7 @@ public class AppwebApplication {
 			rol = new Roles();
 			rol.setNombre(nombre);
 			rol.setNivel(nivel);
-			return servicio.createRol(rol); // Asegúrate que tu servicio retorne el objeto guardado
+			return servicio.createRol(rol);
 		}
 		return rol;
 	}

@@ -136,7 +136,7 @@ public class UsuariosServices {
       throw new IllegalArgumentException("email:Este correo electrónico ya existe, intente con otro.");
     }
 
-    return repositorio.save(mapearYNormalizar(
+    Usuarios usuarioNormalizado = mapearYNormalizar(
         usuario.getNombres(),
         usuario.getApellidos(),
         usuario.getEmail(),
@@ -144,7 +144,11 @@ public class UsuariosServices {
         usuario.getPassword(),
         usuario.getDni(),
         usuario.getTelefono(),
-        usuario.getDireccion()));
+        usuario.getDireccion());
+
+    usuarioNormalizado.setRol(usuario.getRol());
+
+    return repositorio.save(usuarioNormalizado);
   }
 
   private Usuarios mapearYNormalizar(String nombres, String apellidos, String email,
