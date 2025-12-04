@@ -22,50 +22,34 @@ public class AppwebApplication {
 
 	// Abre el navegador en la URL de la aplicación
 	// private static void abrirNavegador(String url) {
-	// 	try {
-	// 		// Forma moderna y multiplataforma
-	// 		if (java.awt.Desktop.isDesktopSupported()) {
-	// 			java.awt.Desktop.getDesktop().browse(new java.net.URI(url));
-	// 		} else {
-	// 			// Respaldo para sistemas muy antiguos o sin UI
-	// 			String[] cmd = { "rundll32", "url.dll,FileProtocolHandler", url };
-	// 			Runtime.getRuntime().exec(cmd);
-	// 		}
-	// 	} catch (Exception e) {
-	// 		System.out.println("Error al intentar abrir el navegador: " + e.getMessage());
-	// 	}
+	// try {
+	// // Forma moderna y multiplataforma
+	// if (java.awt.Desktop.isDesktopSupported()) {
+	// java.awt.Desktop.getDesktop().browse(new java.net.URI(url));
+	// } else {
+	// // Respaldo para sistemas muy antiguos o sin UI
+	// String[] cmd = { "rundll32", "url.dll,FileProtocolHandler", url };
+	// Runtime.getRuntime().exec(cmd);
+	// }
+	// } catch (Exception e) {
+	// System.out.println("Error al intentar abrir el navegador: " +
+	// e.getMessage());
+	// }
 	// }
 
 	@Bean
 	CommandLineRunner init(RolesServices servicioRoles, UsuariosServices servicioUsuarios) {
 		return args -> {
-			Roles ownerRol;
-			Roles adminRol;
+			Roles ownerRol = buscarOCrearRol(servicioRoles, "OWNER", 10);
+			Roles adminRol = buscarOCrearRol(servicioRoles, "ADMINISTRADOR", 9);
+			Roles empleadoRol = buscarOCrearRol(servicioRoles, "EMPLEADO", 1);
+			Roles clienteRol = buscarOCrearRol(servicioRoles, "CLIENTE", 0);
 
-			if (servicioRoles.getRoles().isEmpty()) {
-				Roles owner = new Roles();
-				owner.setNombre("OWNER");
-				owner.setNivel(10);
-				ownerRol = servicioRoles.createRol(owner);
-
-				Roles admin = new Roles();
-				admin.setNombre("ADMINISTRADOR");
-				admin.setNivel(9);
-				adminRol = servicioRoles.createRol(admin);
-
-				Roles empleado = new Roles();
-				empleado.setNombre("EMPLEADO");
-				empleado.setNivel(1);
-				servicioRoles.createRol(empleado);
-
-				Roles cliente = new Roles();
-				cliente.setNombre("CLIENTE");
-				cliente.setNivel(0);
-				servicioRoles.createRol(cliente);
-			} else {
-				ownerRol = servicioRoles.getByNombre("OWNER");
-				adminRol = servicioRoles.getByNombre("ADMINISTRADOR");
-			}
+			System.out.println("Roles creados: ");
+			System.out.println(ownerRol.toString());
+			System.out.println(adminRol.toString());
+			System.out.println(empleadoRol.toString());
+			System.out.println(clienteRol.toString());
 
 			if (servicioUsuarios.getUsuarios().isEmpty()) {
 				Usuarios user_owner = new Usuarios();
@@ -93,6 +77,17 @@ public class AppwebApplication {
 				servicioUsuarios.createUsuario(user_admin);
 			}
 		};
+	}
+
+	private Roles buscarOCrearRol(RolesServices servicio, String nombre, Integer nivel) {
+		Roles rol = servicio.getByNombre(nombre);
+		if (rol == null) {
+			rol = new Roles();
+			rol.setNombre(nombre);
+			rol.setNivel(nivel);
+			return servicio.createRol(rol); // Asegúrate que tu servicio retorne el objeto guardado
+		}
+		return rol;
 	}
 
 }
