@@ -34,7 +34,7 @@ public class UsuariosDetails implements UserDetails {
 
   @Override
   public String getUsername() {
-    return usuario.getNombreUsuario(); // lo que usas para loguear
+    return usuario.getNombreUsuario();
   }
 
   public String getNombreCompleto() {

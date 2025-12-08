@@ -29,20 +29,28 @@ public class UsuariosServices {
   @Autowired
   private PasswordEncoder encoder;
 
-  public List<Usuarios> getUsuarios() {
-    return repositorio.findAll(Sort.by(Sort.Direction.DESC, "idUsuario"));
-  }
+  // Sobrecarga para agregar usuario cuando la bd esta vacia
+  public Usuarios createUsuario(Usuarios usuario) {
+    if (repositorio.existsByNombreUsuario(usuario.getNombreUsuario().trim())) {
+      throw new IllegalArgumentException("nombreUsuario:Este nombre de usuario ya existe, intente con otro.");
+    }
+    if (repositorio.existsByEmail(usuario.getEmail().trim().toUpperCase())) {
+      throw new IllegalArgumentException("email:Este correo electrónico ya existe, intente con otro.");
+    }
 
-  public Usuarios getUsuarioById(Integer id) {
-    return repositorio.findById(id).get();
-  }
+    Usuarios usuarioNormalizado = mapearYNormalizar(
+        usuario.getNombres(),
+        usuario.getApellidos(),
+        usuario.getEmail(),
+        usuario.getNombreUsuario(),
+        usuario.getPassword(),
+        usuario.getDni(),
+        usuario.getTelefono(),
+        usuario.getDireccion());
 
-  public Optional<Usuarios> getUsuarioByNombreUsuario(String nombreUsuario) {
-    return repositorio.findByNombreUsuario(nombreUsuario);
-  }
+    usuarioNormalizado.setRol(usuario.getRol());
 
-  public Optional<Usuarios> getUsuarioByEmail(String email) {
-    return repositorio.findByEmail(email);
+    return repositorio.save(usuarioNormalizado);
   }
 
   public Usuarios createUsuario(UsuarioAgregarDTO usuarioDTO) {
@@ -68,6 +76,44 @@ public class UsuariosServices {
             .orElse(repositorioRoles.findByNombre("CLIENTE")));
 
     return repositorio.save(usuario);
+  }
+
+  // Sobrecarga registrar usuario
+  public Usuarios createUsuario(ClienteRegistrarDTO clienteDTO) {
+    if (repositorio.existsByNombreUsuario(clienteDTO.getNombreUsuario().trim())) {
+      throw new IllegalArgumentException("nombreUsuario:Este nombre de usuario ya existe, intente con otro.");
+    }
+    if (repositorio.existsByEmail(clienteDTO.getEmail().trim().toUpperCase())) {
+      throw new IllegalArgumentException("email:Este correo electrónico ya existe, intente con otro.");
+    }
+
+    Usuarios usuario = mapearYNormalizar(clienteDTO.getNombres(),
+        clienteDTO.getApellidos(),
+        clienteDTO.getEmail(),
+        clienteDTO.getNombreUsuario(),
+        clienteDTO.getPassword(),
+        null, null, null);
+
+    // Los clientes siempre tienen rol "CLIENTE"
+    usuario.setRol(repositorioRoles.findByNombre("CLIENTE"));
+
+    return repositorio.save(usuario);
+  }
+
+  public List<Usuarios> getUsuarios() {
+    return repositorio.findAll(Sort.by(Sort.Direction.DESC, "idUsuario"));
+  }
+
+  public Usuarios getUsuarioById(Integer id) {
+    return repositorio.findById(id).get();
+  }
+
+  public Optional<Usuarios> getUsuarioByNombreUsuario(String nombreUsuario) {
+    return repositorio.findByNombreUsuario(nombreUsuario);
+  }
+
+  public Optional<Usuarios> getUsuarioByEmail(String email) {
+    return repositorio.findByEmail(email);
   }
 
   public Usuarios updateUsuario(UsuarioEditarDTO usuarioDto) {
@@ -103,52 +149,6 @@ public class UsuariosServices {
 
   public void deleteUsuario(Integer id) {
     repositorio.deleteById(id);
-  }
-
-  // Sobrecarga registrar usuario
-  public Usuarios createUsuario(ClienteRegistrarDTO clienteDTO) {
-    if (repositorio.existsByNombreUsuario(clienteDTO.getNombreUsuario().trim())) {
-      throw new IllegalArgumentException("nombreUsuario:Este nombre de usuario ya existe, intente con otro.");
-    }
-    if (repositorio.existsByEmail(clienteDTO.getEmail().trim().toUpperCase())) {
-      throw new IllegalArgumentException("email:Este correo electrónico ya existe, intente con otro.");
-    }
-
-    Usuarios usuario = mapearYNormalizar(clienteDTO.getNombres(),
-        clienteDTO.getApellidos(),
-        clienteDTO.getEmail(),
-        clienteDTO.getNombreUsuario(),
-        clienteDTO.getPassword(),
-        null, null, null);
-
-    // Los clientes siempre tienen rol "CLIENTE"
-    usuario.setRol(repositorioRoles.findByNombre("CLIENTE"));
-
-    return repositorio.save(usuario);
-  }
-
-  // Sobrecarga agregar usuario cuando la bd esta vacia
-  public Usuarios createUsuario(Usuarios usuario) {
-    if (repositorio.existsByNombreUsuario(usuario.getNombreUsuario().trim())) {
-      throw new IllegalArgumentException("nombreUsuario:Este nombre de usuario ya existe, intente con otro.");
-    }
-    if (repositorio.existsByEmail(usuario.getEmail().trim().toUpperCase())) {
-      throw new IllegalArgumentException("email:Este correo electrónico ya existe, intente con otro.");
-    }
-
-    Usuarios usuarioNormalizado = mapearYNormalizar(
-        usuario.getNombres(),
-        usuario.getApellidos(),
-        usuario.getEmail(),
-        usuario.getNombreUsuario(),
-        usuario.getPassword(),
-        usuario.getDni(),
-        usuario.getTelefono(),
-        usuario.getDireccion());
-
-    usuarioNormalizado.setRol(usuario.getRol());
-
-    return repositorio.save(usuarioNormalizado);
   }
 
   private Usuarios mapearYNormalizar(String nombres, String apellidos, String email,

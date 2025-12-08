@@ -140,6 +140,39 @@ document.addEventListener("DOMContentLoaded", () => {
           break;
         }
 
+        case "producto": {
+          const id = boton.getAttribute("data-id");
+          const sku = boton.getAttribute("data-sku");
+          const nombre = boton.getAttribute("data-nombre");
+          const descripcion = boton.getAttribute("data-descripcion");
+          const precio = boton.getAttribute("data-precio");
+          const idCategoria = boton.getAttribute("data-id-categoria");
+
+          modal.querySelector("input[name='idProducto']").value = id || 0;
+          modal.querySelector("input[name='sku']").value = sku || "";
+          modal.querySelector("input[name='nombre']").value = nombre || "";
+          modal.querySelector("input[name='descripcion']").value = descripcion || "";
+          modal.querySelector("input[name='precio']").value = precio || 0;
+          modal.querySelector("input[name='idCategoria']").value = idCategoria || 0;
+
+          break;
+        }
+
+        case "categoria":
+        case "categorias": {
+          const id = parseInt(boton.getAttribute("data-id")) || 0;
+          const nombre = boton.getAttribute("data-nombre") || "";
+
+          // Campos del modal de editar categoría
+          const inputId = modal.querySelector("input[name='idCategoria']");
+          const inputNombre = modal.querySelector("input[name='nombre']");
+
+          if (inputId) inputId.value = id;
+          if (inputNombre) inputNombre.value = nombre;
+
+          break;
+        }
+
         default:
           console.warn(`⚠️ No se configuró el modal para la entidad: ${entidad}`);
       }

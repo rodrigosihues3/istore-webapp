@@ -7,27 +7,31 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: db-istore
+      # Zona horaria de Perú
+      TZ: America/Lima
+      # Codificación para caracteres en español
+      LANG: es_PE.UTF-8
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
     restart: always
-    # Limitamos recursos para proteger el servidor
-    deploy:
-      resources:
-        limits:
-          memory: 300M
 
-  # Servicio de tu Aplicación Spring Boot
+  # Servicio de Aplicación Spring Boot
   app:
     build: .
     container_name: istore-app
     ports:
       - "80:3000"
     environment:
-      # Conexión a la BD
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/db-istore
+      # Conexión a la BD con parámetros de TIEMPO y CODIFICACIÓN
+      # 'db' es el nombre del servicio de anterior.
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://db:5432/db-istore?currentSchema=public&useUnicode=true&characterEncoding=UTF-8&serverTimezone=America/Lima"
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: admin
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      # Java a usará la hora de Perú
+      TZ: America/Lima
     depends_on:
       - db
     restart: always

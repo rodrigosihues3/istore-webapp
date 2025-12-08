@@ -1,11 +1,14 @@
 package com.istore.appweb.entities;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,12 +27,19 @@ public class Productos {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer idProducto;
 
-  // Necesario para los modales y las vistas de detalle
+  private String sku;
   private String nombre;
-
-  // Necesario para la lógica de precios
+  private String descripcion;
   private BigDecimal precio;
-
-  // Necesario para la solución de imágenes
   private String urlImagen;
+
+  @ManyToOne
+  @JoinColumn
+  private Categorias categoria;
+
+  @ManyToOne
+  @JoinColumn
+  private Colores color;
+
+  private LocalDateTime fechaCreacion = LocalDateTime.now();
 }

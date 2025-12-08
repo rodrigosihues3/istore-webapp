@@ -1,227 +1,109 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head th:replace="~{fragments/heads :: cabeceraPrincipal('iStore · BD | Productos')}"></head>
+<head th:replace="~{fragments/heads :: cabeceraPrincipal('BD - Productos')}"></head>
 
-<body class="bg-light d-flex flex-column min-vh-100">
+<body class="bg-light d-flex flex-column min-vh-100"
+    th:attr="data-mostrar-modal=${mostrarModal}">
 
-  <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm">
-    <div class="container-fluid justify-content-between">
-      <a class="navbar-brand fw-semibold" href="../../index.html">✌️iStore</a>
+    <header class="sticky-top">
+        <nav th:replace="~{fragments/navbars :: navbarPrincipal}">
+        </nav>
+    </header>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
-        aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <main class="container-fluid px-5 my-5">
+        
+        <div th:if="${mensajeExito}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            <span th:text="${mensajeExito}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
 
-      <div class="collapse navbar-collapse justify-content-between" id="navbarScroll">
-        <div class="w-25"></div>
+        <div th:if="${mensajeError}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            <strong class="me-1">Error:</strong>
+            <span th:text="${mensajeError}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="fw-bold">🛍️ Tabla Productos</h1>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAgregar">
+                <span><i class="bi bi-database-fill-add me-2"></i></span> Agregar
+            </button>
+        </div>
 
-        <!-- Barra búsqueda -->
-        <form class="d-flex w-25" role="search">
-          <input class="form-control me-2" type="search" placeholder="Buscar cliente..." aria-label="Search">
-          <button class="btn btn-outline-secondary" type="submit">Buscar</button>
-        </form>
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="text-center">ID</th>
+                                <th>SKU</th>
+                                <th>NOMBRE</th>
+                                <th>DESCRIPCIÓN</th>
+                                <th>PRECIO</th>
+                                <th>CATEGORÍA</th>
+                                <th>FECHA REGISTRO</th>
+                                <th class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody style="font-size: .95rem;">
+                            <tr th:each="producto : ${productos}">
+                                <td th:text="${producto.idProducto}" class="text-center">ID</td>
+                                <td th:text="${producto.sku}">SKU</td>
+                                <td th:text="${producto.nombre}">Nombre</td>
+                                <td th:text="${producto.descripcion}">Descripción</td>
+                                <td th:text="${#numbers.formatCurrency(producto.precio)}">Precio</td>
+                                <td th:text="${producto.categoria?.nombre}">Categoría</td>
+                                <td th:text="${#temporals.format(producto.fechaCreacion, 'dd/MM/yyyy HH:mm')}">Fecha registro</td>
+                                <td class="justify-content-center text-center">
+                                    <button
+                                        type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalEditar"
+                                        title="Editar" data-entidad="producto" th:data-id="${producto.idProducto}"
+                                        th:data-sku="${producto.sku}"
+                                        th:data-nombre="${producto.nombre}"
+                                        th:data-descripcion="${producto.descripcion}"
+                                        th:data-precio="${producto.precio}"
+                                        th:data-id-categoria="${producto.categoria?.idCategoria}">
+                                        <span><i class="bi bi-pencil-square"></i></span>
+                                    </button>
+                                    <button
+                                        type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-entidad="producto"
+                                        th:data-id="${producto.idProducto}"
+                                        th:data-nombre="${producto.nombre}"
+                                        th:data-sku="${producto.sku}"
+                                        th:data-categoria="${producto.categoria?.nombre}"
+                                        data-bs-target="#modalEliminar" title="Eliminar">
+                                        <span><i class="bi bi-trash3-fill"></i></span>
+                                    </button>
+                                </td>
+                            </tr>
 
-        <!-- Opciones derecha -->
-        <ul class="navbar-nav navbar-nav-scroll">
-          <li class="nav-item me-lg-3 me-2 my-auto">
-            <span class="nav-link">📍 Ica, Perú</span>
-          </li>
-          <li class="nav-item me-lg-2 me-2 my-auto">
-            <a href="#" class="btn btn-outline-dark border-0">
-              🛒 Carrito <span class="badge bg-primary ms-1">0</span>
-            </a>
-          </li>
-
-          <!-- PERFIL -->
-          <li class="nav-item dropdown z-3">
-            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
-              data-bs-toggle="dropdown">
-              <div class="rounded-circle bg-light d-flex justify-content-center align-items-center me-2"
-                style="width: 32px; height: 32px; border: 1px solid var(--border-medium);">
-                <span>👤</span>
-              </div>
-              Perfil
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end shadow-sm"
-              style="min-width: 240px; border-radius: var(--radius-medium);">
-              <li class="px-3 py-2 text-center border-bottom">
-                <div class="rounded-circle bg-light d-flex justify-content-center align-items-center mx-auto mb-2"
-                  style="width: 64px; height: 64px; border: 1px solid var(--border-medium);">
-                  <span class="fs-3">👤</span>
+                            <tr th:if="${productos==null or #lists.isEmpty(productos)}">
+                                <td colspan="8" class="text-center text-muted py-3">
+                                    No hay productos registrados.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <p class="mb-0 fw-semibold">Administrador</p>
-                <small class="text-secondary">admin@istore.com</small>
-              </li>
-              <li><a class="dropdown-item" href="">👤 Mi cuenta</a></li>
-              <li><a class="dropdown-item" href="">📦 Mis pedidos</a></li>
-
-              <li class="mt-2 mb-1 px-3 text-uppercase small fw-semibold text-secondary text-center">
-                Funciones de admin
-              </li>
-              <li><a class="dropdown-item" href="../catalogo.html">🛠️ Gestionar catálogos</a></li>
-              <li><a class="dropdown-item" href="../inventario.html">📦 Gestionar inventario</a></li>
-              <li><a class="dropdown-item" href="../pedidos.html">📑 Ver pedidos</a></li>
-              <li><a class="dropdown-item" href="../devoluciones.html">🔄 Devoluciones</a></li>
-              <li><a class="dropdown-item" href="../usuarios.html">👤 Gestionar usuarios y roles</a></li>
-              <li><a class="dropdown-item" href="../errores.html">⚠️ Supervisar errores</a></li>
-              <li><a class="dropdown-item" href="../tablasBD.html">🗄️ Ver tablas BD</a></li>
-
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item text-danger" href="../../index.html">Cerrar sesión</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <!-- CONTENIDO -->
-  <main class="container my-5">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <h1 class="fw-bold">📦 Tabla Productos</h1>
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAgregar">➕ Agregar producto</button>
-    </div>
-
-    <!-- Tabla -->
-    <div class="card shadow-sm border-0">
-      <div class="card-body">
-        <div class="table-responsive">
-          <table class="table table-hover align-middle">
-            <thead class="table-light">
-              <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Categoría</th>
-                <th>Precio</th>
-                <th>Stock</th>
-                <th>Fecha registro</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>#P001</td>
-                <td>iPhone 15 Pro</td>
-                <td>Smartphones</td>
-                <td>$1200</td>
-                <td>25</td>
-                <td>01/09/2025</td>
-                <td>
-                  <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#modalEditar">Editar</button>
-                  <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                    data-bs-target="#modalEliminar">Eliminar</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <!-- MODALES -->
-  <div class="modal fade" id="modalAgregar" tabindex="-1">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-      <div class="modal-content border-0 shadow">
-        <div class="modal-header">
-          <h5 class="modal-title">➕ Agregar producto</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <form class="row g-3">
-            <div class="col-md-6">
-              <label class="form-label">Nombre</label>
-              <input type="text" class="form-control">
             </div>
-            <div class="col-md-6">
-              <label class="form-label">Categoría</label>
-              <input type="text" class="form-control">
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Precio</label>
-              <input type="number" class="form-control">
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Stock</label>
-              <input type="number" class="form-control">
-            </div>
-          </form>
         </div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button class="btn btn-primary">Guardar</button>
-        </div>
-      </div>
-    </div>
-  </div>
+    </main>
 
-  <!-- Modal Editar -->
-  <div class="modal fade" id="modalEditar" tabindex="-1">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-      <div class="modal-content border-0 shadow">
-        <div class="modal-header">
-          <h5 class="modal-title">✏️ Editar producto</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <form class="row g-3">
-            <div class="col-md-6">
-              <label class="form-label">Nombre</label>
-              <input type="text" class="form-control" value="iPhone 15 Pro">
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Categoría</label>
-              <input type="text" class="form-control" value="Smartphones">
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Precio</label>
-              <input type="number" class="form-control" value="1200">
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Stock</label>
-              <input type="number" class="form-control" value="25">
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button class="btn btn-primary">Guardar cambios</button>
-        </div>
-      </div>
-    </div>
-  </div>
+    <div th:replace="~{fragments/adminBD/modalAgregarRegistro :: modalAgregarProducto}"></div>
 
-  <!-- Modal Eliminar -->
-  <div class="modal fade" id="modalEliminar" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content border-0 shadow">
-        <div class="modal-header">
-          <h5 class="modal-title">⚠️ Confirmar eliminación</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <p>¿Seguro que deseas eliminar este producto?</p>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button class="btn btn-danger">Eliminar</button>
-        </div>
-      </div>
-    </div>
-  </div>
+    <div th:replace="~{fragments/adminBD/modalEditarRegistro :: modalEditarProducto}"></div>
 
-  <!-- FOOTER -->
-  <footer class="mt-auto border-top py-3 text-center">
-    <small class="text-secondary">© 2025 iStore. Panel administrador.</small>
-  </footer>
+    <div th:replace="~{fragments/adminBD/modalEliminarRegistro :: modalEliminarProducto}"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <footer th:replace="~{fragments/footers :: footerAdmin}"></footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{/js/administrador/index-admin.js}"></script>
+    <script th:src="@{/js/administrador/modalEditarRegistro.js}"></script>
+    <script th:src="@{/js/administrador/modalEliminarRegistro.js}"></script>
 </body>
 
 </html>

@@ -148,6 +148,36 @@ document.addEventListener("DOMContentLoaded", () => {
           break;
         }
 
+        case "producto": {
+          const id = boton.getAttribute("data-id");
+          const sku = boton.getAttribute("data-sku");
+          const nombre = boton.getAttribute("data-nombre");
+          const precio = boton.getAttribute("data-precio");
+          const idCategoria = boton.getAttribute("data-id-categoria");
+
+          modal.querySelector("#idSpan").textContent = id || "";
+          modal.querySelector("#sku").textContent = sku || "";
+          modal.querySelector("#nombreProducto").textContent = nombre || "";
+          modal.querySelector("#precio").textContent = precio || "";
+          modal.querySelector("#categoria").textContent = idCategoria || "";
+          // Asegurarse de poblar el input oculto usado por el formulario de eliminación
+          const hiddenInput = modal.querySelector("#id");
+          if (hiddenInput) hiddenInput.value = id || "";
+          break;
+        }
+
+        case "categoria":
+        case "categorias": {
+          const id = boton.getAttribute("data-id");
+          const nombre = boton.getAttribute("data-nombre");
+
+          modal.querySelector("#idSpan").textContent = id || "";
+          modal.querySelector("#nombre").textContent = nombre || "";
+          modal.querySelector("#id").value = id || "";
+
+          break;
+        }
+
         default:
           console.warn(`⚠️ No se configuró el modal para la entidad: ${entidad}`);
       }
