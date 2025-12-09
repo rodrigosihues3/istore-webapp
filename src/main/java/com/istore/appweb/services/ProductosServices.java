@@ -1,5 +1,6 @@
 package com.istore.appweb.services;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,6 +26,9 @@ public class ProductosServices {
   @Autowired
   private CategoriasRepository repositorioCategorias;
 
+  @Autowired
+  private CloudinaryService cloudinaryService;
+
   public List<Productos> getProductos() {
     return repositorio.findAll(Sort.by(Sort.Direction.DESC, "idProducto"));
   }
@@ -41,12 +45,16 @@ public class ProductosServices {
     return repositorio.findByNombre(nombre);
   }
 
-  public Productos createProducto(ProductoAgregarDTO productoDTO) {
+  public Productos createProducto(ProductoAgregarDTO productoDTO) throws IOException {
     if (repositorio.existsBySku(productoDTO.getSku().trim())) {
       throw new IllegalArgumentException("sku:Este código SKU ya existe, intente con otro.");
     }
     if (repositorio.existsByNombre(productoDTO.getNombre().trim())) {
       throw new IllegalArgumentException("nombre:Este nombre de producto ya existe, intente con otro.");
+    }
+    // Validar imagen obligatoria
+    if (productoDTO.getImagen() == null || productoDTO.getImagen().isEmpty()) {
+      throw new IllegalArgumentException("imagen:Debe seleccionar una imagen para el producto.");
     }
 
     Productos producto = mapearYNormalizar(
@@ -55,13 +63,17 @@ public class ProductosServices {
         productoDTO.getDescripcion(),
         productoDTO.getPrecio());
 
+    // Subir Imagen a Cloudinary
+    String urlImagen = cloudinaryService.subirImagen(productoDTO.getImagen());
+    producto.setUrlImagen(urlImagen); // Guardamos la URL
+
     producto.setCategoria(repositorioCategorias.findById(productoDTO.getIdCategoria()).get());
     producto.setFechaCreacion(LocalDateTime.now());
 
     return repositorio.save(producto);
   }
 
-  public Productos updateProducto(ProductoEditarDTO productoDTO) {
+  public Productos updateProducto(ProductoEditarDTO productoDTO) throws IOException {
     Productos productoExistente = repositorio.findById(productoDTO.getIdProducto()).get();
 
     if (!java.util.Objects.equals(productoExistente.getSku(), productoDTO.getSku().trim())
@@ -78,7 +90,13 @@ public class ProductosServices {
     productoExistente.setDescripcion(Utilidades.normalizarTexto(productoDTO.getDescripcion()));
     productoExistente.setPrecio(productoDTO.getPrecio());
     productoExistente.setCategoria(repositorioCategorias.findById(productoDTO.getIdCategoria()).get());
-    productoExistente.setFechaCreacion(LocalDateTime.now());
+
+    // Lógica de imagen en edición
+    if (productoDTO.getImagen() != null && !productoDTO.getImagen().isEmpty()) {
+      // Si subió nueva foto, la mandamos a la nube y actualizamos URL
+      String nuevaUrl = cloudinaryService.subirImagen(productoDTO.getImagen());
+      productoExistente.setUrlImagen(nuevaUrl);
+    }
 
     return repositorio.save(productoExistente);
   }

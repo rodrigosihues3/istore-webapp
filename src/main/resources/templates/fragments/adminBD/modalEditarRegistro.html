@@ -570,7 +570,8 @@
         </div>
       </div>
 
-      <form class="row g-3" method="post" th:action="@{/admin/productos/editar}" th:object="${productoEditarDto}">
+      <form class="row g-3" method="post" th:action="@{/admin/productos/editar}" th:object="${productoEditarDto}"
+        enctype="multipart/form-data">
         <div class="modal-body px-5">
           <input type="hidden" th:field="*{idProducto}">
 
@@ -610,6 +611,12 @@
 
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('idCategoria')}"
                 th:errors="*{idCategoria}"></div>
+            </div>
+
+            <div class="col-6">
+              <label class="form-label ms-2 mt-2" for="edit_imagen">Cambiar Imagen (Opcional)</label>
+              <input type="file" class="form-control" id="edit_imagen" th:field="*{imagen}" accept="image/*">
+              <div class="form-text">Si no seleccionas nada, se mantiene la imagen actual.</div>
             </div>
 
             <div class="col-8">

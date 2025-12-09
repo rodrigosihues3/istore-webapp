@@ -549,7 +549,8 @@
         </div>
       </div>
 
-      <form class="row g-3" method="post" th:action="@{/admin/productos/agregar}" th:object="${productoAgregarDto}">
+      <form class="row g-3" method="post" th:action="@{/admin/productos/agregar}" th:object="${productoAgregarDto}"
+        enctype="multipart/form-data">
         <div class="modal-body px-5">
           <div class="row">
             <!-- DATOS DEL PRODUCTO -->
@@ -587,6 +588,11 @@
 
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('idCategoria')}"
                 th:errors="*{idCategoria}"></div>
+            </div>
+
+            <div class="col-6">
+              <label class="form-label ms-2 mt-2" for="add_imagen">Imagen del Producto</label>
+              <input type="file" class="form-control" id="add_imagen" th:field="*{imagen}" accept="image/*">
             </div>
 
             <div class="col-8">

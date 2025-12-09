@@ -2,6 +2,8 @@ package com.istore.appweb.DTO.productos;
 
 import java.math.BigDecimal;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -35,4 +37,5 @@ public class ProductoAgregarDTO {
   private BigDecimal precio;
 
   private Integer idCategoria;
+  private MultipartFile imagen;
 }

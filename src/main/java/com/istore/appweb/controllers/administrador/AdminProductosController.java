@@ -1,5 +1,7 @@
 package com.istore.appweb.controllers.administrador;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,12 +62,23 @@ public class AdminProductosController {
       servicio.createProducto(productoAgregarDto);
     } catch (IllegalArgumentException e) {
       String[] partes = e.getMessage().split(":", 2);
+
       if (partes.length == 2) {
         result.rejectValue(partes[0], "error." + partes[0], partes[1]);
+      } else {
+        // Fallback para mensajes sin prefijo
+        model.addAttribute("mensajeError", e.getMessage());
       }
 
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalAgregar");
+      return VISTA_FRAGMENTO;
+    } catch (IOException e) {
+      // Error al subir imagen
+      model.addAttribute("mensajeError", "Error al subir la imagen: " + e.getMessage());
+      prepararVista(model);
+      model.addAttribute("mostrarModal", "#modalAgregar");
+
       return VISTA_FRAGMENTO;
     }
 
@@ -82,6 +95,7 @@ public class AdminProductosController {
     if (result.hasErrors()) {
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalEditar");
+
       return VISTA_FRAGMENTO;
     }
 
@@ -89,12 +103,20 @@ public class AdminProductosController {
       servicio.updateProducto(productoEditarDto);
     } catch (IllegalArgumentException e) {
       String[] partes = e.getMessage().split(":", 2);
+
       if (partes.length == 2) {
         result.rejectValue(partes[0], "error." + partes[0], partes[1]);
       }
 
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalEditar");
+
+      return VISTA_FRAGMENTO;
+    } catch (IOException e) {
+      model.addAttribute("mensajeError", "Error al actualizar imagen: " + e.getMessage());
+      prepararVista(model);
+      model.addAttribute("mostrarModal", "#modalEditar");
+
       return VISTA_FRAGMENTO;
     }
 

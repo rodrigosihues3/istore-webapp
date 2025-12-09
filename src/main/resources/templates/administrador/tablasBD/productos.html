@@ -29,42 +29,66 @@
                     <table class="table table-hover align-middle mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th class="text-center">ID</th>
-                                <th>SKU</th>
-                                <th>NOMBRE</th>
+                                <th>ID</th>
+                                <th class="text-center">IMG</th>
+                                <th>NOMBRE / SKU</th>
                                 <th>DESCRIPCIÓN</th>
                                 <th>PRECIO</th>
                                 <th>CATEGORÍA</th>
-                                <th>FECHA REGISTRO</th>
+                                <th>FECHA</th>
                                 <th class="text-center">Acciones</th>
                             </tr>
                         </thead>
                         <tbody style="font-size: .95rem;">
                             <tr th:each="producto : ${productos}">
-                                <td th:text="${producto.idProducto}" class="text-center">ID</td>
-                                <td th:text="${producto.sku}">SKU</td>
-                                <td th:text="${producto.nombre}">Nombre</td>
-                                <td th:text="${producto.descripcion}">Descripción</td>
-                                <td th:text="${'S/. ' + #numbers.formatCurrency(producto.precio)}">Precio</td>
+                                <td th:text="${producto.idProducto}">ID</td>
+                                <td class="text-center">
+                                    <img th:if="${producto.urlImagen != null}" th:src="${producto.urlImagen}" alt="Prod"
+                                        class="rounded border" style="width: 80px; height: 80px; object-fit: cover;">
+                                    <div th:unless="${producto.urlImagen != null}"
+                                        class="rounded bg-light border d-flex justify-content-center align-items-center mx-auto"
+                                        style="width: 80px; height: 80px;">
+                                        <i class="bi bi-image text-muted"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex flex-column">
+                                        <span class="fw-bold" th:text="${producto.nombre}">NOMBRE
+                                        </span>
+                                        <small class="text-muted">
+                                            <span th:text="${producto.sku}">SKU</span>
+                                        </small>
+                                    </div>
+                                </td>
+                                <td>
+                                    <small class="text-muted text-truncate d-inline-block" style="max-width: 150px;"
+                                        th:text="${producto.descripcion}">Desc</small>
+                                </td>
+                                <td class="fw-bold text-success"
+                                    th:text="${'S/ ' + #numbers.formatDecimal(producto.precio, 1, 2, 'COMMA')}">Precio
+                                </td>
                                 <td th:text="${producto.categoria?.nombre}">Categoría</td>
-                                <td th:text="${#temporals.format(producto.fechaCreacion, 'dd/MM/yyyy HH:mm')}">Fecha
-                                    registro</td>
+                                <td>
+                                    <div class="small"
+                                        th:text="${#temporals.format(producto.fechaCreacion, 'dd/MM/yyyy')}">FECHA</div>
+                                    <small class="text-muted"
+                                        th:text="${#temporals.format(producto.fechaCreacion, 'HH:mm')}">HORA</small>
+                                </td>
                                 <td class="justify-content-center text-center">
                                     <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
-                                        data-bs-target="#modalEditar" title="Editar" data-entidad="producto"
+                                        data-bs-target="#modalEditar" data-entidad="producto"
                                         th:data-id="${producto.idProducto}" th:data-sku="${producto.sku}"
                                         th:data-nombre="${producto.nombre}"
                                         th:data-descripcion="${producto.descripcion}"
                                         th:data-precio="${producto.precio}"
-                                        th:data-id-categoria="${producto.categoria?.idCategoria}">
+                                        th:data-id-categoria="${producto.categoria?.idCategoria}" title="Editar">
                                         <span><i class="bi bi-pencil-square"></i></span>
                                     </button>
                                     <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
-                                        data-entidad="producto" th:data-id="${producto.idProducto}"
-                                        th:data-nombre="${producto.nombre}" th:data-sku="${producto.sku}"
-                                        th:data-categoria="${producto.categoria?.nombre}"
-                                        th:data-precio="${producto.precio}" data-bs-target="#modalEliminar"
-                                        title="Eliminar">
+                                        data-bs-target="#modalEliminar" data-entidad="producto"
+                                        th:data-id="${producto.idProducto}" th:data-nombre="${producto.nombre}"
+                                        th:data-sku="${producto.sku}" th:data-categoria="${producto.categoria?.nombre}"
+                                        th:data-precio="${producto.precio}" title="Eliminar">
                                         <span><i class="bi bi-trash3-fill"></i></span>
                                     </button>
                                 </td>

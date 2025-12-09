@@ -1,7 +1,5 @@
 package com.istore.appweb.controllers.administrador;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +9,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.istore.appweb.DTO.pedidos.PedidoAgregarDTO;
 import com.istore.appweb.DTO.pedidos.PedidoEditarDTO;
@@ -19,7 +16,6 @@ import com.istore.appweb.DTO.pedidos.PedidoEliminarDTO;
 import com.istore.appweb.DTO.pedidosItems.PedidoItemAgregarDTO;
 import com.istore.appweb.DTO.pedidosItems.PedidoItemEditarDTO;
 import com.istore.appweb.entities.Pedidos;
-import com.istore.appweb.entities.PedidosItems;
 import com.istore.appweb.repositories.EstadosComprasRepository;
 import com.istore.appweb.repositories.MetodosPagosRepository;
 import com.istore.appweb.repositories.ProductosRepository;
