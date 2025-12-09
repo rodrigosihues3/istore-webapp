@@ -399,8 +399,8 @@
             </div>
 
             <div class="col-4">
-              <label class="form-label ms-2 mt-2">Estado del Pedido</label>
-              <select class="form-select" th:field="*{idEstadoCompra}"
+              <label class="form-label ms-2 mt-2" for="edit_idEstadoCompra">Estado del Pedido</label>
+              <select class="form-select" th:field="*{idEstadoCompra}" id="edit_idEstadoCompra"
                 th:classappend="${#fields.hasErrors('idEstadoCompra')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 required>
                 <option th:each="estado : ${estadosCompras}" th:value="${estado.idEstadoCompra}"
@@ -411,8 +411,8 @@
             </div>
 
             <div class="col-4">
-              <label class="form-label ms-2 mt-2">Método de Pago</label>
-              <select class="form-select" th:field="*{idMetodoPago}"
+              <label class="form-label ms-2 mt-2" for="edit_idMetodoPago">Método de Pago</label>
+              <select class="form-select" th:field="*{idMetodoPago}" id="edit_idMetodoPago"
                 th:classappend="${#fields.hasErrors('idMetodoPago')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 required>
                 <option th:each="metodo : ${metodosPagos}" th:value="${metodo.idMetodoPago}" th:text="${metodo.nombre}">
@@ -423,8 +423,8 @@
             </div>
 
             <div class="col-4">
-              <label class="form-label ms-2 mt-2">Tipo de Comprobante</label>
-              <select class="form-select" th:field="*{idTipoComprobante}"
+              <label class="form-label ms-2 mt-2" for="edit_idTipoComprobante">Tipo de Comprobante</label>
+              <select class="form-select" th:field="*{idTipoComprobante}" id="edit_idTipoComprobante"
                 th:classappend="${#fields.hasErrors('idTipoComprobante')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 required>
                 <option th:each="comprobante : ${tiposComprobantes}" th:value="${comprobante.idTipoComprobante}"
@@ -471,10 +471,10 @@
 
           <div class="row">
             <div class="col-12">
-              <label class="form-label ms-2 mt-2">Producto</label>
-              <select class="form-select" th:field="*{idProducto}" id="itemEditProductoSelect"
+              <label class="form-label ms-2 mt-2" for="edit_item_idProducto">Producto</label>
+              <select class="form-select" th:field="*{idProducto}" id="edit_item_idProducto"
                 th:classappend="${#fields.hasErrors('idProducto')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
-                required>
+                required onchange="actualizarPrecioItem('edit')">
                 <option th:each="producto : ${productos}" th:value="${producto.idProducto}" th:text="${producto.nombre}"
                   th:data-precio="${producto.precio}">
                 </option>
@@ -484,26 +484,26 @@
             </div>
 
             <div class="col-6">
-              <label class="form-label ms-2 mt-2">Cantidad</label>
+              <label class="form-label ms-2 mt-2" for="edit_item_cantidad">Cantidad</label>
               <input type="number" class="form-control"
                 th:classappend="${#fields.hasErrors('cantidad')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
-                th:field="*{cantidad}" id="itemEditCantidadInput" min="1" required>
+                th:field="*{cantidad}" id="edit_item_cantidad" min="1" required oninput="calcularTotalItem('edit')">
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('cantidad')}"
                 th:errors="*{cantidad}"></div>
             </div>
 
             <div class="col-6">
-              <label class="form-label ms-2 mt-2">Precio Unitario (S/.)</label>
+              <label class="form-label ms-2 mt-2" for="edit_item_precio">Precio Unitario (S/.)</label>
               <input type="number" class="form-control" step="0.01"
                 th:classappend="${#fields.hasErrors('precio')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
-                th:field="*{precio}" id="itemEditPrecioInput" min="0.01" required>
+                th:field="*{precio}" id="edit_item_precio" min="0.01" required oninput="calcularTotalItem('edit')">
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}">
               </div>
             </div>
 
             <div class="col-4">
-              <label class="form-label ms-2 mt-2">Total Item (Preview)</label>
-              <input type="text" class="form-control" id="itemEditTotalPreview" value="S/ 0.00" disabled readonly
+              <label class="form-label ms-2 mt-2" for="edit_item_totalPreview">Total Item (Preview)</label>
+              <input type="text" class="form-control" id="edit_item_totalPreview" value="S/ 0.00" disabled readonly
                 style="font-weight: bold; background-color: #e9ecef;">
             </div>
           </div>

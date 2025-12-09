@@ -167,7 +167,32 @@ function configurarDelegacionEventos() {
 
           break;
 
-        // AGREGA AQUÍ OTROS CASOS (producto, pedido, etc.)
+        case "pedido":
+          safelySetValue(modal, "input[name='idPedido']", boton.dataset.id);
+
+          // Campos de solo lectura (usamos ID porque no se envían en el form)
+          safelySetValue(modal, "#editPedidoUsuarioEmail", boton.dataset.usuarioEmail);
+          safelySetValue(modal, "#editPedidoUsuarioNombreUsuario", boton.dataset.usuario);
+          safelySetValue(modal, "#editPedidoUsuarioNombre", boton.dataset.usuarioNombrecompleto);
+
+          // Selects editables
+          safelySetValue(modal, "select[name='idEstadoCompra']", boton.dataset.idEstadoCompra);
+          safelySetValue(modal, "select[name='idMetodoPago']", boton.dataset.idMetodoPago);
+          safelySetValue(modal, "select[name='idTipoComprobante']", boton.dataset.idTipoComprobante);
+          break;
+
+        case "pedidoItem":
+          safelySetValue(modal, "input[name='idPedidoItem']", boton.dataset.idItem);
+          safelySetValue(modal, "select[name='idProducto']", boton.dataset.idProducto);
+          safelySetValue(modal, "input[name='cantidad']", boton.dataset.cantidad);
+          safelySetValue(modal, "input[name='precio']", boton.dataset.precio);
+
+          // Calcular el total preview manualmente al abrir para que no salga vacío
+          const cant = parseFloat(boton.dataset.cantidad) || 0;
+          const prec = parseFloat(boton.dataset.precio) || 0;
+          const total = cant * prec;
+          safelySetValue(modal, "#edit_item_totalPreview", 'S/ ' + total.toFixed(2));
+          break;
       }
     }
   });
@@ -216,7 +241,24 @@ function configurarDelegacionEventos() {
           safelySetValue(modal, "#del_id", boton.dataset.id);
 
           break;
-        // AGREGA AQUÍ OTROS CASOS (producto, pedido, etc.)
+
+        case "pedido":
+          safelySetText(modal, "#del_idSpan", boton.dataset.id);
+          safelySetText(modal, "#del_total", 'S/ ' + parseFloat(boton.dataset.total).toFixed(2));
+          safelySetText(modal, "#del_estadoCompra", boton.dataset.estadoCompra);
+          safelySetText(modal, "#del_metodoPago", boton.dataset.metodoPago);
+          safelySetText(modal, "#del_usuarioNombreCompleto", boton.dataset.usuarioNombrecompleto);
+          safelySetText(modal, "#del_usuario", boton.dataset.usuario);
+          safelySetText(modal, "#del_usuarioEmail", boton.dataset.usuarioEmail);
+          safelySetValue(modal, "#del_id", boton.dataset.id);
+          break;
+
+        case "pedidoItem":
+          safelySetText(modal, "#del_idSpan", boton.dataset.idItem);
+          safelySetText(modal, "#del_productoNombre", boton.dataset.productoNombre);
+          safelySetText(modal, "#del_totalItem", 'S/ ' + parseFloat(boton.dataset.totalItem).toFixed(2));
+          safelySetValue(modal, "#del_id", boton.dataset.idItem);
+          break;
       }
     }
   });
@@ -314,5 +356,57 @@ function cargarVista(nombreVista, urlFragmento, elementoLink) {
       .catch(err => {
         contenedorDinamico.innerHTML = `<div class="alert alert-danger m-3">Error de carga: ${err.message}</div>`;
       });
+  }
+}
+
+/**
+ * ====================================================================
+ * LÓGICA DE CÁLCULO DE TOTALES (PEDIDOS)
+ * ====================================================================
+ */
+
+// Esta función debe llamarse desde el HTML: onchange="actualizarPrecioItem('add')"
+function actualizarPrecioItem(modo) { // modo puede ser 'add' o 'edit'
+  const prefijo = (modo === 'add') ? 'add_item_' : 'edit_item_'; // Ajusta según los IDs del modal
+
+  const idSelect = prefijo + 'idProducto';
+  const idPrecio = prefijo + 'precio';
+
+  const select = document.getElementById(idSelect);
+  const inputPrecio = document.getElementById(idPrecio);
+
+  if (select && inputPrecio) {
+    const opcionSeleccionada = select.options[select.selectedIndex];
+    const precio = opcionSeleccionada.getAttribute('data-precio');
+
+    if (precio) {
+      inputPrecio.value = parseFloat(precio).toFixed(2);
+    } else {
+      inputPrecio.value = '';
+    }
+    // Recalcular total inmediatamente
+    calcularTotalItem(modo);
+  }
+}
+
+// Esta función se llama: oninput="calcularTotalItem('add')"
+function calcularTotalItem(modo) {
+  // IDs basados en los modales
+  const prefijo = (modo === 'add') ? 'add_item_' : 'edit_item_';
+
+  const idCantidad = prefijo + 'cantidad';
+  const idPrecio = prefijo + 'precio';
+  const idTotal = prefijo + 'totalPreview';
+
+  const inputCantidad = document.getElementById(idCantidad);
+  const inputPrecio = document.getElementById(idPrecio);
+  const inputTotal = document.getElementById(idTotal);
+
+  if (inputCantidad && inputPrecio && inputTotal) {
+    const cantidad = parseFloat(inputCantidad.value) || 0;
+    const precio = parseFloat(inputPrecio.value) || 0;
+    const total = cantidad * precio;
+
+    inputTotal.value = `S/ ${total.toFixed(2)}`;
   }
 }

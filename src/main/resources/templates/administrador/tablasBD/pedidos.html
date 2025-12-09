@@ -1,25 +1,22 @@
-<!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
-<head th:replace="~{fragments/heads :: cabeceraPrincipal('BD - Pedidos')}"></head>
-
-<body class="bg-light d-flex flex-column min-vh-100" th:attr="data-mostrar-modal=${mostrarModal}">
-
-  <!-- NAVBAR -->
-  <header class="sticky-top">
-    <nav th:replace="~{fragments/navbars :: navbarPrincipal}">
-    </nav>
-  </header>
-
+<div th:fragment="tablaPedidos" class="container-fluid animate__animated animate__fadeIn"
+  th:attr="data-mostrar-modal=${mostrarModal}">
   <!-- CONTENIDO -->
-  <main class="container-fluid px-5 my-5">
+  <main class="container-fluid px-4 my-4">
     <div th:if="${errorGeneral}" class="alert alert-danger alert-dismissible fade show" role="alert">
       <span th:text="${errorGeneral}"></span>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
+    <div th:if="${errorNullAgregar}" class="alert alert-danger alert-dismissible fade show" role="alert">
+      <i class="bi bi-exclamation-triangle-fill me-2"></i> <span th:text="${errorNullAgregar}"></span>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div th:if="${errorNullEditar}" class="alert alert-danger alert-dismissible fade show" role="alert">
+      <i class="bi bi-exclamation-triangle-fill me-2"></i> <span th:text="${errorNullEditar}"></span>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
 
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h1 class="fw-bold">TABLA PEDIDOS</h1>
+      <h1 class="fw-bold">GESTIÓN DE PEDIDOS</h1>
       <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAgregar">
         <span><i class="bi bi-database-fill-add me-2"></i><span> Agregar
       </button>
@@ -29,57 +26,74 @@
     <div class="card shadow-sm border-0">
       <div class="card-body">
         <div class="table-responsive">
-          <table class="table table-hover align-middle">
+          <table class="table table-hover align-middle mb-0">
             <thead class="table-light">
               <tr>
                 <th>ID</th>
-                <th>CLIENTE</th>
-                <th>USUARIO</th>
-                <th>CORREO</th>
+                <th>CLIENTE / USUARIO</th>
                 <th class="text-center">TOTAL</th>
-                <th>MÉTODO DE PAGO</th>
-                <th>COMPROBANTE</th>
                 <th>ESTADO</th>
-                <th>ÚLTIMA ACTUALIZACIÓN</th>
-                <th>FECHA DE CREACIÓN</th>
+                <th>MÉTODO DE PAGO / COMPROBANTE</th>
+                <th>FECHA</th>
                 <th class="text-center">Acciones</th>
               </tr>
             </thead>
-            <tbody style="font-size: .95rem;">
+            <tbody>
               <tr th:each="pedido : ${pedidos}">
-                <td th:text="${pedido.idPedido}">ID</td>
-                <td th:text="${pedido.usuario?.nombres + ' ' + pedido.usuario?.apellidos}">CLIENTE</td>
-                <td th:text="${pedido.usuario?.nombreUsuario}">USUARIO</td>
-                <td th:text="${pedido.usuario?.email}">CORREO</td>
-                <td th:text="${'S/. ' + #numbers.formatDecimal(pedido.total, 1, 2, 'COMMA')}">TOTAL</td>
-                <td th:text="${pedido.metodoPago?.nombre}">MÉTODO DE PAGO</td>
-                <td th:text="${pedido.tipoComprobante?.nombre}">COMPROBANTE</td>
-                <td th:text="${pedido.estadoCompra?.nombre}">ESTADO</td>
-                <td th:text="${#temporals.format(pedido.fechaActualizacion, 'dd/MM/yyyy HH:mm')}">ÚLTIMA ACTUALIZACIÓN
+                <td class="fw-bold text-secondary" th:text="${pedido.idPedido}">ID</td>
+                <td>
+                  <div class="d-flex flex-column">
+                    <span class="fw-bold" th:text="${pedido.usuario?.nombres + ' ' + pedido.usuario?.apellidos}">CLIENTE
+                    </span>
+                    <small class="text-muted">
+                      <span th:text="${pedido.usuario?.email}" th:title="${pedido.usuario?.nombreUsuario}">CORREO</span>
+                    </small>
+                  </div>
                 </td>
-                <td th:text="${#temporals.format(pedido.fechaCreacion, 'dd/MM/yyyy HH:mm')}">FECHA DE CREACIÓN</td>
-                <td class="justify-content-center text-center">
-                  <a th:href="@{/admin/pedidos/detalles/{id}(id=${pedido.idPedido})}" class="btn btn-sm btn-info"
-                    title="Ver Detalles (Items)">
-                    <span><i class="bi bi-list-ul"></i></span>
-                  </a>
-                  <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#modalEditar" title="Editar" data-entidad="pedido" th:data-id="${pedido.idPedido}"
+                <td class="fw-bold text-success"
+                  th:text="${'S/. ' + #numbers.formatDecimal(pedido.total, 1, 2, 'COMMA')}">TOTAL
+                </td>
+                <td>
+                  <span class="badge rounded-pill border"
+                    th:classappend="${pedido.estadoCompra?.nombre == 'ENTREGADO' ? 'bg-success-subtle text-success border-success' : 'bg-light text-dark'}"
+                    th:text="${pedido.estadoCompra?.nombre}">ESTADO
+                  </span>
+                </td>
+                <td>
+                  <div class="small" th:text="${pedido.metodoPago?.nombre}">MÉTODO DE PAGO</div>
+                  <div class="small text-muted" th:text="${pedido.tipoComprobante?.nombre}">COMPROBANTE</div>
+                </td>
+                <td>
+                  <div class="small" th:text="${#temporals.format(pedido.fechaCreacion, 'dd/MM/yyyy')}">FECHA</div>
+                  <small class="text-muted" th:text="${#temporals.format(pedido.fechaCreacion, 'HH:mm')}">HORA</small>
+                </td>
+                <td class="text-center">
+                  <button type="button" class="btn btn-sm btn-info text-white me-1"
+                    th:onclick="'cargarVista(\'detallePedido\', \'/admin/pedidos/detalles/' + ${pedido.idPedido} + '\', null)'"
+                    title="Ver Items">
+                    <i class="bi bi-list-ul"></i>
+                  </button>
+
+                  <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
+                    data-bs-target="#modalEditar" data-entidad="pedido" th:data-id="${pedido.idPedido}"
                     th:data-id-metodo-pago="${pedido.metodoPago?.idMetodoPago}"
                     th:data-id-tipo-comprobante="${pedido.tipoComprobante?.idTipoComprobante}"
                     th:data-id-estado-compra="${pedido.estadoCompra?.idEstadoCompra}" th:data-total="${pedido.total}"
                     th:data-usuario-nombreCompleto="${pedido.usuario?.nombres + ' ' + pedido.usuario?.apellidos}"
-                    th:data-usuario="${pedido.usuario?.nombreUsuario}" th:data-usuario-email="${pedido.usuario?.email}">
-                    <span><i class="bi bi-pencil-square"></i></span>
+                    th:data-usuario="${pedido.usuario?.nombreUsuario}" th:data-usuario-email="${pedido.usuario?.email}"
+                    title="Editar Cabecera">
+                    <i class="bi bi-pencil-square"></i>
                   </button>
-                  <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                    data-bs-target="#modalEliminar" title="Eliminar" data-entidad="pedido"
-                    th:data-id="${pedido.idPedido}" th:data-metodo-pago="${pedido.metodoPago?.nombre}"
+
+                  <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
+                    data-bs-target="#modalEliminar" data-entidad="pedido" th:data-id="${pedido.idPedido}"
+                    th:data-metodo-pago="${pedido.metodoPago?.nombre}"
                     th:data-tipo-comprobante="${pedido.tipoComprobante?.nombre}"
                     th:data-estado-compra="${pedido.estadoCompra?.nombre}" th:data-total="${pedido.total}"
                     th:data-usuario-nombreCompleto="${pedido.usuario?.nombres + ' ' + pedido.usuario?.apellidos}"
-                    th:data-usuario="${pedido.usuario?.nombreUsuario}" th:data-usuario-email="${pedido.usuario?.email}">
-                    <span><i class="bi bi-trash3-fill"></i></span>
+                    th:data-usuario="${pedido.usuario?.nombreUsuario}" th:data-usuario-email="${pedido.usuario?.email}"
+                    title="Eliminar Pedido">
+                    <i class="bi bi-trash3"></i>
                   </button>
                 </td>
               </tr>
@@ -98,22 +112,7 @@
   </main>
 
   <!-- MODALES -->
-  <!-- Modal Agregar -->
   <div th:replace="~{fragments/adminBD/modalAgregarRegistro :: modalAgregarPedido}"></div>
-
-  <!-- Modal Editar -->
   <div th:replace="~{fragments/adminBD/modalEditarRegistro :: modalEditarPedido}"></div>
-
-  <!-- Modal Eliminar -->
   <div th:replace="~{fragments/adminBD/modalEliminarRegistro :: modalEliminarPedido}"></div>
-
-  <!-- FOOTER -->
-  <footer th:replace="~{fragments/footers :: footerAdmin}"></footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-  <script th:src="@{/js/administrador/index-admin.js}"></script>
-  <script th:src="@{/js/administrador/modalEditarRegistro.js}"></script>
-  <script th:src="@{/js/administrador/modalEliminarRegistro.js}"></script>
-</body>
-
-</html>
+</div>

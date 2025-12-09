@@ -34,9 +34,8 @@ import jakarta.validation.Valid;
 @RequestMapping("/admin/pedidos")
 public class AdminPedidosController {
 
-  private final String CARPETA_BASE = "administrador/tablasBD/";
-  private final String VISTA_LISTAR = CARPETA_BASE + "pedidos";
-  private final String REDIRECCIONAR = "redirect:/admin/pedidos";
+  private final String VISTA_FRAGMENTO_LISTA = "administrador/tablasBD/pedidos :: tablaPedidos";
+  private final String VISTA_FRAGMENTO_DETALLE = "administrador/tablasBD/detalles-pedido :: contenidoDetalle";
 
   @Autowired
   private PedidosServices servicio;
@@ -59,11 +58,27 @@ public class AdminPedidosController {
   @Autowired
   private ProductosRepository repoProductos;
 
+  // Endoint AJAX
+  @GetMapping("/tabla")
+  public String obtenerTodo(Model model) {
+    prepararVista(model);
+
+    return VISTA_FRAGMENTO_LISTA;
+  }
+
+  // 2. DETALLE DEL PEDIDO (AJAX)
+  @GetMapping("/detalles/{idPedido}")
+  public String verDetallesPedido(@PathVariable("idPedido") Integer idPedido, Model model) {
+    prepararVistaDetalle(idPedido, model);
+
+    return VISTA_FRAGMENTO_DETALLE;
+  }
+
   @GetMapping
   public String listarTodo(Model model) {
     prepararVista(model);
 
-    return VISTA_LISTAR;
+    return "redirect:/admin";
   }
 
   @PostMapping("/agregar")
@@ -71,30 +86,27 @@ public class AdminPedidosController {
       BindingResult result,
       Model model) {
 
-    // Manejo de error de validación
     if (result.hasErrors()) {
-      model.addAttribute("pedidoAgregarDto", pedidoAgregarDto);
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalAgregar");
 
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO_LISTA;
     }
 
-    // Manejo de error de servicio
     try {
       servicio.create(pedidoAgregarDto);
     } catch (RuntimeException e) {
-      // Captura "Usuario no encontrado", "MetodoPago no encontrado", etc.
       model.addAttribute("errorNullAgregar", e.getMessage());
-
-      model.addAttribute("pedidoAgregarDto", pedidoAgregarDto);
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalAgregar");
 
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO_LISTA;
     }
 
-    return REDIRECCIONAR;
+    model.addAttribute("pedidoAgregarDto", new PedidoAgregarDTO());
+    prepararVista(model);
+
+    return VISTA_FRAGMENTO_LISTA;
   }
 
   @PostMapping("/editar")
@@ -103,33 +115,34 @@ public class AdminPedidosController {
       Model model) {
 
     if (result.hasErrors()) {
-      model.addAttribute("pedidoEditarDto", pedidoEditarDto);
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalEditar");
-      return VISTA_LISTAR;
+
+      return VISTA_FRAGMENTO_LISTA;
     }
 
     try {
       servicio.update(pedidoEditarDto);
     } catch (RuntimeException e) {
-      // Captura "Usuario no encontrado", "MetodoPago no encontrado", etc.
       model.addAttribute("errorNullEditar", e.getMessage());
-
-      model.addAttribute("pedidoEditarDto", pedidoEditarDto);
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalEditar");
 
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO_LISTA;
     }
 
-    return REDIRECCIONAR;
+    model.addAttribute("pedidoEditarDto", new PedidoEditarDTO());
+    prepararVista(model);
+
+    return VISTA_FRAGMENTO_LISTA;
   }
 
   @PostMapping("/eliminar")
-  public String eliminar(@ModelAttribute PedidoEliminarDTO pedidoEliminarDTO) {
+  public String eliminar(@ModelAttribute PedidoEliminarDTO pedidoEliminarDTO, Model model) {
     servicio.deleteById(pedidoEliminarDTO.getIdPedido());
+    prepararVista(model);
 
-    return REDIRECCIONAR;
+    return VISTA_FRAGMENTO_LISTA;
   }
 
   private void prepararVista(Model model) {
@@ -156,40 +169,27 @@ public class AdminPedidosController {
    * ###################################################
    */
 
-  @GetMapping("/detalles/{idPedido}")
-  public String verDetallesPedido(@PathVariable("idPedido") Integer idPedido,
-      Model model,
-      RedirectAttributes redirectAttributes) {
+  // Este método público será usado también por el controlador de Items
+  public void prepararVistaDetalle(Integer idPedido, Model model) {
     try {
       Pedidos pedido = servicio.getById(idPedido);
       model.addAttribute("pedido", pedido);
-
-      // Cargar los Items (Detalle)
-      List<PedidosItems> items = servicioPedidosItems.getAllByIdPedido(idPedido);
-      model.addAttribute("pedidoItems", items);
-
+      model.addAttribute("pedidoItems", servicioPedidosItems.getAllByIdPedido(idPedido));
     } catch (RuntimeException e) {
-      // Si el pedido no existe, redirigimos a la lista principal
-      redirectAttributes.addFlashAttribute("errorGeneral", "Error: " + e.getMessage());
-
-      return REDIRECCIONAR;
+      model.addAttribute("errorGeneral", "Error al cargar pedido: " + e.getMessage());
     }
 
     if (!model.containsAttribute("pedidoItemAgregarDto")) {
-      PedidoItemAgregarDTO pedidoItemAgregarDTO = new PedidoItemAgregarDTO();
-      pedidoItemAgregarDTO.setCantidad(1);
-
-      model.addAttribute("pedidoItemAgregarDto", pedidoItemAgregarDTO);
+      PedidoItemAgregarDTO dto = new PedidoItemAgregarDTO();
+      dto.setCantidad(1);
+      // Importante: Pre-llenar el ID del pedido para el formulario
+      dto.setIdPedido(idPedido);
+      model.addAttribute("pedidoItemAgregarDto", dto);
     }
     if (!model.containsAttribute("pedidoItemEditarDto")) {
       model.addAttribute("pedidoItemEditarDto", new PedidoItemEditarDTO());
     }
 
-    // Cargar la lista de Productos para el <select> del modal "Agregar Item"
     model.addAttribute("productos", repoProductos.findAll());
-
-    // Retornar la nueva vista HTML
-    return "tablasBD/detalles-pedido";
   }
-
 }

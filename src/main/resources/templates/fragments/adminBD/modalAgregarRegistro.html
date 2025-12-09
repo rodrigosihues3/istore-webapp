@@ -334,6 +334,7 @@
 </div>
 
 
+
 <!-- MODAL AGREGAR PEDIDO -->
 <div th:fragment="modalAgregarPedido" class="modal fade" id="modalAgregar" tabindex="-1">
   <div class="modal-dialog modal-xl modal-dialog-centered">
@@ -344,7 +345,7 @@
         <button type="button" class="btn-close bg-light" data-bs-dismiss="modal"></button>
       </div>
 
-      <div class="m-3">
+      <div class="container mt-3">
         <div th:if="${errorNullAgregar}" class="alert alert-danger alert-dismissible fade show" role="alert">
           <strong>Error:</strong> <span th:text="${errorNullAgregar}"></span>
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -356,10 +357,11 @@
           <div class="row">
 
             <div class="col-6">
-              <label class="form-label ms-2 mt-2">Usuario (Cliente)</label>
+              <label class="form-label ms-2 mt-2" for="add_idUsuario">Usuario (Cliente)</label>
               <select class="form-select" th:field="*{idUsuario}" id="add_idUsuario"
                 th:classappend="${#fields.hasErrors('idUsuario')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 required>
+                <option value="" disabled selected>-- Selecciona un usuario --</option>
                 <option th:each="usuario : ${usuarios}" th:value="${usuario.idUsuario}"
                   th:text="${usuario.nombres + ' ' + usuario.apellidos + ' (' + usuario.nombreUsuario + ')'}"></option>
               </select>
@@ -368,10 +370,11 @@
             </div>
 
             <div class="col-6">
-              <label class="form-label ms-2 mt-2">Estado del Pedido</label>
-              <select class="form-select" th:field="*{idEstadoCompra}" id="add_isEstadoCompra"
+              <label class="form-label ms-2 mt-2" for="add_idEstadoCompra">Estado del Pedido</label>
+              <select class="form-select" th:field="*{idEstadoCompra}" id="add_idEstadoCompra"
                 th:classappend="${#fields.hasErrors('idEstadoCompra')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 required>
+                <option value="" disabled selected>-- Selecciona un estado --</option>
                 <option th:each="estado : ${estadosCompras}" th:value="${estado.idEstadoCompra}"
                   th:text="${estado.nombre}"></option>
               </select>
@@ -380,7 +383,7 @@
             </div>
 
             <div class="col-6">
-              <label class="form-label ms-2 mt-2">Método de Pago</label>
+              <label class="form-label ms-2 mt-2" for="add_idMetodoPago">Método de Pago</label>
               <select class="form-select" th:field="*{idMetodoPago}" id="add_idMetodoPago"
                 th:classappend="${#fields.hasErrors('idMetodoPago')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 required>
@@ -393,8 +396,8 @@
             </div>
 
             <div class="col-6">
-              <label class="form-label ms-2 mt-2">Tipo de Comprobante</label>
-              <select class="form-select" th:field="*{idTipoComprobante}"
+              <label class="form-label ms-2 mt-2" for="add_idTipoComprobante">Tipo de Comprobante</label>
+              <select class="form-select" th:field="*{idTipoComprobante}" id="add_idTipoComprobante"
                 th:classappend="${#fields.hasErrors('idTipoComprobante')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 required>
                 <option value="" disabled selected>-- Selecciona un comprobante --</option>
@@ -418,6 +421,7 @@
 </div>
 
 
+
 <!-- MODAL AGREGAR PEDIDO ITEM -->
 <div th:fragment="modalAgregarPedidoItem" class="modal fade" id="modalAgregar" tabindex="-1">
   <div class="modal-dialog modal-xl modal-dialog-centered">
@@ -428,7 +432,7 @@
         <button type="button" class="btn-close bg-light" data-bs-dismiss="modal"></button>
       </div>
 
-      <div class="m-3">
+      <div class="container mt-3">
         <div th:if="${errorNullAgregarPedidoItem}" class="alert alert-danger alert-dismissible fade show" role="alert">
           <strong>Error:</strong> <span th:text="${errorNullAgregarPedidoItem}"></span>
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -439,15 +443,16 @@
         th:object="${pedidoItemAgregarDto}">
         <div class="modal-body px-5">
 
-          <input type="hidden" name="idPedido" th:value="${pedido.idPedido}">
+          <input type="hidden" name="idPedido" th:value="${pedido != null ? pedido.idPedido : ''}">
 
           <div class="row">
 
             <div class="col-12">
-              <label class="form-label ms-2 mt-2">Producto</label>
-              <select class="form-select" th:field="*{idProducto}" id="itemAddProductoSelect"
+              <label class="form-label ms-2 mt-2" for="add_item_idProducto">Producto</label>
+              <select class="form-select" th:field="*{idProducto}" id="add_item_idProducto"
                 th:classappend="${#fields.hasErrors('idProducto')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
-                required>
+                required onchange="actualizarPrecioItem('add')">
+                <option th:value="''" selected disabled>-- Selecciona un producto --</option>
                 <option th:each="producto : ${productos}" th:value="${producto.idProducto}" th:text="${producto.nombre}"
                   th:data-precio="${producto.precio}"> </option>
               </select>
@@ -456,26 +461,28 @@
             </div>
 
             <div class="col-6">
-              <label class="form-label ms-2 mt-2">Cantidad</label>
+              <label class="form-label ms-2 mt-2" for="add_item_cantidad">Cantidad</label>
               <input type="number" class="form-control"
                 th:classappend="${#fields.hasErrors('cantidad')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
-                placeholder="Ingresa la cantidad" th:field="*{cantidad}" id="itemAddCantidadInput" min="1" required>
+                placeholder="Ingresa la cantidad" th:field="*{cantidad}" id="add_item_cantidad" min="1" required
+                oninput="calcularTotalItem('add')">
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('cantidad')}"
                 th:errors="*{cantidad}"></div>
             </div>
 
             <div class="col-6">
-              <label class="form-label ms-2 mt-2">Precio Unitario (S/.)</label>
+              <label class="form-label ms-2 mt-2" for="add_item_precio">Precio Unitario (S/.)</label>
               <input type="number" class="form-control" step="0.01"
                 th:classappend="${#fields.hasErrors('precio')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
-                placeholder="Ingresa el precio" th:field="*{precio}" id="itemAddPrecioInput" min="0.01" required>
+                placeholder="Ingresa el precio" th:field="*{precio}" id="add_item_precio" min="0.01" required
+                oninput="calcularTotalItem('add')">
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}">
               </div>
             </div>
 
             <div class="col-4">
-              <label class="form-label ms-2 mt-2">Total Item (Preview)</label>
-              <input type="text" class="form-control" id="itemAddTotalPreview" value="S/ 0.00" disabled readonly
+              <label class="form-label ms-2 mt-2" for="add_item_totalPreview">Total Item (Preview)</label>
+              <input type="text" class="form-control" id="add_item_totalPreview" value="S/ 0.00" disabled readonly
                 style="font-weight: bold; background-color: #e9ecef;">
             </div>
           </div>
@@ -489,6 +496,8 @@
     </div>
   </div>
 </div>
+
+
 
 <!-- AGREGAR CATEGORÍA -->
 <div th:fragment="modalAgregarCategoria" class="modal fade" id="modalAgregar" tabindex="-1">
@@ -521,6 +530,8 @@
     </div>
   </div>
 </div>
+
+
 
 <!-- AGREGAR PRODUCTO -->
 <div th:fragment="modalAgregarProducto" class="modal fade" id="modalAgregar" tabindex="-1">
