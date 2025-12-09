@@ -66,6 +66,9 @@
                         </li>
                         <!-- Opciones ADMINISTRADOR -->
                         <div sec:authorize="hasAnyRole('ADMINISTRADOR', 'OWNER')" class="border-bottom">
+                            <li><a class="dropdown-item" th:href="@{/admin}">
+                                    <span><i class="bi bi-database"></i></span> PANEL ADMIN</a>
+                            </li>
                             <li><a class="dropdown-item" th:href="@{/admin/usuarios}">
                                     <span><i class="bi bi-database"></i></span> Usuarios</a>
                             </li>

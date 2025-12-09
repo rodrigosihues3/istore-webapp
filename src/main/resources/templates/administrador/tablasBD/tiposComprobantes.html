@@ -1,18 +1,7 @@
-<!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
-<head th:replace="~{fragments/heads :: cabeceraPrincipal('BD - TiposComprobantes')}"></head>
-
-<body class="bg-light d-flex flex-column min-vh-100" th:attr="data-mostrar-modal=${mostrarModal}">
-
-  <!-- NAVBAR -->
-  <header class="sticky-top">
-    <nav th:replace="~{fragments/navbars :: navbarPrincipal}">
-    </nav>
-  </header>
-
+<div th:fragment="tablaTiposComprobantes" class="container-fluid animate__animated animate__fadeIn"
+  th:attr="data-mostrar-modal=${mostrarModal}">
   <!-- CONTENIDO -->
-  <main class="container-fluid px-5 my-5">
+  <main class="container-fluid px-4 my-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h1 class="fw-bold">Tabla Tipos de Comprobantes</h1>
       <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAgregar">
@@ -24,7 +13,7 @@
     <div class="card shadow-sm border-0">
       <div class="card-body">
         <div class="table-responsive">
-          <table class="table table-hover align-middle">
+          <table class="table table-hover align-middle mb-0">
             <thead class="table-light">
               <tr>
                 <th>ID</th>
@@ -40,12 +29,12 @@
                 <td th:text="${#temporals.format(tipoComprobante.fechaCreacion, 'dd/MM/yyyy HH:mm')}">Fecha registro
                 </td>
                 <td class="text-center">
-                  <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                  <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
                     data-bs-target="#modalEditar" title="Editar" data-entidad="tipoComprobante"
                     th:data-id="${tipoComprobante.idTipoComprobante}" th:data-nombre="${tipoComprobante.nombre}">
                     <span><i class="bi bi-pencil-square"></i></span>
                   </button>
-                  <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                  <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
                     data-entidad="tipoComprobante" th:data-id="${tipoComprobante.idTipoComprobante}"
                     th:data-nombre="${tipoComprobante.nombre}" data-bs-target="#modalEliminar" title="Eliminar">
                     <span><i class="bi bi-trash3-fill"></i></span>
@@ -67,22 +56,7 @@
   </main>
 
   <!-- MODALES -->
-  <!-- Modal Agregar -->
   <div th:replace="~{fragments/adminBD/modalAgregarRegistro :: modalAgregarTipoComprobante}"></div>
-
-  <!-- Modal Editar -->
   <div th:replace="~{fragments/adminBD/modalEditarRegistro :: modalEditarTipoComprobante}"></div>
-
-  <!-- Modal Eliminar -->
   <div th:replace="~{fragments/adminBD/modalEliminarRegistro :: modalEliminarTipoComprobante}"></div>
-
-  <!-- FOOTER -->
-  <footer th:replace="~{fragments/footers :: footerAdmin}"></footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-  <script th:src="@{/js/administrador/index-admin.js}"></script>
-  <script th:src="@{/js/administrador/modalEditarRegistro.js}"></script>
-  <script th:src="@{/js/administrador/modalEliminarRegistro.js}"></script>
-</body>
-
-</html>
+</div>

@@ -20,18 +20,25 @@ import jakarta.validation.Valid;
 @RequestMapping("/admin/colores")
 public class AdminColoresController {
 
-  private final String CARPETA_BASE = "tablasBD/";
-  private final String VISTA_LISTAR = CARPETA_BASE + "colores";
-  private final String REDIRECCIONAR = "redirect:/admin/colores";
+  private final String FRAGMENTO = "tablaColores";
+  private final String VISTA_FRAGMENTO = "administrador/tablasBD/colores :: " + FRAGMENTO;
 
   @Autowired
   private ColoresServices servicio;
+
+  // Enpoint AJAX
+  @GetMapping("/tabla")
+  public String obtenerTodo(Model model) {
+    prepararVista(model);
+
+    return VISTA_FRAGMENTO;
+  }
 
   @GetMapping
   public String listarTodo(Model model) {
     prepararVista(model);
 
-    return VISTA_LISTAR;
+    return "redirect:/admin";
   }
 
   @PostMapping("/agregar")
@@ -39,11 +46,10 @@ public class AdminColoresController {
       BindingResult result,
       Model model) {
     if (result.hasErrors()) {
-      model.addAttribute("colorAgregarDto", colorAgregarDto);
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalAgregar");
 
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO;
     }
 
     try {
@@ -55,14 +61,16 @@ public class AdminColoresController {
         result.rejectValue(partes[0], "error." + partes[0], partes[1]);
       }
 
-      model.addAttribute("colorAgregarDto", colorAgregarDto);
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalAgregar");
 
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO;
     }
 
-    return REDIRECCIONAR;
+    model.addAttribute("colorAgregarDto", new ColorAgregarDTO());
+    prepararVista(model);
+
+    return VISTA_FRAGMENTO;
   }
 
   @PostMapping("/editar")
@@ -70,11 +78,10 @@ public class AdminColoresController {
       BindingResult result,
       Model model) {
     if (result.hasErrors()) {
-      model.addAttribute("colorEditarDto", colorEditarDto);
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalEditar");
 
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO;
     }
 
     try {
@@ -82,25 +89,26 @@ public class AdminColoresController {
     } catch (IllegalArgumentException e) {
       String[] partes = e.getMessage().split(":", 2);
 
-      if (partes.length == 2) {
+      if (partes.length == 2)
         result.rejectValue(partes[0], "error." + partes[0], partes[1]);
-      }
 
-      model.addAttribute("colorEditarDto", colorEditarDto);
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalEditar");
 
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO;
     }
 
-    return REDIRECCIONAR;
+    prepararVista(model);
+
+    return VISTA_FRAGMENTO;
   }
 
   @PostMapping("/eliminar")
-  public String eliminar(@ModelAttribute ColorEliminarDTO colorDTO) {
+  public String eliminar(@ModelAttribute ColorEliminarDTO colorDTO, Model model) {
     servicio.deleteById(colorDTO.getIdColor());
+    prepararVista(model);
 
-    return REDIRECCIONAR;
+    return VISTA_FRAGMENTO;
   }
 
   private void prepararVista(Model model) {

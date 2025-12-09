@@ -1,0 +1,55 @@
+/* admin-layout.css */
+
+/* Ajuste para que el sidebar ocupe el alto disponible menos el espacio del navegador */
+.sidebar-container {
+  width: 260px;
+  min-height: 100vh;
+}
+
+/* Efecto hover suave usando tus variables */
+.nav-link-admin {
+  color: var(--text-secondary);
+  transition: all 0.2s ease-in-out;
+  border-radius: var(--radius-md);
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+
+.nav-link-admin:hover {
+  background-color: var(--gray-100);
+  color: var(--primary-700) !important;
+  transform: translateX(4px);
+  /* Pequeño desplazamiento a la derecha */
+}
+
+/* Estado Activo */
+.nav-link-admin.active {
+  background-color: var(--primary-50) !important;
+  color: var(--primary-600) !important;
+  font-weight: 600;
+}
+
+/* Animación de entrada para el contenido dinámico */
+.fade-in {
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Ajuste del Spinner */
+.spinner-container {
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

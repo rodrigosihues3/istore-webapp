@@ -23,9 +23,8 @@ import jakarta.validation.Valid;
 @RequestMapping("/admin/productos")
 public class AdminProductosController {
 
-  private final String CARPETA_BASE = "tablasBD/";
-  private final String VISTA_LISTAR = CARPETA_BASE + "productos";
-  private final String REDIRECCIONAR = "redirect:/admin/productos";
+  private final String FRAGMENTO = "tablaProductos";
+  private final String VISTA_FRAGMENTO = "administrador/tablasBD/productos :: " + FRAGMENTO;
 
   @Autowired
   private ProductosServices servicio;
@@ -33,10 +32,18 @@ public class AdminProductosController {
   @Autowired
   private CategoriasServices servicioCategorias;
 
+  // Enpoint AJAX
+  @GetMapping("/tabla")
+  public String obtenerTodo(Model model) {
+    prepararVista(model);
+
+    return VISTA_FRAGMENTO;
+  }
+
   @GetMapping
   public String listarTodo(Model model) {
     prepararVista(model);
-    return VISTA_LISTAR;
+    return "redirect:/admin";
   }
 
   @PostMapping("/agregar")
@@ -44,10 +51,9 @@ public class AdminProductosController {
       BindingResult result,
       Model model) {
     if (result.hasErrors()) {
-      model.addAttribute("productoAgregarDto", productoAgregarDto);
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalAgregar");
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO;
     }
 
     try {
@@ -58,13 +64,15 @@ public class AdminProductosController {
         result.rejectValue(partes[0], "error." + partes[0], partes[1]);
       }
 
-      model.addAttribute("productoAgregarDto", productoAgregarDto);
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalAgregar");
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO;
     }
 
-    return REDIRECCIONAR;
+    model.addAttribute("productoAgregarDto", new ProductoAgregarDTO());
+    prepararVista(model);
+
+    return VISTA_FRAGMENTO;
   }
 
   @PostMapping("/editar")
@@ -72,10 +80,9 @@ public class AdminProductosController {
       BindingResult result,
       Model model) {
     if (result.hasErrors()) {
-      model.addAttribute("productoEditarDto", productoEditarDto);
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalEditar");
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO;
     }
 
     try {
@@ -86,29 +93,34 @@ public class AdminProductosController {
         result.rejectValue(partes[0], "error." + partes[0], partes[1]);
       }
 
-      model.addAttribute("productoEditarDto", productoEditarDto);
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalEditar");
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO;
     }
 
-    return REDIRECCIONAR;
+    prepararVista(model);
+
+    return VISTA_FRAGMENTO;
   }
 
-@PostMapping("/eliminar")
-  public String eliminar(@ModelAttribute ProductoEliminarDTO productoEliminarDto, RedirectAttributes redirectAttributes) {
+  @PostMapping("/eliminar")
+  public String eliminar(@ModelAttribute ProductoEliminarDTO productoEliminarDto,
+      RedirectAttributes redirectAttributes, Model model) {
     try {
       servicio.deleteProducto(productoEliminarDto.getIdProducto());
       redirectAttributes.addFlashAttribute("mensajeExito", "Producto eliminado correctamente.");
     } catch (DataIntegrityViolationException e) {
       // Este error salta si el producto está en Pedidos, Carritos o Inventario
-      redirectAttributes.addFlashAttribute("mensajeError", "No se puede eliminar el producto porque tiene registros asociados (Pedidos, Inventario o Carritos).");
+      redirectAttributes.addFlashAttribute("mensajeError",
+          "No se puede eliminar el producto porque tiene registros asociados (Pedidos, Inventario o Carritos).");
     } catch (Exception e) {
       // Cualquier otro error imprevisto
       redirectAttributes.addFlashAttribute("mensajeError", "Ocurrió un error inesperado al intentar eliminar.");
     }
 
-    return REDIRECCIONAR;
+    prepararVista(model);
+
+    return VISTA_FRAGMENTO;
   }
 
   private void prepararVista(Model model) {

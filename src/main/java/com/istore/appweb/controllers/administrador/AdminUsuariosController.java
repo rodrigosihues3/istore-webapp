@@ -1,33 +1,24 @@
 package com.istore.appweb.controllers.administrador;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.istore.appweb.DTO.usuarios.UsuarioAgregarDTO;
-import com.istore.appweb.DTO.usuarios.UsuarioEditarDTO;
-import com.istore.appweb.DTO.usuarios.UsuarioEliminarDTO;
+import org.springframework.web.bind.annotation.*;
+import com.istore.appweb.DTO.usuarios.*;
 import com.istore.appweb.entities.Roles;
-import com.istore.appweb.services.RolesServices;
-import com.istore.appweb.services.UsuariosServices;
-
+import com.istore.appweb.services.*;
 import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/admin/usuarios")
 public class AdminUsuariosController {
 
-  private final String CARPETA_BASE = "tablasBD/";
-  private final String VISTA_LISTAR = CARPETA_BASE + "usuarios";
-  private final String REDIRECCIONAR = "redirect:/admin/usuarios";
+  // Ruta del fragmento
+  private final String FRAGMENTO = "tablaUsuarios";
+  private final String VISTA_FRAGMENTO = "administrador/tablasBD/usuarios :: " + FRAGMENTO;
 
   @Autowired
   private UsuariosServices servicio;
@@ -35,24 +26,30 @@ public class AdminUsuariosController {
   @Autowired
   private RolesServices servicioRoles;
 
+  // 1. Endpoint AJAX para el Menú Lateral
+  @GetMapping("/tabla")
+  public String obtenerTodo(Model model, Authentication auth) {
+    prepararVista(model, auth);
+
+    return VISTA_FRAGMENTO;
+  }
+
+  // 2. Endpoint "Fallback" (por si alguien entra por URL directa)
   @GetMapping
   public String listarTodo(Model model, Authentication auth) {
-    prepararVistaUsuarios(model, auth);
-
-    return VISTA_LISTAR;
+    // Redirigimos al dashboard para forzar la estructura
+    return "redirect:/admin";
   }
 
   @PostMapping("/agregar")
   public String agregar(@Valid @ModelAttribute("usuarioAgregarDto") UsuarioAgregarDTO usuarioAgregarDto,
-      BindingResult result,
-      Model model,
-      Authentication auth) {
+      BindingResult result, Model model, Authentication auth) {
+
     if (result.hasErrors()) {
-      model.addAttribute("usuarioAgregarDto", usuarioAgregarDto);
-      prepararVistaUsuarios(model, auth);
+      prepararVista(model, auth);
       model.addAttribute("mostrarModal", "#modalAgregar");
 
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO;
     }
 
     try {
@@ -60,31 +57,32 @@ public class AdminUsuariosController {
     } catch (IllegalArgumentException e) {
       String[] partes = e.getMessage().split(":", 2);
 
-      if (partes.length == 2) {
+      if (partes.length == 2)
         result.rejectValue(partes[0], "error." + partes[0], partes[1]);
-      }
 
-      model.addAttribute("usuarioAgregarDto", usuarioAgregarDto);
-      prepararVistaUsuarios(model, auth);
+      prepararVista(model, auth);
       model.addAttribute("mostrarModal", "#modalAgregar");
 
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO;
     }
 
-    return REDIRECCIONAR;
+    // Si paso las validaciones anteiores, entonces se sobrescribe el objeto que
+    // tiene los datos viejos con uno nuevo y limpio
+    model.addAttribute("usuarioAgregarDto", new UsuarioAgregarDTO());
+    prepararVista(model, auth);
+
+    return VISTA_FRAGMENTO;
   }
 
   @PostMapping("/editar")
   public String editar(@Valid @ModelAttribute("usuarioEditarDto") UsuarioEditarDTO usuarioEditarDto,
-      BindingResult result,
-      Model model,
-      Authentication auth) {
+      BindingResult result, Model model, Authentication auth) {
+
     if (result.hasErrors()) {
-      model.addAttribute("usuarioEditarDto", usuarioEditarDto);
-      prepararVistaUsuarios(model, auth);
+      prepararVista(model, auth);
       model.addAttribute("mostrarModal", "#modalEditar");
 
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO;
     }
 
     try {
@@ -92,54 +90,46 @@ public class AdminUsuariosController {
     } catch (IllegalArgumentException e) {
       String[] partes = e.getMessage().split(":", 2);
 
-      if (partes.length == 2) {
+      if (partes.length == 2)
         result.rejectValue(partes[0], "error." + partes[0], partes[1]);
-      }
 
-      model.addAttribute("usuarioEditarDto", usuarioEditarDto);
-      prepararVistaUsuarios(model, auth);
+      prepararVista(model, auth);
       model.addAttribute("mostrarModal", "#modalEditar");
 
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO;
     }
 
-    return REDIRECCIONAR;
+    prepararVista(model, auth);
+
+    return VISTA_FRAGMENTO;
   }
 
   @PostMapping("/eliminar")
-  public String eliminar(@ModelAttribute UsuarioEliminarDTO usuarioEliminarDto) {
+  public String eliminar(@ModelAttribute UsuarioEliminarDTO usuarioEliminarDto, Model model, Authentication auth) {
     servicio.deleteUsuario(usuarioEliminarDto.getIdUsuario());
+    prepararVista(model, auth);
 
-    return REDIRECCIONAR;
+    return VISTA_FRAGMENTO;
   }
 
-  private void prepararVistaUsuarios(Model model, Authentication auth) {
-    if (!model.containsAttribute("usuarioAgregarDto")) {
+  private void prepararVista(Model model, Authentication auth) {
+    if (!model.containsAttribute("usuarioAgregarDto"))
       model.addAttribute("usuarioAgregarDto", new UsuarioAgregarDTO());
-    }
-    if (!model.containsAttribute("usuarioEditarDto")) {
+    if (!model.containsAttribute("usuarioEditarDto"))
       model.addAttribute("usuarioEditarDto", new UsuarioEditarDTO());
-    }
 
-    // Obtener usuario actual
     var usuarioActualOpt = servicio.getUsuarioByNombreUsuario(auth.getName());
-
-    // Si existe, filtramos roles por nivel
     if (usuarioActualOpt.isPresent()) {
       var usuarioActual = usuarioActualOpt.get();
-      List<Roles> rolesDisponibles = servicioRoles.getRoles()
-          .stream()
-          .filter(rol -> rol.getNivel() <= usuarioActual.getRol().getNivel())
-          .toList();
+      // Lógica de filtrado de roles por nivel
+      List<Roles> rolesDisponibles = servicioRoles.getRoles().stream()
+          .filter(rol -> rol.getNivel() <= usuarioActual.getRol().getNivel()).toList();
 
       model.addAttribute("usuarioActual", usuarioActual);
       model.addAttribute("roles", rolesDisponibles);
     } else {
-      // Si no hay usuario logueado, evita NullPointerException
       model.addAttribute("roles", servicioRoles.getRoles());
     }
-
     model.addAttribute("usuarios", servicio.getUsuarios());
   }
-
 }

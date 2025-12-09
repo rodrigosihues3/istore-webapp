@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
-<head th:replace="~{fragments/heads :: cabeceraPrincipal('BD - Productos')}"></head>
-
-<body class="bg-light d-flex flex-column min-vh-100"
+<div th:fragment="tablaProductos" class="container-fluid animate__animated animate__fadeIn"
     th:attr="data-mostrar-modal=${mostrarModal}">
+    <!-- CONTENIDO -->
+    <main class="container-fluid px-4 my-4">
 
-    <header class="sticky-top">
-        <nav th:replace="~{fragments/navbars :: navbarPrincipal}">
-        </nav>
-    </header>
-
-    <main class="container-fluid px-5 my-5">
-        
         <div th:if="${mensajeExito}" class="alert alert-success alert-dismissible fade show" role="alert">
             <i class="bi bi-check-circle-fill me-2"></i>
             <span th:text="${mensajeExito}"></span>
@@ -26,16 +16,17 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 class="fw-bold">🛍️ Tabla Productos</h1>
+            <h1 class="fw-bold"> Tabla Productos</h1>
             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAgregar">
                 <span><i class="bi bi-database-fill-add me-2"></i></span> Agregar
             </button>
         </div>
 
+        <!-- Tabla -->
         <div class="card shadow-sm border-0">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-hover align-middle">
+                    <table class="table table-hover align-middle mb-0">
                         <thead class="table-light">
                             <tr>
                                 <th class="text-center">ID</th>
@@ -54,26 +45,24 @@
                                 <td th:text="${producto.sku}">SKU</td>
                                 <td th:text="${producto.nombre}">Nombre</td>
                                 <td th:text="${producto.descripcion}">Descripción</td>
-                                <td th:text="${#numbers.formatCurrency(producto.precio)}">Precio</td>
+                                <td th:text="${'S/. ' + #numbers.formatCurrency(producto.precio)}">Precio</td>
                                 <td th:text="${producto.categoria?.nombre}">Categoría</td>
-                                <td th:text="${#temporals.format(producto.fechaCreacion, 'dd/MM/yyyy HH:mm')}">Fecha registro</td>
+                                <td th:text="${#temporals.format(producto.fechaCreacion, 'dd/MM/yyyy HH:mm')}">Fecha
+                                    registro</td>
                                 <td class="justify-content-center text-center">
-                                    <button
-                                        type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalEditar"
-                                        title="Editar" data-entidad="producto" th:data-id="${producto.idProducto}"
-                                        th:data-sku="${producto.sku}"
+                                    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
+                                        data-bs-target="#modalEditar" title="Editar" data-entidad="producto"
+                                        th:data-id="${producto.idProducto}" th:data-sku="${producto.sku}"
                                         th:data-nombre="${producto.nombre}"
                                         th:data-descripcion="${producto.descripcion}"
                                         th:data-precio="${producto.precio}"
                                         th:data-id-categoria="${producto.categoria?.idCategoria}">
                                         <span><i class="bi bi-pencil-square"></i></span>
                                     </button>
-                                    <button
-                                        type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-entidad="producto"
-                                        th:data-id="${producto.idProducto}"
-                                        th:data-nombre="${producto.nombre}"
-                                        th:data-sku="${producto.sku}"
-                                        th:data-categoria="${producto.categoria?.nombre}"
+                                    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
+                                        data-entidad="producto" th:data-id="${producto.idProducto}"
+                                        th:data-nombre="${producto.nombre}" th:data-sku="${producto.sku}"
+                                        th:data-categoria="${producto.categoria?.nombre}" th:data-precio="${producto.precio}"
                                         data-bs-target="#modalEliminar" title="Eliminar">
                                         <span><i class="bi bi-trash3-fill"></i></span>
                                     </button>
@@ -92,18 +81,8 @@
         </div>
     </main>
 
+    <!-- MODALES -->
     <div th:replace="~{fragments/adminBD/modalAgregarRegistro :: modalAgregarProducto}"></div>
-
     <div th:replace="~{fragments/adminBD/modalEditarRegistro :: modalEditarProducto}"></div>
-
     <div th:replace="~{fragments/adminBD/modalEliminarRegistro :: modalEliminarProducto}"></div>
-
-    <footer th:replace="~{fragments/footers :: footerAdmin}"></footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-    <script th:src="@{/js/administrador/index-admin.js}"></script>
-    <script th:src="@{/js/administrador/modalEditarRegistro.js}"></script>
-    <script th:src="@{/js/administrador/modalEliminarRegistro.js}"></script>
-</body>
-
-</html>
+</div>

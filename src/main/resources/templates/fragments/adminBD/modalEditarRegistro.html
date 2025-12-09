@@ -16,18 +16,17 @@
 
       <form class="row g-3" method="post" th:action="@{/admin/usuarios/editar}" th:object="${usuarioEditarDto}">
         <div class="modal-body px-5">
-          <input type="hidden" th:field="*{idUsuario}">
+          <input type="hidden" th:field="*{idUsuario}" id="edit_idUsuario">
 
           <div class="row">
-            <!-- DATOS PERSONALES -->
             <div class="col-12">
               <h5 class="mt-3 mb-0 text-center">Datos personales</h5>
               <hr class="my-1">
             </div>
 
             <div class="col-6">
-              <label class="form-label ms-2 mt-2" for="nombres">Nombres</label>
-              <input type="text" class="form-control"
+              <label class="form-label ms-2 mt-2" for="edit_nombres">Nombres</label>
+              <input type="text" class="form-control" id="edit_nombres"
                 th:classappend="${#fields.hasErrors('nombres')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ingresa los nombres del usuario" th:field="*{nombres}" required>
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nombres')}"
@@ -35,8 +34,8 @@
             </div>
 
             <div class="col-6">
-              <label class="form-label ms-2 mt-2" for="apellidos">Apellidos</label>
-              <input type="text" class="form-control"
+              <label class="form-label ms-2 mt-2" for="edit_apellidos">Apellidos</label>
+              <input type="text" class="form-control" id="edit_apellidos"
                 th:classappend="${#fields.hasErrors('apellidos')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ingresa los apellidos del usuario" aria-label="Apellidos" th:field="*{apellidos}" required>
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('apellidos')}"
@@ -44,25 +43,25 @@
             </div>
 
             <div class="col-4">
-              <label class="form-label ms-2 mt-2" for="dni">DNI</label>
-              <input type="text" class="form-control"
+              <label class="form-label ms-2 mt-2" for="edit_dni">DNI</label>
+              <input type="text" class="form-control" id="edit_dni" minlength="8" maxlength="8"
                 th:classappend="${#fields.hasErrors('dni')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ingresa el DNI del usuario" th:field="*{dni}">
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></div>
             </div>
 
             <div class="col-8">
-              <label class="form-label ms-2 mt-2" for="email">Correo</label>
-              <input type="email" class="form-control"
+              <label class="form-label ms-2 mt-2" for="edit_email">Correo</label>
+              <input type="email" class="form-control" id="edit_email"
                 th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
-                placeholder="Ingresa el correo del usuario" th:field="*{email}" required autocomplete="off">
+                placeholder="Ingresa el correo del usuario" th:field="*{email}" autocomplete="off" required>
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
               </div>
             </div>
 
             <div class="col-4">
-              <label class="form-label ms-2 mt-2" for="telefono">Teléfono</label>
-              <input type="text" class="form-control"
+              <label class="form-label ms-2 mt-2" for="edit_telefono">Teléfono</label>
+              <input type="text" class="form-control" id="edit_telefono" minlength="9" maxlength="9"
                 th:classappend="${#fields.hasErrors('telefono')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ingresa el teléfono del usuario" th:field="*{telefono}">
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('telefono')}"
@@ -70,22 +69,21 @@
             </div>
 
             <div class="col-8">
-              <label class="form-label ms-2 mt-2" for="direccion">Dirección</label>
-              <input type="text" class="form-control"
+              <label class="form-label ms-2 mt-2" for="edit_direccion">Dirección</label>
+              <input type="text" class="form-control" id="edit_direccion"
                 th:classappend="${#fields.hasErrors('direccion')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ingresa la dirección del usuario" th:field="*{direccion}">
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('direccion')}"
                 th:errors="*{direccion}"></div>
             </div>
 
-            <!-- CREDENCIALES DE ACCESO -->
             <div class="col-12">
               <h5 class="mt-3 mb-0 text-center">Credenciales de acceso</h5>
               <hr class="my-1">
             </div>
             <div class="col-6">
-              <label class="form-label ms-2 mt-2" for="nombreUsuario">Usuario</label>
-              <input type="text" class="form-control"
+              <label class="form-label ms-2 mt-2" for="edit_nombreUsuario">Usuario</label>
+              <input type="text" class="form-control" id="edit_nombreUsuario"
                 th:classappend="${#fields.hasErrors('nombreUsuario')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ingresa el usuario" th:field="*{nombreUsuario}" required>
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nombreUsuario')}"
@@ -93,8 +91,8 @@
             </div>
 
             <div class="col-6">
-              <label class="form-label ms-2 mt-2" for="password">Contraseña</label>
-              <input type="password" class="form-control"
+              <label class="form-label ms-2 mt-2" for="edit_password">Contraseña</label>
+              <input type="password" class="form-control" id="edit_password"
                 th:classappend="${#fields.hasErrors('password')} ? 'is-invalid'"
                 placeholder="Dejar en blanco si no deseas cambiar la contraseña" th:field="*{password}"
                 autocomplete="new-password">
@@ -103,8 +101,8 @@
             </div>
 
             <div class="col-6">
-              <label class="form-label ms-2 mt-2">Rol</label>
-              <select class="form-select" th:field="*{idRol}" required>
+              <label class="form-label ms-2 mt-2" for="edit_idRol">Rol</label>
+              <select class="form-select" th:field="*{idRol}" id="edit_idRol" required>
                 <option th:each="rol : ${roles}" th:value="${rol.idRol}" th:attr="data-nivel=${rol.nivel}"
                   th:text="${rol.nombre}"></option>
               </select>
@@ -136,20 +134,20 @@
 
       <form class="row g-3" method="post" th:action="@{/admin/roles/editar}" th:object="${rolEditarDto}">
         <div class="modal-body px-5">
-          <input type="hidden" th:field="*{idRol}">
+          <input type="hidden" id="edit_idRol" th:field="*{idRol}">
 
           <div class="row">
             <div class="col-8">
-              <label class="form-label ms-2 mt-2">Nombre del rol</label>
-              <input type="text" class="form-control"
+              <label class="form-label ms-2 mt-2" for="edit_nombre">Nombre del rol</label>
+              <input type="text" class="form-control" id="edit_nombre"
                 th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ingresa el nombre del rol" th:field="*{nombre}">
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
               </div>
             </div>
             <div class="col-4">
-              <label class="form-label ms-2 mt-2">Nivel de acceso</label>
-              <input type="number" class="form-control"
+              <label class="form-label ms-2 mt-2" for="edit_nivel">Nivel de acceso</label>
+              <input type="number" class="form-control" id="edit_nivel"
                 th:classappend="${#fields.hasErrors('nivel')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 min="0" max="10" th:field="*{nivel}">
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nivel')}" th:errors="*{nivel}">
@@ -182,18 +180,17 @@
 
       <form class="row g-3" method="post" th:action="@{/admin/colores/editar}" th:object="${colorEditarDto}">
         <div class="modal-body px-5">
-          <input type="hidden" th:field="*{idColor}">
+          <input type="hidden" id="edit_idColor" th:field="*{idColor}">
 
           <div class="row">
             <div class="col-8">
-              <label class="form-label ms-2 mt-2">Nombre del color</label>
-              <input type="text" class="form-control"
+              <label class="form-label ms-2 mt-2" for="edit_nombre">Nombre del color</label>
+              <input type="text" class="form-control" id="edit_nombre"
                 th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
-                placeholder="Ingresa el nombre del color" th:field="*{nombre}">
+                placeholder="Ingresa el nombre del color" th:field="*{nombre}" required>
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
               </div>
             </div>
-
           </div>
         </div>
 
@@ -220,12 +217,12 @@
       <form class="row g-3" method="post" th:action="@{/admin/estados-compras/editar}"
         th:object="${estadoCompraEditarDto}">
         <div class="modal-body px-5">
-          <input type="hidden" th:field="*{idEstadoCompra}">
+          <input type="hidden" id="edit_idEstadoCompra" th:field="*{idEstadoCompra}">
 
           <div class="row">
             <div class="col-8">
-              <label class="form-label ms-2 mt-2">Nombre de Estado de compra</label>
-              <input type="text" class="form-control"
+              <label class="form-label ms-2 mt-2" for="edit_nombre">Nombre de Estado de compra</label>
+              <input type="text" class="form-control" id="edit_nombre"
                 th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ingresa el nombre del estado de compra" th:field="*{nombre}">
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
@@ -257,12 +254,12 @@
 
       <form class="row g-3" method="post" th:action="@{/admin/estados-pagos/editar}" th:object="${estadoPagoEditarDto}">
         <div class="modal-body px-5">
-          <input type="hidden" th:field="*{idEstadoPago}">
+          <input type="hidden" id="edit_idEstadoPago" th:field="*{idEstadoPago}">
 
           <div class="row">
             <div class="col-8">
-              <label class="form-label ms-2 mt-2">Nombre de Estado de pago</label>
-              <input type="text" class="form-control"
+              <label class="form-label ms-2 mt-2" for="edit_nombre">Nombre de Estado de pago</label>
+              <input type="text" class="form-control" id="edit_nombre"
                 th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ingresa el nombre del estado de pago" th:field="*{nombre}">
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
@@ -294,12 +291,12 @@
 
       <form class="row g-3" method="post" th:action="@{/admin/metodos-pagos/editar}" th:object="${metodoPagoEditarDto}">
         <div class="modal-body px-5">
-          <input type="hidden" th:field="*{idMetodoPago}">
+          <input type="hidden" id="edit_idMetodoPago" th:field="*{idMetodoPago}">
 
           <div class="row">
             <div class="col-8">
-              <label class="form-label ms-2 mt-2">Nombre de Metodo de pago</label>
-              <input type="text" class="form-control"
+              <label class="form-label ms-2 mt-2" for="edit_nombre">Nombre de Metodo de pago</label>
+              <input type="text" class="form-control" id="edit_nombre"
                 th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ingresa el nombre del metodo de pago" th:field="*{nombre}">
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
@@ -332,12 +329,12 @@
       <form class="row g-3" method="post" th:action="@{/admin/tipos-comprobantes/editar}"
         th:object="${tipoComprobanteEditarDto}">
         <div class="modal-body px-5">
-          <input type="hidden" th:field="*{idTipoComprobante}">
+          <input type="hidden" id="edit_idTipoComprobante" th:field="*{idTipoComprobante}">
 
           <div class="row">
             <div class="col-8">
-              <label class="form-label ms-2 mt-2">Nombre del Tipo de comprobante</label>
-              <input type="text" class="form-control"
+              <label class="form-label ms-2 mt-2" for="edit_nombre">Nombre del Tipo de comprobante</label>
+              <input type="text" class="form-control" id="edit_nombre"
                 th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ingresa el nombre del tipo de comprobante" th:field="*{nombre}">
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
@@ -534,12 +531,12 @@
 
       <form class="row g-3" method="post" th:action="@{/admin/categorias/editar}" th:object="${categoriaEditarDto}">
         <div class="modal-body px-5">
-          <input type="hidden" th:field="*{idCategoria}">
+          <input type="hidden" id="edit_idCategoria" th:field="*{idCategoria}">
 
           <div class="row">
             <div class="col-8">
-              <label class="form-label ms-2 mt-2">Nombre de la categoría</label>
-              <input type="text" class="form-control"
+              <label class="form-label ms-2 mt-2" for="edit_nombre">Nombre de la categoría</label>
+              <input type="text" class="form-control" id="edit_nombre"
                 th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ingresa el nombre de la categoría" th:field="*{nombre}">
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
@@ -585,30 +582,28 @@
             </div>
 
             <div class="col-6">
-              <label class="form-label ms-2 mt-2" for="nombre">Nombre del producto</label>
-              <input type="text" class="form-control"
+              <label class="form-label ms-2 mt-2" for="edit_nombre">Nombre del producto</label>
+              <input type="text" class="form-control" id="edit_nombre"
                 th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ingresa el nombre del producto" th:field="*{nombre}" required>
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
               </div>
             </div>
 
-             <div class="col-6">
-              <label class="form-label ms-2 mt-2" for="sku">Código SKU</label>
-              <input type="text" class="form-control"
+            <div class="col-6">
+              <label class="form-label ms-2 mt-2" for="edit_sku">Código SKU</label>
+              <input type="text" class="form-control" id="edit_sku"
                 th:classappend="${#fields.hasErrors('sku')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ej: PRD-001" th:field="*{sku}" required>
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('sku')}" th:errors="*{sku}"></div>
             </div>
 
             <div class="col-6">
-              <label class="form-label ms-2 mt-2" for="idCategoria">Categoría</label>
+              <label class="form-label ms-2 mt-2" for="edit_idCategoria">Categoría</label>
 
-              <select class="form-select" th:field="*{idCategoria}"
+              <select class="form-select" th:field="*{idCategoria}" id="edit_idCategoria"
                 th:classappend="${#fields.hasErrors('idCategoria')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 required>
-                <option value="" disabled>-- Selecciona una categoría --</option>
-
                 <option th:each="cat : ${categorias}" th:value="${cat.idCategoria}" th:text="${cat.nombre}">
                 </option>
               </select>
@@ -618,8 +613,8 @@
             </div>
 
             <div class="col-8">
-              <label class="form-label ms-2 mt-2" for="descripcion">Descripción</label>
-              <textarea class="form-control" rows="2"
+              <label class="form-label ms-2 mt-2" for="edit_descripcion">Descripción</label>
+              <textarea class="form-control" rows="2" id="edit_descripcion"
                 th:classappend="${#fields.hasErrors('descripcion')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Escribe una breve descripción del producto" th:field="*{descripcion}"></textarea>
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('descripcion')}"
@@ -627,14 +622,13 @@
             </div>
 
             <div class="col-4">
-              <label class="form-label ms-2 mt-2" for="precio">Precio</label>
-              <input type="number" step="0.01" class="form-control"
+              <label class="form-label ms-2 mt-2" for="edit_precio">Precio</label>
+              <input type="number" step="0.01" class="form-control" id="edit_precio"
                 th:classappend="${#fields.hasErrors('precio')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ingresa el precio del producto" th:field="*{precio}" required>
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}">
               </div>
             </div>
-
           </div>
         </div>
 

@@ -20,18 +20,25 @@ import jakarta.validation.Valid;
 @RequestMapping("/admin/roles")
 public class AdminRolesController {
 
-  private final String CARPETA_BASE = "tablasBD/";
-  private final String VISTA_LISTAR = CARPETA_BASE + "roles";
-  private final String REDIRECCIONAR = "redirect:/admin/roles";
+  private final String FRAGMENTO = "tablaRoles";
+  private final String VISTA_FRAGMENTO = "administrador/tablasBD/roles :: " + FRAGMENTO;
 
   @Autowired
   private RolesServices servicio;
+
+  // Enpoint AJAX
+  @GetMapping("/tabla")
+  public String obtenerTodo(Model model) {
+    prepararVista(model);
+
+    return VISTA_FRAGMENTO;
+  }
 
   @GetMapping
   public String listarTodo(Model model) {
     prepararVista(model);
 
-    return VISTA_LISTAR;
+    return VISTA_FRAGMENTO;
   }
 
   @PostMapping("/agregar")
@@ -39,11 +46,10 @@ public class AdminRolesController {
       BindingResult result,
       Model model) {
     if (result.hasErrors()) {
-      model.addAttribute("rolAgregarDto", rolAgregarDto);
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalAgregar");
 
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO;
     }
 
     try {
@@ -55,14 +61,16 @@ public class AdminRolesController {
         result.rejectValue(partes[0], "error." + partes[0], partes[1]);
       }
 
-      model.addAttribute("rolAgregarDto", rolAgregarDto);
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalAgregar");
 
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO;
     }
 
-    return REDIRECCIONAR;
+    model.addAttribute("rolAgregarDto", new RolAgregarDTO());
+    prepararVista(model);
+
+    return VISTA_FRAGMENTO;
   }
 
   @PostMapping("/editar")
@@ -70,11 +78,10 @@ public class AdminRolesController {
       BindingResult result,
       Model model) {
     if (result.hasErrors()) {
-      model.addAttribute("rolEditarDto", rolEditarDto);
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalEditar");
 
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO;
     }
 
     try {
@@ -86,21 +93,23 @@ public class AdminRolesController {
         result.rejectValue(partes[0], "error." + partes[0], partes[1]);
       }
 
-      model.addAttribute("rolEditarDto", rolEditarDto);
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalEditar");
 
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO;
     }
 
-    return REDIRECCIONAR;
+    prepararVista(model);
+
+    return VISTA_FRAGMENTO;
   }
 
   @PostMapping("/eliminar")
-  public String eliminar(@ModelAttribute RolEliminarDTO rolDTO) {
+  public String eliminar(@ModelAttribute RolEliminarDTO rolDTO, Model model) {
     servicio.deleteRol(rolDTO.getIdRol());
+    prepararVista(model);
 
-    return REDIRECCIONAR;
+    return VISTA_FRAGMENTO;
   }
 
   private void prepararVista(Model model) {

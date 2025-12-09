@@ -20,18 +20,25 @@ import jakarta.validation.Valid;
 @RequestMapping("/admin/tipos-comprobantes")
 public class AdminTiposComprobantesController {
 
-  private final String CARPETA_BASE = "tablasBD/";
-  private final String VISTA_LISTAR = CARPETA_BASE + "tiposComprobantes";
-  private final String REDIRECCIONAR = "redirect:/admin/tipos-comprobantes";
+  private final String FRAGMENTO = "tablaTiposComprobantes";
+  private final String VISTA_FRAGMENTO = "administrador/tablasBD/tiposComprobantes :: " + FRAGMENTO;
 
   @Autowired
   private TiposComprobantesServices servicio;
+
+  // Enpoint AJAX
+  @GetMapping("/tabla")
+  public String obtenerTodo(Model model) {
+    prepararVista(model);
+
+    return VISTA_FRAGMENTO;
+  }
 
   @GetMapping
   public String listarTodo(Model model) {
     prepararVista(model);
 
-    return VISTA_LISTAR;
+    return "redirect:/admin";
   }
 
   @PostMapping("/agregar")
@@ -40,11 +47,10 @@ public class AdminTiposComprobantesController {
       BindingResult result,
       Model model) {
     if (result.hasErrors()) {
-      model.addAttribute("tipoComprobanteAgregarDto", tipoComprobanteAgregarDto);
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalAgregar");
 
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO;
     }
 
     try {
@@ -56,14 +62,16 @@ public class AdminTiposComprobantesController {
         result.rejectValue(partes[0], "error." + partes[0], partes[1]);
       }
 
-      model.addAttribute("tipoComprobanteAgregarDto", tipoComprobanteAgregarDto);
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalAgregar");
 
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO;
     }
 
-    return REDIRECCIONAR;
+    model.addAttribute("tipoComprobanteAgregarDto", new TipoComprobanteAgregarDTO());
+    prepararVista(model);
+
+    return VISTA_FRAGMENTO;
   }
 
   @PostMapping("/editar")
@@ -72,11 +80,10 @@ public class AdminTiposComprobantesController {
       BindingResult result,
       Model model) {
     if (result.hasErrors()) {
-      model.addAttribute("tipoComprobanteEditarDto", tipoComprobanteEditarDto);
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalEditar");
 
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO;
     }
 
     try {
@@ -88,21 +95,23 @@ public class AdminTiposComprobantesController {
         result.rejectValue(partes[0], "error." + partes[0], partes[1]);
       }
 
-      model.addAttribute("tipoComprobanteEditarDto", tipoComprobanteEditarDto);
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalEditar");
 
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO;
     }
 
-    return REDIRECCIONAR;
+    prepararVista(model);
+
+    return VISTA_FRAGMENTO;
   }
 
   @PostMapping("/eliminar")
-  public String eliminar(@ModelAttribute TipoComprobanteEliminarDTO tipoComprobanteEliminarDTO) {
+  public String eliminar(@ModelAttribute TipoComprobanteEliminarDTO tipoComprobanteEliminarDTO, Model model) {
     servicio.deleteById(tipoComprobanteEliminarDTO.getIdTipoComprobante());
+    prepararVista(model);
 
-    return REDIRECCIONAR;
+    return VISTA_FRAGMENTO;
   }
 
   private void prepararVista(Model model) {

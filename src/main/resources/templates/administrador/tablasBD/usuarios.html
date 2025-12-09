@@ -1,0 +1,97 @@
+<div th:fragment="tablaUsuarios" class="container-fluid animate__animated animate__fadeIn"
+  th:attr="data-mostrar-modal=${mostrarModal}">
+
+  <main class="container-fluid px-4 my-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="fw-bold text-primary">👥 Gestión de Usuarios</h2>
+      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAgregar">
+        <i class="bi bi-person-plus-fill me-2"></i> Agregar
+      </button>
+    </div>
+
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th class="text-center py-3">ID</th>
+                <th>Usuario</th>
+                <th>Contacto</th>
+                <th>Rol</th>
+                <th>Registro</th>
+                <th class="text-center">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="usuario : ${usuarios}">
+                <td th:text="${usuario.idUsuario}" class="text-center fw-bold text-secondary">ID</td>
+
+                <td>
+                  <div class="d-flex align-items-center">
+                    <div class="rounded-circle bg-light border d-flex justify-content-center align-items-center me-3"
+                      style="width:40px; height:40px;">
+                      <i class="bi bi-person text-secondary"></i>
+                    </div>
+                    <div>
+                      <div class="fw-bold" th:text="${usuario.nombreUsuario}">User</div>
+                      <small class="text-muted" th:text="${usuario.nombres + ' ' + usuario.apellidos}">Nombre</small>
+                    </div>
+                  </div>
+                </td>
+
+                <td>
+                  <div class="d-flex flex-column">
+                    <small><i class="bi bi-envelope me-1"></i> <span th:text="${usuario.email}"></span></small>
+                    <small th:if="${usuario.telefono}"><i class="bi bi-telephone me-1"></i> <span
+                        th:text="${usuario.telefono}"></span></small>
+                  </div>
+                </td>
+
+                <td>
+                  <span class="badge bg-primary-subtle text-primary border border-primary-subtle"
+                    th:text="${usuario.rol?.nombre}">Rol</span>
+                </td>
+
+                <td th:text="${#temporals.format(usuario.fechaCreacion, 'dd/MM/yyyy')}">Fecha</td>
+
+                <td class="text-center">
+                  <th:block th:if="${usuarioActual != null}">
+
+                    <button
+                      th:if="${usuarioActual.rol.nivel > usuario.rol.nivel or usuarioActual.nombreUsuario == usuario.nombreUsuario}"
+                      type="button" class="btn btn-sm btn-outline-primary btn-editar-entidad" data-bs-toggle="modal"
+                      data-bs-target="#modalEditar" title="Editar" data-entidad="usuario"
+                      th:data-id="${usuario.idUsuario}" th:data-nombres="${usuario.nombres}"
+                      th:data-apellidos="${usuario.apellidos}" th:data-email="${usuario.email}"
+                      th:data-nombre-usuario="${usuario.nombreUsuario}" th:data-dni="${usuario?.dni}"
+                      th:data-telefono="${usuario?.telefono}" th:data-direccion="${usuario?.direccion}"
+                      th:data-id-rol="${usuario.rol.idRol}">
+                      <i class="bi bi-pencil-square"></i>
+                    </button>
+
+                    <button
+                      th:if="${usuarioActual.rol.nivel > usuario.rol.nivel and usuarioActual.nombreUsuario != usuario.nombreUsuario}"
+                      type="button" class="btn btn-sm btn-outline-danger btn-eliminar-entidad" data-bs-toggle="modal"
+                      data-bs-target="#modalEliminar" title="Eliminar" data-entidad="usuario"
+                      th:data-id="${usuario.idUsuario}"
+                      th:data-nombre-completo="${usuario.nombres + ' ' + usuario.apellidos}"
+                      th:data-dni="${usuario.dni}" th:data-email="${usuario.email}"
+                      th:data-nombre-usuario="${usuario.nombreUsuario}" th:data-rol="${usuario.rol?.nombre}">
+                      <i class="bi bi-trash3"></i>
+                    </button>
+                  </th:block>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- MODALES -->
+  <div th:replace="~{fragments/adminBD/modalAgregarRegistro :: modalAgregarUsuario}"></div>
+  <div th:replace="~{fragments/adminBD/modalEditarRegistro :: modalEditarUsuario}"></div>
+  <div th:replace="~{fragments/adminBD/modalEliminarRegistro :: modalEliminarUsuario}"></div>
+</div>

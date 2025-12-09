@@ -20,18 +20,25 @@ import jakarta.validation.Valid;
 @RequestMapping("/admin/estados-pagos")
 public class AdminEstadosPagosController {
 
-  private final String CARPETA_BASE = "tablasBD/";
-  private final String VISTA_LISTAR = CARPETA_BASE + "estadosPagos";
-  private final String REDIRECCIONAR = "redirect:/admin/estados-pagos";
+  private final String FRAGMENTO = "tablaEstadosPagos";
+  private final String VISTA_FRAGMENTO = "administrador/tablasBD/estadosPagos :: " + FRAGMENTO;
 
   @Autowired
   private EstadosPagosServices servicio;
+
+  // Enpoint AJAX
+  @GetMapping("/tabla")
+  public String obtenerTodo(Model model) {
+    prepararVista(model);
+
+    return VISTA_FRAGMENTO;
+  }
 
   @GetMapping
   public String listarTodo(Model model) {
     prepararVista(model);
 
-    return VISTA_LISTAR;
+    return "redirect:/admin";
   }
 
   @PostMapping("/agregar")
@@ -39,11 +46,10 @@ public class AdminEstadosPagosController {
       BindingResult result,
       Model model) {
     if (result.hasErrors()) {
-      model.addAttribute("estadoPagoAgregarDto", estadoPagoAgregarDto);
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalAgregar");
 
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO;
     }
 
     try {
@@ -55,14 +61,16 @@ public class AdminEstadosPagosController {
         result.rejectValue(partes[0], "error." + partes[0], partes[1]);
       }
 
-      model.addAttribute("estadoPagoAgregarDto", estadoPagoAgregarDto);
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalAgregar");
 
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO;
     }
 
-    return REDIRECCIONAR;
+    model.addAttribute("estadoPagoAgregarDto", new EstadoPagoAgregarDTO());
+    prepararVista(model);
+
+    return VISTA_FRAGMENTO;
   }
 
   @PostMapping("/editar")
@@ -70,11 +78,10 @@ public class AdminEstadosPagosController {
       BindingResult result,
       Model model) {
     if (result.hasErrors()) {
-      model.addAttribute("estadoPagoEditarDto", estadoPagoEditarDto);
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalEditar");
 
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO;
     }
 
     try {
@@ -86,21 +93,23 @@ public class AdminEstadosPagosController {
         result.rejectValue(partes[0], "error." + partes[0], partes[1]);
       }
 
-      model.addAttribute("estadoPagoEditarDto", estadoPagoEditarDto);
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalEditar");
 
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO;
     }
 
-    return REDIRECCIONAR;
+    prepararVista(model);
+
+    return VISTA_FRAGMENTO;
   }
 
   @PostMapping("/eliminar")
-  public String eliminar(@ModelAttribute EstadoPagoEliminarDTO estadoPagoEliminarDTO) {
+  public String eliminar(@ModelAttribute EstadoPagoEliminarDTO estadoPagoEliminarDTO, Model model) {
     servicio.deleteById(estadoPagoEliminarDTO.getIdEstadoPago());
+    prepararVista(model);
 
-    return REDIRECCIONAR;
+    return VISTA_FRAGMENTO;
   }
 
   private void prepararVista(Model model) {

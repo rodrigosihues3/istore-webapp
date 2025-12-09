@@ -20,18 +20,25 @@ import jakarta.validation.Valid;
 @RequestMapping("/admin/metodos-pagos")
 public class AdminMetodosPagosController {
 
-  private final String CARPETA_BASE = "tablasBD/";
-  private final String VISTA_LISTAR = CARPETA_BASE + "metodosPagos";
-  private final String REDIRECCIONAR = "redirect:/admin/metodos-pagos";
+  private final String FRAGMENTO = "tablaMetodosPagos";
+  private final String VISTA_FRAGMENTO = "administrador/tablasBD/metodosPagos :: " + FRAGMENTO;
 
   @Autowired
   private MetodosPagosServices servicio;
+
+  // Enpoint AJAX
+  @GetMapping("/tabla")
+  public String obtenerTodo(Model model) {
+    prepararVista(model);
+
+    return VISTA_FRAGMENTO;
+  }
 
   @GetMapping
   public String listarTodo(Model model) {
     prepararVista(model);
 
-    return VISTA_LISTAR;
+    return "redirect:/admin";
   }
 
   @PostMapping("/agregar")
@@ -39,11 +46,10 @@ public class AdminMetodosPagosController {
       BindingResult result,
       Model model) {
     if (result.hasErrors()) {
-      model.addAttribute("metodoPagoAgregarDto", metodoPagoAgregarDto);
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalAgregar");
 
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO;
     }
 
     try {
@@ -55,14 +61,16 @@ public class AdminMetodosPagosController {
         result.rejectValue(partes[0], "error." + partes[0], partes[1]);
       }
 
-      model.addAttribute("metodoPagoAgregarDto", metodoPagoAgregarDto);
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalAgregar");
 
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO;
     }
 
-    return REDIRECCIONAR;
+    model.addAttribute("metodoPagoAgregarDto", new MetodoPagoAgregarDTO());
+    prepararVista(model);
+
+    return VISTA_FRAGMENTO;
   }
 
   @PostMapping("/editar")
@@ -70,11 +78,10 @@ public class AdminMetodosPagosController {
       BindingResult result,
       Model model) {
     if (result.hasErrors()) {
-      model.addAttribute("metodoPagoEditarDto", metodoPagoEditarDto);
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalEditar");
 
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO;
     }
 
     try {
@@ -86,21 +93,23 @@ public class AdminMetodosPagosController {
         result.rejectValue(partes[0], "error." + partes[0], partes[1]);
       }
 
-      model.addAttribute("metodoPagoEditarDto", metodoPagoEditarDto);
       prepararVista(model);
       model.addAttribute("mostrarModal", "#modalEditar");
 
-      return VISTA_LISTAR;
+      return VISTA_FRAGMENTO;
     }
 
-    return REDIRECCIONAR;
+    prepararVista(model);
+
+    return VISTA_FRAGMENTO;
   }
 
   @PostMapping("/eliminar")
-  public String eliminar(@ModelAttribute MetodoPagoEliminarDTO metodoPagoEliminarDTO) {
+  public String eliminar(@ModelAttribute MetodoPagoEliminarDTO metodoPagoEliminarDTO, Model model) {
     servicio.deleteById(metodoPagoEliminarDTO.getIdMetodoPago());
+    prepararVista(model);
 
-    return REDIRECCIONAR;
+    return VISTA_FRAGMENTO;
   }
 
   private void prepararVista(Model model) {

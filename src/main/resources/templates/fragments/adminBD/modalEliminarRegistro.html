@@ -10,7 +10,7 @@
 
       <!-- Body -->
       <form th:action="@{/admin/usuarios/eliminar}" method="post">
-        <input type="hidden" id="id" name="idUsuario" />
+        <input type="hidden" id="del_id" name="idUsuario" />
 
         <div class="modal-body">
           <p class="text-center mb-4 fs-5">
@@ -21,12 +21,12 @@
           <!-- Tarjeta con datos del usuario -->
           <div class="card border-danger bg-light">
             <div class="card-body">
-              <p class="mb-1"><strong>ID:</strong> <span id="idSpan" class="text-dark"></span></p>
-              <p class="mb-1"><strong>Nombre:</strong> <span id="nombreCompleto" class="text-dark"></span></p>
-              <p class="mb-1"><strong>DNI:</strong> <span id="dni" class="text-dark"></span></p>
-              <p class="mb-0"><strong>Email:</strong> <span id="email" class="text-dark"></span></p>
-              <p class="mb-0"><strong>Usuario:</strong> <span id="nombreUsuario" class="text-dark"></span></p>
-              <p class="mb-0"><strong>Rol:</strong> <span id="rol" class="text-dark"></span></p>
+              <p class="mb-1"><strong>ID:</strong> <span id="del_idSpan" class="text-dark"></span></p>
+              <p class="mb-1"><strong>Nombre:</strong> <span id="del_nombreCompleto" class="text-dark"></span></p>
+              <p class="mb-1"><strong>DNI:</strong> <span id="del_dni" class="text-dark"></span></p>
+              <p class="mb-0"><strong>Email:</strong> <span id="del_email" class="text-dark"></span></p>
+              <p class="mb-0"><strong>Usuario:</strong> <span id="del_nombreUsuario" class="text-dark"></span></p>
+              <p class="mb-0"><strong>Rol:</strong> <span id="del_rol" class="text-dark"></span></p>
             </div>
           </div>
         </div>
@@ -56,7 +56,7 @@
 
       <!-- Body -->
       <form th:action="@{/admin/roles/eliminar}" method="post">
-        <input type="hidden" id="id" name="idRol" />
+        <input type="hidden" id="del_id" name="idRol" />
 
         <div class="modal-body">
           <p class="text-center mb-4 fs-5">
@@ -67,9 +67,9 @@
           <!-- Tarjeta con datos del usuario -->
           <div class="card border-danger bg-light">
             <div class="card-body">
-              <p class="mb-1"><strong>ID:</strong> <span id="idSpan" class="text-dark"></span></p>
-              <p class="mb-1"><strong>Nombre del rol:</strong> <span id="nombre" class="text-dark"></span></p>
-              <p class="mb-1"><strong>Nivel de acceso:</strong> <span id="nivel" class="text-dark"></span></p>
+              <p class="mb-1"><strong>ID:</strong> <span id="del_idSpan" class="text-dark"></span></p>
+              <p class="mb-1"><strong>Nombre del rol:</strong> <span id="del_nombre" class="text-dark"></span></p>
+              <p class="mb-1"><strong>Nivel de acceso:</strong> <span id="del_nivel" class="text-dark"></span></p>
             </div>
           </div>
         </div>
@@ -99,7 +99,7 @@
 
       <!-- Body -->
       <form th:action="@{/admin/colores/eliminar}" method="post">
-        <input type="hidden" id="id" name="idColor" />
+        <input type="hidden" id="del_id" name="idColor" />
 
         <div class="modal-body">
           <p class="text-center mb-4 fs-5">
@@ -110,8 +110,8 @@
           <!-- Tarjeta con datos del color -->
           <div class="card border-danger bg-light">
             <div class="card-body">
-              <p class="mb-1"><strong>ID:</strong> <span id="idSpan" class="text-dark"></span></p>
-              <p class="mb-1"><strong>Nombre del color:</strong> <span id="nombre" class="text-dark"></span></p>
+              <p class="mb-1"><strong>ID:</strong> <span id="del_idSpan" class="text-dark"></span></p>
+              <p class="mb-1"><strong>Nombre del color:</strong> <span id="del_nombre" class="text-dark"></span></p>
             </div>
           </div>
         </div>
@@ -141,7 +141,7 @@
 
       <!-- Body -->
       <form th:action="@{/admin/estados-compras/eliminar}" method="post">
-        <input type="hidden" id="id" name="idEstadoCompra" />
+        <input type="hidden" id="del_id" name="idEstadoCompra" />
 
         <div class="modal-body">
           <p class="text-center mb-4 fs-5">
@@ -152,8 +152,9 @@
           <!-- Tarjeta con datos del estado compra -->
           <div class="card border-danger bg-light">
             <div class="card-body">
-              <p class="mb-1"><strong>ID:</strong> <span id="idSpan" class="text-dark"></span></p>
-              <p class="mb-1"><strong>Nombre del estado de compra:</strong> <span id="nombre" class="text-dark"></span>
+              <p class="mb-1"><strong>ID:</strong> <span id="del_idSpan" class="text-dark"></span></p>
+              <p class="mb-1"><strong>Nombre del estado de compra:</strong> <span id="del_nombre"
+                  class="text-dark"></span>
               </p>
             </div>
           </div>
@@ -184,7 +185,7 @@
 
       <!-- Body -->
       <form th:action="@{/admin/estados-pagos/eliminar}" method="post">
-        <input type="hidden" id="id" name="idEstadoPago" />
+        <input type="hidden" id="del_id" name="idEstadoPago" />
 
         <div class="modal-body">
           <p class="text-center mb-4 fs-5">
@@ -195,8 +196,9 @@
           <!-- Tarjeta con datos del estado pago -->
           <div class="card border-danger bg-light">
             <div class="card-body">
-              <p class="mb-1"><strong>ID:</strong> <span id="idSpan" class="text-dark"></span></p>
-              <p class="mb-1"><strong>Nombre del estado de pago:</strong> <span id="nombre" class="text-dark"></span>
+              <p class="mb-1"><strong>ID:</strong> <span id="del_idSpan" class="text-dark"></span></p>
+              <p class="mb-1"><strong>Nombre del estado de pago:</strong> <span id="del_nombre"
+                  class="text-dark"></span>
               </p>
             </div>
           </div>
@@ -227,7 +229,7 @@
 
       <!-- Body -->
       <form th:action="@{/admin/metodos-pagos/eliminar}" method="post">
-        <input type="hidden" id="id" name="idMetodoPago" />
+        <input type="hidden" id="del_id" name="idMetodoPago" />
 
         <div class="modal-body">
           <p class="text-center mb-4 fs-5">
@@ -238,8 +240,9 @@
           <!-- Tarjeta con datos del metodo pago -->
           <div class="card border-danger bg-light">
             <div class="card-body">
-              <p class="mb-1"><strong>ID:</strong> <span id="idSpan" class="text-dark"></span></p>
-              <p class="mb-1"><strong>Nombre del metodo de pago:</strong> <span id="nombre" class="text-dark"></span>
+              <p class="mb-1"><strong>ID:</strong> <span id="del_idSpan" class="text-dark"></span></p>
+              <p class="mb-1"><strong>Nombre del metodo de pago:</strong> <span id="del_nombre"
+                  class="text-dark"></span>
               </p>
             </div>
           </div>
@@ -270,7 +273,7 @@
 
       <!-- Body -->
       <form th:action="@{/admin/tipos-comprobantes/eliminar}" method="post">
-        <input type="hidden" id="id" name="idTipoComprobante" />
+        <input type="hidden" id="del_id" name="idTipoComprobante" />
 
         <div class="modal-body">
           <p class="text-center mb-4 fs-5">
@@ -281,8 +284,8 @@
           <!-- Tarjeta con datos del tipo de comprobante -->
           <div class="card border-danger bg-light">
             <div class="card-body">
-              <p class="mb-1"><strong>ID:</strong> <span id="idSpan" class="text-dark"></span></p>
-              <p class="mb-1"><strong>Nombre del tipo de comprobante:</strong> <span id="nombre"
+              <p class="mb-1"><strong>ID:</strong> <span id="del_idSpan" class="text-dark"></span></p>
+              <p class="mb-1"><strong>Nombre del tipo de comprobante:</strong> <span id="del_nombre"
                   class="text-dark"></span>
               </p>
             </div>
@@ -397,19 +400,20 @@
 
       <!-- Body -->
       <form th:action="@{/admin/categorias/eliminar}" method="post">
-        <input type="hidden" id="id" name="idCategoria" />
+        <input type="hidden" id="del_id" name="idCategoria" />
 
         <div class="modal-body">
           <p class="text-center mb-4 fs-5">
-            ¿Seguro que deseas <strong>eliminar esta categoría</strong>?  
+            ¿Seguro que deseas <strong>eliminar esta categoría</strong>?
             Esta acción no se puede deshacer.
           </p>
 
           <!-- Tarjeta con datos de la categoría -->
           <div class="card border-danger bg-light">
             <div class="card-body">
-              <p class="mb-1"><strong>ID:</strong> <span id="idSpan" class="text-dark"></span></p>
-              <p class="mb-1"><strong>Nombre de la categoría:</strong> <span id="nombre" class="text-dark"></span></p>
+              <p class="mb-1"><strong>ID:</strong> <span id="del_idSpan" class="text-dark"></span></p>
+              <p class="mb-1"><strong>Nombre de la categoría:</strong> <span id="del_nombre" class="text-dark"></span>
+              </p>
             </div>
           </div>
         </div>
@@ -436,7 +440,7 @@
 
       <!-- Body -->
       <form th:action="@{/admin/productos/eliminar}" method="post">
-        <input type="hidden" id="id" name="idProducto" />
+        <input type="hidden" id="del_id" name="idProducto" />
 
         <div class="modal-body">
           <p class="text-center mb-4 fs-5">
@@ -447,11 +451,11 @@
           <!-- Tarjeta con datos del producto -->
           <div class="card border-danger bg-light">
             <div class="card-body">
-              <p class="mb-1"><strong>ID:</strong> <span id="idSpan" class="text-dark"></span></p>
-                <p class="mb-1"><strong>SKU:</strong> <span id="sku" class="text-dark"></span></p>
-              <p class="mb-1"><strong>Nombre:</strong> <span id="nombreProducto" class="text-dark"></span></p>
-              <p class="mb-1"><strong>Categoría:</strong> <span id="categoria" class="text-dark"></span></p>
-              <p class="mb-1"><strong>Precio:</strong> <span id="precio" class="text-dark"></span></p>
+              <p class="mb-1"><strong>ID:</strong> <span id="del_idSpan" class="text-dark"></span></p>
+              <p class="mb-1"><strong>SKU:</strong> <span id="del_sku" class="text-dark"></span></p>
+              <p class="mb-1"><strong>Nombre:</strong> <span id="del_nombre" class="text-dark"></span></p>
+              <p class="mb-1"><strong>Categoría:</strong> <span id="del_categoria" class="text-dark"></span></p>
+              <p class="mb-1"><strong>Precio:</strong> <span id="del_precio" class="text-dark"></span></p>
             </div>
           </div>
         </div>

@@ -34,7 +34,7 @@ import jakarta.validation.Valid;
 @RequestMapping("/admin/pedidos")
 public class AdminPedidosController {
 
-  private final String CARPETA_BASE = "tablasBD/";
+  private final String CARPETA_BASE = "administrador/tablasBD/";
   private final String VISTA_LISTAR = CARPETA_BASE + "pedidos";
   private final String REDIRECCIONAR = "redirect:/admin/pedidos";
 

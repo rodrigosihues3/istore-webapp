@@ -17,24 +17,23 @@
       <form class="row g-3" method="post" th:action="@{/admin/usuarios/agregar}" th:object="${usuarioAgregarDto}">
         <div class="modal-body px-5">
           <div class="row">
-            <!-- DATOS PERSONALES -->
             <div class="col-12">
               <h5 class="mt-4 mb-0 text-center">Datos personales</h5>
               <hr class="my-1">
             </div>
 
             <div class="col-6">
-              <label class="form-label ms-2 mt-2" for="nombres">Nombres</label>
-              <input type="text" class="form-control"
+              <label class="form-label ms-2 mt-2" for="add_nombres">Nombres</label>
+              <input type="text" class="form-control" id="add_nombres"
                 th:classappend="${#fields.hasErrors('nombres')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
-                placeholder="Ingresa los nombres del usuario" th:field="*{nombres}" autofocus required>
+                placeholder="Ingresa los nombres del usuario" th:field="*{nombres}" required>
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nombres')}"
                 th:errors="*{nombres}"></div>
             </div>
 
             <div class="col-6">
-              <label class="form-label ms-2 mt-2" for="apellidos">Apellidos</label>
-              <input type="text" class="form-control"
+              <label class="form-label ms-2 mt-2" for="add_apellidos">Apellidos</label>
+              <input type="text" class="form-control" id="add_apellidos"
                 th:classappend="${#fields.hasErrors('apellidos')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ingresa los apellidos del usuario" aria-label="Apellidos" th:field="*{apellidos}" required>
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('apellidos')}"
@@ -42,24 +41,25 @@
             </div>
 
             <div class="col-4">
-              <label class="form-label ms-2 mt-2" for="dni">DNI</label>
-              <input type="text" class="form-control" minlength="8" maxlength="8"
+              <label class="form-label ms-2 mt-2" for="add_dni">DNI</label>
+              <input type="text" class="form-control" id="add_dni" minlength="8" maxlength="8"
                 th:classappend="${#fields.hasErrors('dni')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ingresa el DNI del usuario" th:field="*{dni}">
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></div>
             </div>
+
             <div class="col-8">
-              <label class="form-label ms-2 mt-2" for="email">Correo</label>
-              <input type="email" class="form-control"
+              <label class="form-label ms-2 mt-2" for="add_email">Correo</label>
+              <input type="email" class="form-control" id="add_email"
                 th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
-                placeholder="Ingresa el correo del usuario" th:field="*{email}" autocomplete="off">
+                placeholder="Ingresa el correo del usuario" th:field="*{email}" autocomplete="off" required>
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
               </div>
             </div>
 
             <div class="col-4">
-              <label class="form-label ms-2 mt-2" for="telefono">Teléfono</label>
-              <input type="text" class="form-control" minlength="9" maxlength="9"
+              <label class="form-label ms-2 mt-2" for="add_telefono">Teléfono</label>
+              <input type="text" class="form-control" id="add_telefono" minlength="9" maxlength="9"
                 th:classappend="${#fields.hasErrors('telefono')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ingresa el teléfono del usuario" th:field="*{telefono}">
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('telefono')}"
@@ -67,41 +67,39 @@
             </div>
 
             <div class="col-8">
-              <label class="form-label ms-2 mt-2" for="direccion">Dirección</label>
-              <input type="text" class="form-control"
+              <label class="form-label ms-2 mt-2" for="add_direccion">Dirección</label>
+              <input type="text" class="form-control" id="add_direccion"
                 th:classappend="${#fields.hasErrors('direccion')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ingresa la dirección del usuario" th:field="*{direccion}">
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('direccion')}"
                 th:errors="*{direccion}"></div>
             </div>
 
-            <!-- CREDENCIALES DE ACCESO -->
             <div class="col-12">
               <h5 class="mt-4 mb-0 text-center">Credenciales de acceso</h5>
               <hr class="my-1">
             </div>
             <div class="col-6">
-              <label class="form-label ms-2 mt-2">Usuario</label>
-              <input type="text" class="form-control" minlength="4"
+              <label class="form-label ms-2 mt-2" for="add_nombreUsuario">Usuario</label>
+              <input type="text" class="form-control" minlength="4" id="add_nombreUsuario"
                 th:classappend="${#fields.hasErrors('nombreUsuario')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
-                placeholder="Ingresa el usuario" th:field="*{nombreUsuario}">
+                placeholder="Ingresa el usuario" th:field="*{nombreUsuario}" required>
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nombreUsuario')}"
                 th:errors="*{nombreUsuario}"></div>
             </div>
 
             <div class="col-6">
-              <label class="form-label ms-2 mt-2">Contraseña</label>
-              <input type="password" class="form-control"
+              <label class="form-label ms-2 mt-2" for="add_password">Contraseña</label>
+              <input type="password" class="form-control" id="add_password"
                 th:classappend="${#fields.hasErrors('password')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
-                placeholder="Ingresa la contraseña" th:field="*{password}" autocomplete="new-password">
+                placeholder="Ingresa la contraseña" th:field="*{password}" autocomplete="new-password" required>
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('password')}"
                 th:errors="*{password}"></div>
             </div>
 
             <div class="col-6">
-              <label class="form-label ms-2 mt-2">Rol</label>
-              <select class="form-select" th:field="*{idRol}" required>
-                <option value="" disabled selected>-- Selecciona un rol --</option>
+              <label class="form-label ms-2 mt-2" for="add_idRol">Rol</label>
+              <select class="form-select" th:field="*{idRol}" id="add_idRol" required>
                 <option th:each="rol : ${roles}"
                   th:if="${rol.nivel < usuarioActual.rol.nivel or usuarioActual.rol.nombre == 'OWNER'}"
                   th:value="${rol.idRol}" th:text="${rol.nombre}"></option>
@@ -134,16 +132,16 @@
         <div class="modal-body px-5">
           <div class="row">
             <div class="col-8">
-              <label class="form-label ms-2 mt-2">Nombre del rol</label>
-              <input type="text" class="form-control"
+              <label class="form-label ms-2 mt-2" for="add_nombre">Nombre del rol</label>
+              <input type="text" class="form-control" id="add_nombre"
                 th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ingresa el nombre del rol" th:field="*{nombre}" required>
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
               </div>
             </div>
             <div class="col-4">
-              <label class="form-label ms-2 mt-2">Nivel de acceso</label>
-              <input type="number" class="form-control"
+              <label class="form-label ms-2 mt-2" for="add_nivel">Nivel de acceso</label>
+              <input type="number" class="form-control" id="add_nivel"
                 th:classappend="${#fields.hasErrors('nivel')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 min="0" max="10" th:field="*{nivel}">
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nivel')}" th:errors="*{nivel}">
@@ -176,8 +174,8 @@
         <div class="modal-body px-5">
           <div class="row">
             <div class="col-8">
-              <label class="form-label ms-2 mt-2">Nombre del Color</label>
-              <input type="text" class="form-control"
+              <label class="form-label ms-2 mt-2" for="add_nombre">Nombre del Color</label>
+              <input type="text" class="form-control" id="add_nombre"
                 th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ingresa el nombre del color" th:field="*{nombre}" required>
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
@@ -211,8 +209,8 @@
         <div class="modal-body px-5">
           <div class="row">
             <div class="col-8">
-              <label class="form-label ms-2 mt-2">Nombre de Estado de compra</label>
-              <input type="text" class="form-control"
+              <label class="form-label ms-2 mt-2" for="add_nombre">Nombre de Estado de compra</label>
+              <input type="text" class="form-control" id="add_nombre"
                 th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ingresa el nombre del estado de compra" th:field="*{nombre}" required>
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
@@ -246,8 +244,8 @@
         <div class="modal-body px-5">
           <div class="row">
             <div class="col-8">
-              <label class="form-label ms-2 mt-2">Nombre de Estado de pago</label>
-              <input type="text" class="form-control"
+              <label class="form-label ms-2 mt-2" for="add_nombre">Nombre de Estado de pago</label>
+              <input type="text" class="form-control" id="add_nombre"
                 th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ingresa el nombre del estado de pago" th:field="*{nombre}" required>
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
@@ -281,8 +279,8 @@
         <div class="modal-body px-5">
           <div class="row">
             <div class="col-8">
-              <label class="form-label ms-2 mt-2">Nombre de Metodo de Pago</label>
-              <input type="text" class="form-control"
+              <label class="form-label ms-2 mt-2" for="add_nombre">Nombre de Metodo de Pago</label>
+              <input type="text" class="form-control" id="add_nombre"
                 th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ingresa el nombre del metodo de pago" th:field="*{nombre}" required>
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
@@ -316,8 +314,8 @@
         <div class="modal-body px-5">
           <div class="row">
             <div class="col-8">
-              <label class="form-label ms-2 mt-2">Nombre de Tipo de Comprobante</label>
-              <input type="text" class="form-control"
+              <label class="form-label ms-2 mt-2" for="add_nombre">Nombre de Tipo de Comprobante</label>
+              <input type="text" class="form-control" id="add_nombre"
                 th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ingresa el nombre del tipo de comprobante" th:field="*{nombre}" required>
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
@@ -359,10 +357,9 @@
 
             <div class="col-6">
               <label class="form-label ms-2 mt-2">Usuario (Cliente)</label>
-              <select class="form-select" th:field="*{idUsuario}"
+              <select class="form-select" th:field="*{idUsuario}" id="add_idUsuario"
                 th:classappend="${#fields.hasErrors('idUsuario')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 required>
-                <option value="" disabled selected>-- Selecciona un usuario --</option>
                 <option th:each="usuario : ${usuarios}" th:value="${usuario.idUsuario}"
                   th:text="${usuario.nombres + ' ' + usuario.apellidos + ' (' + usuario.nombreUsuario + ')'}"></option>
               </select>
@@ -372,10 +369,9 @@
 
             <div class="col-6">
               <label class="form-label ms-2 mt-2">Estado del Pedido</label>
-              <select class="form-select" th:field="*{idEstadoCompra}"
+              <select class="form-select" th:field="*{idEstadoCompra}" id="add_isEstadoCompra"
                 th:classappend="${#fields.hasErrors('idEstadoCompra')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 required>
-                <option value="" disabled selected>-- Selecciona un estado --</option>
                 <option th:each="estado : ${estadosCompras}" th:value="${estado.idEstadoCompra}"
                   th:text="${estado.nombre}"></option>
               </select>
@@ -385,7 +381,7 @@
 
             <div class="col-6">
               <label class="form-label ms-2 mt-2">Método de Pago</label>
-              <select class="form-select" th:field="*{idMetodoPago}"
+              <select class="form-select" th:field="*{idMetodoPago}" id="add_idMetodoPago"
                 th:classappend="${#fields.hasErrors('idMetodoPago')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 required>
                 <option value="" disabled selected>-- Selecciona un método de pago --</option>
@@ -452,7 +448,6 @@
               <select class="form-select" th:field="*{idProducto}" id="itemAddProductoSelect"
                 th:classappend="${#fields.hasErrors('idProducto')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 required>
-                <option th:value="''" selected>-- Selecciona un producto --</option>
                 <option th:each="producto : ${productos}" th:value="${producto.idProducto}" th:text="${producto.nombre}"
                   th:data-precio="${producto.precio}"> </option>
               </select>
@@ -508,8 +503,8 @@
         <div class="modal-body px-5">
           <div class="row">
             <div class="col-8">
-              <label class="form-label ms-2 mt-2">Nombre de la Categoría</label>
-              <input type="text" class="form-control"
+              <label class="form-label ms-2 mt-2" for="add_nombre">Nombre de la Categoría</label>
+              <input type="text" class="form-control" id="add_nombre"
                 th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ingresa el nombre de la categoría" th:field="*{nombre}" required>
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
@@ -553,30 +548,29 @@
             </div>
 
             <div class="col-6">
-              <label class="form-label ms-2 mt-2" for="nombre">Nombre del producto</label>
-              <input type="text" class="form-control"
+              <label class="form-label ms-2 mt-2" for="add_nombre">Nombre del producto</label>
+              <input type="text" class="form-control" id="add_nombre"
                 th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ingresa el nombre del producto" th:field="*{nombre}" required>
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
               </div>
             </div>
             <div class="col-6">
-              <label class="form-label ms-2 mt-2" for="sku">Código SKU</label>
-              <input type="text" class="form-control"
+              <label class="form-label ms-2 mt-2" for="add_sku">Código SKU</label>
+              <input type="text" class="form-control" id="add_sku"
                 th:classappend="${#fields.hasErrors('sku')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ej: PRD-001" th:field="*{sku}" required>
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('sku')}" th:errors="*{sku}"></div>
             </div>
 
             <div class="col-6">
-              <label class="form-label ms-2 mt-2" for="idCategoria">Categoría</label>
+              <label class="form-label ms-2 mt-2" for="add_idCategoria">Categoría</label>
 
-              <select class="form-select" th:field="*{idCategoria}"
+              <select class="form-select" th:field="*{idCategoria}" id="add_idCategoria"
                 th:classappend="${#fields.hasErrors('idCategoria')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 required>
-                <option value="" disabled selected>-- Selecciona una categoría --</option>
-
-                <option th:each="cat : ${categorias}" th:value="${cat.idCategoria}" th:text="${cat.nombre}">
+                <option th:each="categoria : ${categorias}" th:value="${categoria.idCategoria}"
+                  th:text="${categoria.nombre}">
                 </option>
               </select>
 
@@ -585,8 +579,8 @@
             </div>
 
             <div class="col-8">
-              <label class="form-label ms-2 mt-2" for="descripcion">Descripción</label>
-              <textarea class="form-control" rows="2"
+              <label class="form-label ms-2 mt-2" for="add_descripcion">Descripción</label>
+              <textarea class="form-control" rows="2" id="add_descripcion"
                 th:classappend="${#fields.hasErrors('descripcion')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Escribe una breve descripción del producto" th:field="*{descripcion}"></textarea>
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('descripcion')}"
@@ -594,8 +588,8 @@
             </div>
 
             <div class="col-4">
-              <label class="form-label ms-2 mt-2" for="precio">Precio</label>
-              <input type="number" step="0.01" class="form-control"
+              <label class="form-label ms-2 mt-2" for="add_precio">Precio</label>
+              <input type="number" step="0.01" class="form-control" id="add_precio"
                 th:classappend="${#fields.hasErrors('precio')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ingresa el precio" th:field="*{precio}" required>
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}">
