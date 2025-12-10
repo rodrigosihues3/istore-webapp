@@ -18,6 +18,7 @@ import com.istore.appweb.DTO.productos.ProductoEditarDTO;
 import com.istore.appweb.DTO.productos.ProductoEliminarDTO;
 import com.istore.appweb.services.ProductosServices;
 import com.istore.appweb.services.CategoriasServices;
+import com.istore.appweb.services.ColoresServices;
 
 import jakarta.validation.Valid;
 
@@ -33,6 +34,9 @@ public class AdminProductosController {
 
   @Autowired
   private CategoriasServices servicioCategorias;
+
+  @Autowired
+  private ColoresServices servicioColores;
 
   // Enpoint AJAX
   @GetMapping("/tabla")
@@ -155,5 +159,6 @@ public class AdminProductosController {
 
     model.addAttribute("productos", servicio.getProductos());
     model.addAttribute("categorias", servicioCategorias.getCategorias());
+    model.addAttribute("colores", servicioColores.getColores());
   }
 }

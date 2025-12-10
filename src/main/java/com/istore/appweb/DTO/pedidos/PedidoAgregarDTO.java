@@ -24,4 +24,9 @@ public class PedidoAgregarDTO {
   @NotNull(message = "{NotNull.estadosCompras.idEstadoCompra}")
   private Integer idEstadoCompra;
 
+  private String referenciaPago; // Opcional al crear manualmente
+
+  @NotNull(message = "El estado de pago es obligatorio")
+  private Integer idEstadoPago;
+
 }

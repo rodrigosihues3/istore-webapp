@@ -34,6 +34,12 @@ public class Pedidos {
   @Column(precision = 12, scale = 2)
   private BigDecimal total;
 
+  private String referenciaPago; // Token de Culqi, o Nro Operación
+
+  @ManyToOne
+  @JoinColumn(name = "id_estado_pago")
+  private EstadosPagos estadoPago;
+
   @ManyToOne
   @JoinColumn(name = "id_usuario")
   private Usuarios usuario;

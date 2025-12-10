@@ -158,9 +158,13 @@ function configurarDelegacionEventos() {
           safelySetValue(modal, "input[name='idProducto']", boton.dataset.id);
           safelySetValue(modal, "input[name='nombre']", boton.dataset.nombre);
           safelySetValue(modal, "input[name='sku']", boton.dataset.sku);
+          safelySetValue(modal, "input[name='stock']", boton.dataset.stock);
 
           const selectCategoria = modal.querySelector("select[name='idCategoria']");
           if (selectCategoria) selectCategoria.value = boton.dataset.idCategoria || 0;
+
+          const selectColor = modal.querySelector("select[name='idColor']");
+          if (selectColor) selectColor.value = boton.dataset.idColor || 0;
 
           safelySetValue(modal, "textarea[name='descripcion']", boton.dataset.descripcion);
           safelySetValue(modal, "input[name='precio']", boton.dataset.precio);
@@ -169,6 +173,7 @@ function configurarDelegacionEventos() {
 
         case "pedido":
           safelySetValue(modal, "input[name='idPedido']", boton.dataset.id);
+          safelySetValue(modal, "input[name='referenciaPago']", boton.dataset.referenciaPago);
 
           // Campos de solo lectura (usamos ID porque no se envían en el form)
           safelySetValue(modal, "#editPedidoUsuarioEmail", boton.dataset.usuarioEmail);
@@ -179,6 +184,7 @@ function configurarDelegacionEventos() {
           safelySetValue(modal, "select[name='idEstadoCompra']", boton.dataset.idEstadoCompra);
           safelySetValue(modal, "select[name='idMetodoPago']", boton.dataset.idMetodoPago);
           safelySetValue(modal, "select[name='idTipoComprobante']", boton.dataset.idTipoComprobante);
+          safelySetValue(modal, "select[name='idEstadoPago']", boton.dataset.idEstadoPago);
           break;
 
         case "pedidoItem":

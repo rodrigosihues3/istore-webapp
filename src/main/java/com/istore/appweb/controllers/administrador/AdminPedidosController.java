@@ -17,6 +17,7 @@ import com.istore.appweb.DTO.pedidosItems.PedidoItemAgregarDTO;
 import com.istore.appweb.DTO.pedidosItems.PedidoItemEditarDTO;
 import com.istore.appweb.entities.Pedidos;
 import com.istore.appweb.repositories.EstadosComprasRepository;
+import com.istore.appweb.repositories.EstadosPagosRepository;
 import com.istore.appweb.repositories.MetodosPagosRepository;
 import com.istore.appweb.repositories.ProductosRepository;
 import com.istore.appweb.repositories.TiposComprobantesRepository;
@@ -50,6 +51,9 @@ public class AdminPedidosController {
 
   @Autowired
   private EstadosComprasRepository repoEstadosCompras;
+
+  @Autowired
+  private EstadosPagosRepository repoEstadosPagos;
 
   @Autowired
   private ProductosRepository repoProductos;
@@ -157,6 +161,7 @@ public class AdminPedidosController {
     model.addAttribute("metodosPagos", repoMetodosPago.findAll());
     model.addAttribute("tiposComprobantes", repoTiposComprobante.findAll());
     model.addAttribute("estadosCompras", repoEstadosCompras.findAll());
+    model.addAttribute("estadosPagos", repoEstadosPagos.findAll());
   }
 
   /*

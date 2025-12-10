@@ -32,8 +32,8 @@
                 <th>ID</th>
                 <th>CLIENTE / USUARIO</th>
                 <th class="text-center">TOTAL</th>
-                <th>ESTADO</th>
-                <th>MÉTODO DE PAGO / COMPROBANTE</th>
+                <th>ESTADOS (Compra / Pago)</th>
+                <th>MÉTODO DE PAGO / Ref. Pago</th>
                 <th>FECHA</th>
                 <th class="text-center">Acciones</th>
               </tr>
@@ -54,14 +54,20 @@
                   th:text="${'S/. ' + #numbers.formatDecimal(pedido.total, 1, 2, 'COMMA')}">TOTAL
                 </td>
                 <td>
-                  <span class="badge rounded-pill border"
-                    th:classappend="${pedido.estadoCompra?.nombre == 'ENTREGADO' ? 'bg-success-subtle text-success border-success' : 'bg-light text-dark'}"
-                    th:text="${pedido.estadoCompra?.nombre}">ESTADO
-                  </span>
+                  <div class="mb-1">
+                    <span class="badge bg-light text-dark border"
+                      th:text="'Compra: ' + ${pedido.estadoCompra?.nombre}">Compra</span>
+                  </div>
+                  <div>
+                    <span class="badge"
+                      th:classappend="${pedido.estadoPago?.nombre == 'PAGADO' ? 'bg-success' : 'bg-warning text-dark'}"
+                      th:text="'Pago: ' + ${pedido.estadoPago?.nombre}">Pago</span>
+                  </div>
                 </td>
                 <td>
-                  <div class="small" th:text="${pedido.metodoPago?.nombre}">MÉTODO DE PAGO</div>
-                  <div class="small text-muted" th:text="${pedido.tipoComprobante?.nombre}">COMPROBANTE</div>
+                  <div class="fw-bold" th:text="${pedido.metodoPago?.nombre}">Metodo</div>
+                  <small class="text-muted d-block text-truncate" style="max-width: 100px;"
+                    th:text="${pedido.referenciaPago}" title="Referencia">Ref</small>
                 </td>
                 <td>
                   <div class="small" th:text="${#temporals.format(pedido.fechaCreacion, 'dd/MM/yyyy')}">FECHA</div>
@@ -81,7 +87,8 @@
                     th:data-id-estado-compra="${pedido.estadoCompra?.idEstadoCompra}" th:data-total="${pedido.total}"
                     th:data-usuario-nombreCompleto="${pedido.usuario?.nombres + ' ' + pedido.usuario?.apellidos}"
                     th:data-usuario="${pedido.usuario?.nombreUsuario}" th:data-usuario-email="${pedido.usuario?.email}"
-                    title="Editar Cabecera">
+                    th:data-id-estado-pago="${pedido.estadoPago?.idEstadoPago}"
+                    th:data-referencia-pago="${pedido.referenciaPago}" title="Editar Pedido">
                     <i class="bi bi-pencil-square"></i>
                   </button>
 

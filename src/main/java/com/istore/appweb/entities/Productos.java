@@ -31,14 +31,15 @@ public class Productos {
   private String nombre;
   private String descripcion;
   private BigDecimal precio;
+  private Integer stock;
   private String urlImagen;
 
   @ManyToOne
-  @JoinColumn
+  @JoinColumn(name = "id_categoria")
   private Categorias categoria;
 
   @ManyToOne
-  @JoinColumn
+  @JoinColumn(name = "id_color")
   private Colores color;
 
   private LocalDateTime fechaCreacion = LocalDateTime.now();

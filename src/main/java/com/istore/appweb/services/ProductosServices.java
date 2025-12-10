@@ -15,6 +15,7 @@ import com.istore.appweb.DTO.productos.ProductoEditarDTO;
 import com.istore.appweb.configs.Utilidades;
 import com.istore.appweb.entities.Productos;
 import com.istore.appweb.repositories.CategoriasRepository;
+import com.istore.appweb.repositories.ColoresRepository;
 import com.istore.appweb.repositories.ProductosRepository;
 
 @Service
@@ -25,6 +26,9 @@ public class ProductosServices {
 
   @Autowired
   private CategoriasRepository repositorioCategorias;
+
+  @Autowired
+  private ColoresRepository repositorioColores;
 
   @Autowired
   private CloudinaryService cloudinaryService;
@@ -61,13 +65,16 @@ public class ProductosServices {
         productoDTO.getSku(),
         productoDTO.getNombre(),
         productoDTO.getDescripcion(),
-        productoDTO.getPrecio());
+        productoDTO.getPrecio(),
+        productoDTO.getStock());
 
     // Subir Imagen a Cloudinary
     String urlImagen = cloudinaryService.subirImagen(productoDTO.getImagen());
     producto.setUrlImagen(urlImagen); // Guardamos la URL
 
     producto.setCategoria(repositorioCategorias.findById(productoDTO.getIdCategoria()).get());
+    producto.setColor(repositorioColores.findById(productoDTO.getIdColor()).get());
+
     producto.setFechaCreacion(LocalDateTime.now());
 
     return repositorio.save(producto);
@@ -89,11 +96,14 @@ public class ProductosServices {
     productoExistente.setNombre(Utilidades.normalizarTexto(productoDTO.getNombre()));
     productoExistente.setDescripcion(Utilidades.normalizarTexto(productoDTO.getDescripcion()));
     productoExistente.setPrecio(productoDTO.getPrecio());
+    productoExistente.setStock(productoDTO.getStock());
+
     productoExistente.setCategoria(repositorioCategorias.findById(productoDTO.getIdCategoria()).get());
+    productoExistente.setColor(repositorioColores.findById(productoDTO.getIdColor()).get());
 
     // Lógica de imagen en edición
     if (productoDTO.getImagen() != null && !productoDTO.getImagen().isEmpty()) {
-      // Si subió nueva foto, la mandamos a la nube y actualizamos URL
+      // Si subió nueva foto, se manda a la nube y actuala la URL
       String nuevaUrl = cloudinaryService.subirImagen(productoDTO.getImagen());
       productoExistente.setUrlImagen(nuevaUrl);
     }
@@ -122,13 +132,14 @@ public class ProductosServices {
     return repositorio.save(producto);
   }
 
-  private Productos mapearYNormalizar(String sku, String nombre, String descripcion, BigDecimal precio) {
+  private Productos mapearYNormalizar(String sku, String nombre, String descripcion, BigDecimal precio, Integer stock) {
     Productos producto = new Productos();
 
     producto.setSku(sku.trim());
     producto.setNombre(Utilidades.normalizarTexto(nombre));
     producto.setDescripcion(Utilidades.normalizarTexto(descripcion));
     producto.setPrecio(precio);
+    producto.setStock(stock);
 
     return producto;
   }

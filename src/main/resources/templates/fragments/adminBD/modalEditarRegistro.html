@@ -354,6 +354,7 @@
 </div>
 
 
+
 <!-- MODAL EDITAR PEDIDO -->
 <div th:fragment="modalEditarPedido" class="modal fade" id="modalEditar" tabindex="-1">
   <div class="modal-dialog modal-xl modal-dialog-centered">
@@ -434,6 +435,18 @@
                 th:errors="*{idTipoComprobante}"></div>
             </div>
 
+            <div class="col-4">
+              <label class="form-label ms-2 mt-2" for="edit_idEstadoPago">Estado Pago</label>
+              <select class="form-select" th:field="*{idEstadoPago}" id="edit_idEstadoPago" required>
+                <option th:each="ep : ${estadosPagos}" th:value="${ep.idEstadoPago}" th:text="${ep.nombre}">
+                </option>
+              </select>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label ms-2 mt-2" for="edit_referenciaPago">Referencia de Pago</label>
+              <input type="text" class="form-control" id="edit_referenciaPago" th:field="*{referenciaPago}">
+            </div>
           </div>
         </div>
 
@@ -445,6 +458,7 @@
     </div>
   </div>
 </div>
+
 
 
 <!-- MODAL EDITAR PEDIDO ITEM -->
@@ -518,6 +532,8 @@
   </div>
 </div>
 
+
+
 <!-- EDITAR CATEGORÍA -->
 <div th:fragment="modalEditarCategoria" class="modal fade" id="modalEditar" tabindex="-1">
   <div class="modal-dialog modal-xl modal-dialog-centered">
@@ -553,6 +569,8 @@
     </div>
   </div>
 </div>
+
+
 
 <!-- EDITAR PRODUCTO -->
 <div th:fragment="modalEditarProducto" class="modal fade" id="modalEditar" tabindex="-1">
@@ -614,27 +632,39 @@
             </div>
 
             <div class="col-6">
+              <label class="form-label ms-2 mt-2" for="edit_idColor">Color</label>
+              <select class="form-select" th:field="*{idColor}" id="edit_idColor" required>
+                <option th:each="col : ${colores}" th:value="${col.idColor}" th:text="${col.nombre}"></option>
+              </select>
+            </div>
+
+            <div class="col-6">
               <label class="form-label ms-2 mt-2" for="edit_imagen">Cambiar Imagen (Opcional)</label>
               <input type="file" class="form-control" id="edit_imagen" th:field="*{imagen}" accept="image/*">
               <div class="form-text">Si no seleccionas nada, se mantiene la imagen actual.</div>
             </div>
 
-            <div class="col-8">
-              <label class="form-label ms-2 mt-2" for="edit_descripcion">Descripción</label>
-              <textarea class="form-control" rows="2" id="edit_descripcion"
-                th:classappend="${#fields.hasErrors('descripcion')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
-                placeholder="Escribe una breve descripción del producto" th:field="*{descripcion}"></textarea>
-              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('descripcion')}"
-                th:errors="*{descripcion}"></div>
+            <div class="col-3">
+              <label class="form-label ms-2 mt-2" for="edit_stock">Stock</label>
+              <input type="number" class="form-control" id="edit_stock" th:field="*{stock}" min="0" required>
             </div>
 
-            <div class="col-4">
+            <div class="col-3">
               <label class="form-label ms-2 mt-2" for="edit_precio">Precio</label>
               <input type="number" step="0.01" class="form-control" id="edit_precio"
                 th:classappend="${#fields.hasErrors('precio')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ingresa el precio del producto" th:field="*{precio}" required>
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}">
               </div>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label ms-2 mt-2" for="edit_descripcion">Descripción</label>
+              <textarea class="form-control" rows="2" id="edit_descripcion"
+                th:classappend="${#fields.hasErrors('descripcion')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                placeholder="Escribe una breve descripción del producto" th:field="*{descripcion}"></textarea>
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('descripcion')}"
+                th:errors="*{descripcion}"></div>
             </div>
           </div>
         </div>

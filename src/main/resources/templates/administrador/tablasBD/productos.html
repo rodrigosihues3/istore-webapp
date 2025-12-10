@@ -34,7 +34,8 @@
                                 <th>NOMBRE / SKU</th>
                                 <th>DESCRIPCIÓN</th>
                                 <th>PRECIO</th>
-                                <th>CATEGORÍA</th>
+                                <th>STOCK</th>
+                                <th>CATEGORÍA / COLOR</th>
                                 <th>FECHA</th>
                                 <th class="text-center">Acciones</th>
                             </tr>
@@ -67,7 +68,15 @@
                                 <td class="fw-bold text-success"
                                     th:text="${'S/ ' + #numbers.formatDecimal(producto.precio, 1, 2, 'COMMA')}">Precio
                                 </td>
-                                <td th:text="${producto.categoria?.nombre}">Categoría</td>
+                                <td>
+                                    <span class="badge"
+                                        th:classappend="${producto.stock > 10 ? 'bg-success' : (producto.stock > 0 ? 'bg-warning' : 'bg-danger')}"
+                                        th:text="${producto.stock}">10</span>
+                                </td>
+                                <td>
+                                    <div th:text="${producto.categoria?.nombre}">Cat</div>
+                                    <small class="text-muted" th:text="${producto.color?.nombre}">Color</small>
+                                </td>
                                 <td>
                                     <div class="small"
                                         th:text="${#temporals.format(producto.fechaCreacion, 'dd/MM/yyyy')}">FECHA</div>
@@ -81,7 +90,9 @@
                                         th:data-nombre="${producto.nombre}"
                                         th:data-descripcion="${producto.descripcion}"
                                         th:data-precio="${producto.precio}"
-                                        th:data-id-categoria="${producto.categoria?.idCategoria}" title="Editar">
+                                        th:data-id-categoria="${producto.categoria?.idCategoria}"
+                                        th:data-stock="${producto.stock}" th:data-id-color="${producto.color?.idColor}"
+                                        title="Editar">
                                         <span><i class="bi bi-pencil-square"></i></span>
                                     </button>
                                     <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"

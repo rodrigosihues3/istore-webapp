@@ -408,6 +408,22 @@
                 th:errors="*{idTipoComprobante}"></div>
             </div>
 
+            <div class="col-6">
+              <label class="form-label ms-2 mt-2" for="add_idEstadoPago">Estado de Pago</label>
+              <select class="form-select" th:field="*{idEstadoPago}" id="add_idEstadoPago"
+                th:classappend="${#fields.hasErrors('idEstadoPago')} ? 'is-invalid'" required>
+                <option value="" disabled selected>-- Selecciona --</option>
+                <option th:each="ep : ${estadosPagos}" th:value="${ep.idEstadoPago}" th:text="${ep.nombre}"></option>
+              </select>
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('idEstadoPago')}"
+                th:errors="*{idEstadoPago}"></div>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label ms-2 mt-2" for="add_referenciaPago">Referencia de Pago (Opcional)</label>
+              <input type="text" class="form-control" id="add_referenciaPago" th:field="*{referenciaPago}"
+                placeholder="Nro de Operación o Token">
+            </div>
           </div>
         </div>
 
@@ -591,26 +607,45 @@
             </div>
 
             <div class="col-6">
+              <label class="form-label ms-2 mt-2" for="add_idColor">Color</label>
+              <select class="form-select" th:field="*{idColor}" id="add_idColor"
+                th:classappend="${#fields.hasErrors('idColor')} ? 'is-invalid'" required>
+                <option th:each="col : ${colores}" th:value="${col.idColor}" th:text="${col.nombre}"></option>
+              </select>
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('idColor')}"
+                th:errors="*{idColor}"></div>
+            </div>
+
+            <div class="col-6">
               <label class="form-label ms-2 mt-2" for="add_imagen">Imagen del Producto</label>
               <input type="file" class="form-control" id="add_imagen" th:field="*{imagen}" accept="image/*">
             </div>
 
-            <div class="col-8">
-              <label class="form-label ms-2 mt-2" for="add_descripcion">Descripción</label>
-              <textarea class="form-control" rows="2" id="add_descripcion"
-                th:classappend="${#fields.hasErrors('descripcion')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
-                placeholder="Escribe una breve descripción del producto" th:field="*{descripcion}"></textarea>
-              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('descripcion')}"
-                th:errors="*{descripcion}"></div>
+            <div class="col-3">
+              <label class="form-label ms-2 mt-2" for="add_stock">Stock</label>
+              <input type="number" class="form-control" id="add_stock"
+                th:classappend="${#fields.hasErrors('stock')} ? 'is-invalid'" placeholder="0" th:field="*{stock}"
+                min="0" required>
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}">
+              </div>
             </div>
 
-            <div class="col-4">
+            <div class="col-3">
               <label class="form-label ms-2 mt-2" for="add_precio">Precio</label>
               <input type="number" step="0.01" class="form-control" id="add_precio"
                 th:classappend="${#fields.hasErrors('precio')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
                 placeholder="Ingresa el precio" th:field="*{precio}" required>
               <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}">
               </div>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label ms-2 mt-2" for="add_descripcion">Descripción</label>
+              <textarea class="form-control" rows="2" id="add_descripcion"
+                th:classappend="${#fields.hasErrors('descripcion')} ? 'is-invalid' : (${#fields.hasAnyErrors()} ? 'is-valid' : '')"
+                placeholder="Escribe una breve descripción del producto" th:field="*{descripcion}"></textarea>
+              <div class="text-wrap text-error-validation" th:if="${#fields.hasErrors('descripcion')}"
+                th:errors="*{descripcion}"></div>
             </div>
           </div>
         </div>
