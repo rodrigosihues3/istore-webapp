@@ -91,21 +91,20 @@
 
         <div class="collapse navbar-collapse justify-content-center" id="menuCategorias">
             <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link"
-                        th:classappend="${currentPath == '/' or currentPath.isEmpty()} ? ' active' : ''"
-                        th:href="@{/}">Inicio</a></li>
-                <li class="nav-item"><a class="nav-link"
-                        th:classappend="${currentPath.startsWith('/catalogo/iphones')} ? ' active' : ''"
-                        th:href="@{/catalogo/iphones}">Iphones</a></li>
-                <li class="nav-item"><a class="nav-link"
-                        th:classappend="${currentPath.startsWith('/catalogo/relojes')} ? ' active' : ''"
-                        th:href="@{/catalogo/relojes}">Relojes</a></li>
-                <li class="nav-item"><a class="nav-link"
-                        th:classappend="${currentPath.startsWith('/catalogo/audifonos')} ? ' active' : ''"
-                        th:href="@{/catalogo/audifonos}">Audifonos</a></li>
-                <li class="nav-item"><a class="nav-link"
-                        th:classappend="${currentPath.startsWith('/catalogo/accesorios')} ? ' active' : ''"
-                        th:href="@{/catalogo/accesorios}">Accesorios</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}"
+                        th:classappend="${currentPath == '/' or currentPath == ''} ? 'active' : ''">Inicio</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/catalogo" onclick="event.preventDefault(); cargarProductos({})">Ver
+                        Todo</a>
+                </li>
+
+                <li class="nav-item" th:each="cat : ${categoriasMenu}">
+                    <a class="nav-link" th:href="@{'/catalogo/' + ${cat.nombre}}" th:text="${cat.nombre}">Nombre
+                        Categoria</a>
+                </li>
             </ul>
         </div>
     </div>

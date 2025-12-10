@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.istore.appweb.DTO.categorias.CategoriaAgregarDTO;
@@ -19,8 +18,7 @@ public class CategoriasServices {
     private CategoriasRepository repositorio;
 
     public List<Categorias> getCategorias() {
-        return repositorio.findAll(Sort.by(Sort.Direction.DESC, "idCategoria"));
-
+        return repositorio.findAll();
     }
 
     public Categorias getCategoriaById(Integer id) {
