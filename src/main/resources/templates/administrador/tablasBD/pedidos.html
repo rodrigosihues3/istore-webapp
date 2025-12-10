@@ -34,7 +34,7 @@
                 <th class="text-center">TOTAL</th>
                 <th>ESTADOS (Compra / Pago)</th>
                 <th>MÉTODO DE PAGO / Ref. Pago</th>
-                <th>FECHA</th>
+                <th>FECHAS</th>
                 <th class="text-center">Acciones</th>
               </tr>
             </thead>
@@ -70,8 +70,10 @@
                     th:text="${pedido.referenciaPago}" title="Referencia">Ref</small>
                 </td>
                 <td>
-                  <div class="small" th:text="${#temporals.format(pedido.fechaCreacion, 'dd/MM/yyyy')}">FECHA</div>
-                  <small class="text-muted" th:text="${#temporals.format(pedido.fechaCreacion, 'HH:mm')}">HORA</small>
+                  <div class="small" th:text="'Ult. acutalización: ' + ${#temporals.format(pedido.fechaActualizacion, 'dd/MM/yyyy HH:mm')}">FECHA
+                    ACTUALZIACION</div>
+                  <div class="small" th:text="'Creado: ' + ${#temporals.format(pedido.fechaCreacion, 'dd/MM/yyyy HH:mm')}">FECHA
+                    CREACION</div>
                 </td>
                 <td class="text-center">
                   <button type="button" class="btn btn-sm btn-info text-white me-1"
