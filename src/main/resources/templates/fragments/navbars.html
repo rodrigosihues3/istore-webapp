@@ -16,18 +16,17 @@
             </form>
 
             <ul class="navbar-nav my-2 my-lg-0 navbar-nav-scroll">
-                <li class="nav-item me-lg-3 me-2 my-auto">
-                    <span class="nav-link text-apple-secondary">📍 Ica, Perú</span>
-                </li>
-
-                <li class="nav-item me-lg-2 me-2 my-auto">
-                    <a href="#" class="btn btn-outline-dark border-0" data-bs-toggle="modal"
+                <li class="nav-item me-lg-2 my-auto">
+                    <a href="#" class="btn btn-outline-dark border-0 position-relative" data-bs-toggle="modal"
                         data-bs-target="#cartModal">
-                        🛒 Carrito <span class="badge bg-primary ms-1">2</span>
+                        <i class="bi bi-cart"></i>
+                        <span id="contador-carrito"
+                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary"
+                            style="font-size: 0.7rem;">0</span>
                     </a>
                 </li>
 
-                <li class="nav-item me-2">
+                <li class="nav-item mx-2">
                     <a sec:authorize="isAnonymous()" th:href="@{/iniciar-sesion}"
                         class="btn btn-outline-primary">Iniciar sesión</a>
                 </li>
@@ -97,7 +96,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/catalogo" onclick="event.preventDefault(); cargarProductos({})">Ver
+                    <a class="nav-link" th:href="@{/catalogo}">Ver
                         Todo</a>
                 </li>
 

@@ -1,40 +1,57 @@
 <div th:fragment="listaProductos" class="container animate__animated animate__fadeIn">
-  <h2 class="text-center fw-bold mb-4" th:text="${tituloCatalogo}">Nuestro Catálogo</h2>
+  <h2 class="text-center fw-bold mb-5" th:text="${tituloCatalogo}">Nuestro Catálogo</h2>
 
-  <div class="container text-center px-4">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-4">
+  <div class="container px-2 px-md-4">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+
       <div class="col" th:each="producto : ${productos}">
-        <div class="card product h-100 pb-2">
-          <button type="button" class="border-0 bg-transparent p-0 w-100 btn-detalle-producto" data-bs-toggle="modal"
+        <div class="card h-100 product-card border-0 shadow-sm">
+
+          <button type="button" class="border-0 bg-transparent p-0 btn-detalle-producto" data-bs-toggle="modal"
             data-bs-target="#modalDetalleProducto" th:data-id="${producto.idProducto}"
             th:data-nombre="${producto.nombre}" th:data-descripcion="${producto.descripcion}"
             th:data-precio="${producto.precio}" th:data-imagen="${producto.urlImagen}" th:data-stock="${producto.stock}"
             aria-label="Ver detalles">
 
-            <img th:if="${producto.urlImagen != null}" th:src="${producto.urlImagen}" class="card-img-top product-image"
-              style="object-fit: contain; height: 200px;">
-            <img th:unless="${producto.urlImagen != null}" src="https://via.placeholder.com/300x300?text=No+Image"
-              class="card-img-top product-image">
+            <div class="product-image-container">
+              <img th:if="${producto.urlImagen != null}" th:src="${producto.urlImagen}"
+                class="img-fluid h-100 object-fit-contain" alt="Producto">
+              <div th:unless="${producto.urlImagen != null}" class="text-muted text-center">
+                <i class="bi bi-image fs-1"></i>
+              </div>
+            </div>
 
-            <div class="card-body p-0">
-              <h5 class="card-title product-title" th:text="${producto.nombre}">Nombre Producto</h5>
-              <p class="card-text" th:text="${producto.categoria.nombre}">Categoría</p>
-              <p class="product-price" th:text="'S/. ' + ${producto.precio}">S/. 0.00</p>
+            <div class="card-body pt-2 px-3 pb-0">
+              <small class="text-muted text-uppercase" style="font-size: 0.7rem;"
+                th:text="${producto.categoria?.nombre}">Categoría</small>
+              <h5 class="product-title text-truncate" th:text="${producto.nombre}">Nombre</h5>
+              <p class="text-muted small text-truncate" th:text="${producto.descripcion}">Desc</p>
             </div>
           </button>
 
-          <div class="card-footer bg-white border-0">
-            <button class="btn btn-primary w-75 btn-agregar-carrito" th:data-id="${producto.idProducto}"
-              th:disabled="${producto.stock <= 0}">
-              <span th:text="${producto.stock > 0 ? 'Agregar al carrito' : 'Agotado'}">Agregar</span>
-            </button>
+          <div class="card-footer bg-white border-0 pb-4 pt-2 px-3 mt-auto">
+            <div class="d-flex justify-content-between align-items-center gap-2">
+              <span class="product-price fw-bold"
+                th:text="'S/ ' + ${#numbers.formatDecimal(producto.precio, 1, 2, 'COMMA')}">0.00</span>
+
+              <button class="btn btn-agregar-carrito"
+                th:classappend="${producto.stock > 0 ? 'btn-primary' : 'btn-secondary'}"
+                th:data-id="${producto.idProducto}" th:disabled="${producto.stock <= 0}">
+                <i class="bi bi-cart-plus me-1" th:if="${producto.stock > 0}"></i>
+                <span th:text="${producto.stock > 0 ? 'Agregar' : 'Agotado'}">Agregar</span>
+              </button>
+            </div>
           </div>
+
         </div>
       </div>
+
     </div>
 
-    <div th:if="${#lists.isEmpty(productos)}" class="alert alert-warning mt-4">
-      No se encontraron productos con los criterios seleccionados.
+    <div th:if="${#lists.isEmpty(productos)}" class="alert alert-light text-center mt-5 py-5 shadow-sm">
+      <i class="bi bi-search fs-1 text-muted mb-3 d-block"></i>
+      <h4 class="text-muted">No encontramos productos aquí.</h4>
+      <button class="btn btn-outline-primary mt-3" onclick="cargarProductos({})">Ver todo el catálogo</button>
     </div>
   </div>
 </div>

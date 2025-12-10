@@ -1,74 +1,41 @@
-<!-- MODAL DETALLES DE IPHONE -->
-<div th:fragment="detallesIphone" class="modal fade" id="modalIphone16ProMax" tabindex="-1"
-    aria-labelledby="modalIphone16ProMaxLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
+<!-- MODAL CARRITO -->
+<div th:fragment="carrito" class="modal fade" id="cartModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="false">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content border-0 rounded-4 shadow">
 
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalIphone16ProMaxLabel">iPhone 16 Pro Max</h5>
+            <div class="modal-header border-bottom-0 pb-0">
+                <h4 class="modal-title fw-bold">Tu carrito de compras</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
 
-            <div class="modal-body row">
-                <div class="col-md-6 text-center">
-                    <img th:src="@{/img/iphones/iphone-16-pro-max.png}" alt="iPhone 16 Pro Max" class="img-fluid">
-                </div>
-                <div class="col-md-6">
-                    <p><strong>Precio:</strong> S/. 6,199.00</p>
-                    <p><strong>Memoria:</strong> 256 GB</p>
-                    <p><strong>Color:</strong> Titanio</p>
-                    <p>El iPhone más avanzado hasta la fecha, con chip A18 y cámara ProMotion.</p>
-                    <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+            <div class="modal-body pt-4" id="cuerpo-carrito">
 
-<!-- MODAL CARRITO -->
-<div th:fragment="carrito" class="modal fade" id="cartModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="false">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content border-0 rounded-3 shadow">
-
-            <!-- Header -->
-            <div class="modal-header">
-                <h5 class="modal-title fw-semibold">Tu carrito</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <!-- Body -->
-            <div class="modal-body">
-                <!-- Producto 1 -->
-                <div class="d-flex align-items-center mb-3 pb-3 border-bottom">
-                    <img th:src="@{/img/iphones/iphone-15-pro.png}" alt="iPhone 15 Pro" class="rounded me-3"
-                        style="width: 80px; height: 80px; object-fit: cover;">
-                    <div class="flex-grow-1">
-                        <h6 class="fw-semibold mb-1">iPhone 15 Pro</h6>
-                        <p class="text-secondary small mb-1">Cantidad: 1</p>
-                        <p class="fw-bold mb-0">S/. 5,199.00</p>
+                <div id="lista-carrito-items">
+                    <div class="text-center py-5">
+                        <i class="bi bi-cart fs-1 text-muted mb-3 d-block"></i>
+                        <p class="text-muted">Tu carrito está vacio.</p>
+                        <a th:href="@{/catalogo}" class="btn btn-outline-dark btn-sm rounded-pill mt-2"
+                            data-bs-dismiss="modal">
+                            Empezar a comprar
+                        </a>
                     </div>
-                    <button class="btn btn-sm btn-outline-danger">✕</button>
                 </div>
 
-                <!-- Producto 2 -->
-                <div class="d-flex align-items-center mb-3 pb-3 border-bottom">
-                    <img th:src="@{/img/iphones/iphone-14.png}" alt="iPhone 14" class="rounded me-3"
-                        style="width: 80px; height: 80px; object-fit: cover;">
-                    <div class="flex-grow-1">
-                        <h6 class="fw-semibold mb-1">iPhone 14</h6>
-                        <p class="text-secondary small mb-1">Cantidad: 1</p>
-                        <p class="fw-bold mb-0">S/. 3,299.00</p>
-                    </div>
-                    <button class="btn btn-sm btn-outline-danger">✕</button>
-                </div>
             </div>
 
-            <!-- Footer -->
-            <div class="modal-footer d-flex justify-content-between align-items-center">
-                <h6 class="fw-bold mb-0">Total: S/. 8,498.00</h6>
+            <div
+                class="modal-footer border-top-0 d-flex justify-content-between align-items-center bg-light rounded-bottom-4">
                 <div>
-                    <button class="btn btn-outline-secondary me-2" data-bs-dismiss="modal">Seguir comprando</button>
-                    <a th:href="@{/cliente/pagar-carrito}" class="btn btn-primary">Finalizar compra</a>
+                    <span class="text-muted small d-block">Total estimado</span>
+                    <h4 class="fw-bold mb-0" id="total-carrito">S/. 0.00</h4>
+                </div>
+                <div>
+                    <button class="btn btn-link text-decoration-none text-muted me-2" data-bs-dismiss="modal">Seguir
+                        mirando</button>
+                    <a th:href="@{/cliente/pagar-carrito}" class="btn btn-primary rounded-pill px-4"
+                        id="btn-finalizar-compra">
+                        Pagar ahora
+                    </a>
                 </div>
             </div>
 

@@ -1,0 +1,69 @@
+<div th:fragment="contenidoModal">
+  <div class="modal-header bg-dark">
+    <h5 class="modal-title text-white fw-bold">Pedido #<span th:text="${pedido.idPedido}"></span></h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+  </div>
+
+  <div class="modal-body">
+    <div class="row g-3 mb-4">
+      <div class="col-md-6">
+        <small class="text-muted text-uppercase fw-bold">Estado</small>
+        <div>
+          <span class="badge"
+            th:classappend="${pedido.estadoCompra?.nombre == 'ENTREGADO' ? 'bg-success' : 'bg-warning text-dark'}"
+            th:text="${pedido.estadoCompra?.nombre}">ESTADO</span>
+        </div>
+      </div>
+      <div class="col-md-6 text-end">
+        <small class="text-muted text-uppercase fw-bold">Total</small>
+        <div class="fs-4 fw-bold text-success" th:text="'S/ ' + ${#numbers.formatDecimal(pedido.total, 1, 2, 'COMMA')}">
+        </div>
+      </div>
+      <div class="col-12 border-top pt-2">
+        <small class="text-muted me-3"><i class="bi bi-calendar me-1"></i> <span
+            th:text="${#temporals.format(pedido.fechaCreacion, 'dd/MM/yyyy HH:mm')}"></span></small>
+        <small class="text-muted"><i class="bi bi-credit-card me-1"></i> <span
+            th:text="${pedido.metodoPago?.nombre}"></span></small>
+      </div>
+    </div>
+
+    <div class="card border-0 bg-light">
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-borderless align-middle mb-0">
+            <thead class="text-muted border-bottom">
+              <tr>
+                <th class="ps-3">Producto</th>
+                <th class="text-center">Cant.</th>
+                <th class="text-end pe-3">Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="item : ${items}">
+                <td class="ps-3">
+                  <div class="d-flex align-items-center">
+                    <img th:if="${item.producto?.urlImagen != null}" th:src="${item.producto.urlImagen}"
+                      class="rounded border bg-white me-2" style="width: 40px; height: 40px; object-fit: contain;">
+
+                    <div class="lh-sm">
+                      <div class="fw-medium" th:text="${item.producto?.nombre}">Nombre</div>
+                      <small class="text-muted"
+                        th:text="${'S/ ' + #numbers.formatDecimal(item.precio, 1, 2, 'COMMA')}">Precio</small>
+                    </div>
+                  </div>
+                </td>
+                <td class="text-center" th:text="${item.cantidad}">1</td>
+                <td class="text-end pe-3 fw-bold"
+                  th:text="'S/ ' + ${#numbers.formatDecimal(item.total, 1, 2, 'COMMA')}">Total</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer border-0">
+    <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal">Cerrar</button>
+  </div>
+</div>

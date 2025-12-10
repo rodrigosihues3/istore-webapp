@@ -42,18 +42,15 @@
                 <div class="carousel-item" data-bs-interval="4500">
                     <img th:src="@{/img/carrusel-img-4.png}" class="d-block w-100" alt="Imagen 4" />
                 </div>
-                <div class="carousel-item" data-bs-interval="4500">
-                    <img th:src="@{/img/tienda.png}" class="d-block w-100" alt="Imagen 4" />
-                </div>
             </div>
 
             <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev"
                 aria-label="Anterior">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
             </button>
             <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next"
                 aria-label="Siguiente">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <!-- <span class="carousel-control-next-icon" aria-hidden="true"></span> -->
             </button>
         </div>
     </section>
@@ -63,48 +60,58 @@
         <div class="container">
             <h2 class="text-center fw-bold mb-5">Destacados</h2>
 
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+            <div class="container px-2 px-md-4">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
 
-                <div class="col" th:each="producto : ${productosDestacados}">
-                    <div class="card h-100 border-0 shadow-sm product-card text-center pb-2">
-                        <button type="button" class="border-0 bg-transparent p-0 w-100 btn-detalle-producto"
-                            data-bs-toggle="modal" data-bs-target="#modalDetalleProducto"
-                            th:data-id="${producto.idProducto}" th:data-nombre="${producto.nombre}"
-                            th:data-descripcion="${producto.descripcion}" th:data-precio="${producto.precio}"
-                            th:data-imagen="${producto.urlImagen}" th:data-stock="${producto.stock}">
+                    <div class="col" th:each="producto : ${productosDestacados}">
+                        <div class="card h-100 product-card border-0 shadow-sm">
 
-                            <div class="p-4 bg-white rounded-top position-relative" style="height: 220px;">
-                                <img th:if="${producto.urlImagen != null}" th:src="${producto.urlImagen}"
-                                    class="img-fluid h-100 object-fit-contain" alt="Prod">
-                                <div th:unless="${producto.urlImagen != null}"
-                                    class="d-flex align-items-center justify-content-center h-100 text-muted bg-light">
-                                    <i class="bi bi-image fs-1"></i>
+                            <button type="button" class="border-0 bg-transparent p-0 btn-detalle-producto"
+                                data-bs-toggle="modal" data-bs-target="#modalDetalleProducto"
+                                th:data-id="${producto.idProducto}" th:data-nombre="${producto.nombre}"
+                                th:data-descripcion="${producto.descripcion}" th:data-precio="${producto.precio}"
+                                th:data-imagen="${producto.urlImagen}" th:data-stock="${producto.stock}">
+
+                                <div class="product-image-container">
+                                    <img th:if="${producto.urlImagen != null}" th:src="${producto.urlImagen}"
+                                        class="img-fluid h-100 object-fit-contain" alt="Producto">
+                                    <div th:unless="${producto.urlImagen != null}" class="text-muted text-center">
+                                        <i class="bi bi-image fs-1"></i>
+                                    </div>
+                                </div>
+
+                                <div class="card-body pt-2 px-3 pb-0">
+                                    <small class="text-muted text-uppercase" style="font-size: 0.7rem;"
+                                        th:text="${producto.categoria?.nombre}">Categoría</small>
+                                    <h5 class="product-title text-truncate" th:text="${producto.nombre}">Nombre</h5>
+                                    <p class="text-muted small text-truncate" th:text="${producto.descripcion}">Desc</p>
+                                </div>
+                            </button>
+
+                            <div class="card-footer bg-white border-0 pb-4 pt-2 px-3 mt-auto">
+                                <div class="d-flex justify-content-between align-items-center gap-2">
+                                    <span class="product-price fw-bold"
+                                        th:text="'S/ ' + ${#numbers.formatDecimal(producto.precio, 1, 2, 'COMMA')}">0.00</span>
+
+                                    <button class="btn btn-agregar-carrito"
+                                        th:classappend="${producto.stock > 0 ? 'btn-primary' : 'btn-secondary'}"
+                                        th:data-id="${producto.idProducto}" th:disabled="${producto.stock <= 0}">
+                                        <i class="bi bi-cart-plus me-1" th:if="${producto.stock > 0}"></i>
+                                        <span th:text="${producto.stock > 0 ? 'Agregar' : 'Agotado'}">Agregar</span>
+                                    </button>
                                 </div>
                             </div>
 
-                            <div class="card-body">
-                                <h6 class="card-title fw-bold text-truncate" th:text="${producto.nombre}">Nombre</h6>
-                                <p class="card-text text-muted small" th:text="${producto.categoria?.nombre}">Cat</p>
-                                <p class="fs-5 fw-bold text-primary mb-0"
-                                    th:text="'S/ ' + ${#numbers.formatDecimal(producto.precio, 1, 2, 'COMMA')}">Precio
-                                </p>
-                            </div>
-                        </button>
-
-                        <div class="card-footer bg-white border-0">
-                            <button class="btn btn-primary w-75 btn-agregar-carrito" th:data-id="${producto.idProducto}"
-                                th:disabled="${producto.stock <= 0}">
-                                <span th:text="${producto.stock > 0 ? 'Agregar' : 'Agotado'}">Agregar</span>
-                            </button>
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
 
             <div class="text-center mt-5">
-                <button class="btn btn-outline-primary btn-lg px-5 rounded-pill" onclick="cargarProductos({})">Ver Todo
-                    el Catálogo</button>
+                <button class="btn btn-outline-primary btn-lg px-5 rounded-pill" onclick="cargarProductos({})">
+                    Ver Todo el Catálogo
+                </button>
             </div>
         </div>
     </main>

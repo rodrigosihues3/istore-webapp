@@ -143,4 +143,9 @@ public class PedidosServices {
     repo.save(pedido);
   }
 
+  // MÉTODO PARA CLIENTE: Obtener solo sus pedidos
+  public List<Pedidos> getPedidosByUsuario(Usuarios usuario) {
+    return repo.findByUsuarioOrderByFechaCreacionDesc(usuario);
+  }
+
 }

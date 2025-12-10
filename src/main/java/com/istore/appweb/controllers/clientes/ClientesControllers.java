@@ -25,7 +25,6 @@ public class ClientesControllers {
 
   private final String CARPETA_BASE = "clientes/";
   private final String VISTA_MI_CUENTA = CARPETA_BASE + "account";
-  private final String VISTA_PEDIDOS = CARPETA_BASE + "pedidos";
   private final String REDIRECCIONAR_CUENTA = "redirect:/mi-cuenta";
 
   @Autowired
@@ -105,11 +104,6 @@ public class ClientesControllers {
 
     redirectAttributes.addFlashAttribute("successFormNewPassword", "Tu contraseña fue actualizada correctamente.");
     return REDIRECCIONAR_CUENTA;
-  }
-
-  @GetMapping("/pedidos")
-  public String getPedidos() {
-    return VISTA_PEDIDOS;
   }
 
   private void prepararVista(Model model, @AuthenticationPrincipal UsuariosDetails userDetails) {

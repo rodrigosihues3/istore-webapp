@@ -775,3 +775,71 @@ html {
   margin-left: .5rem;
   line-height: 1rem;
 }
+
+/* ============================================
+   ESTILOS ESPECÍFICOS DE TARJETAS (NUEVO)
+   ============================================ */
+
+.product-card {
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-light) !important;
+  border-radius: var(--radius-xl) !important;
+  overflow: hidden;
+  background-color: var(--surface-primary);
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg) !important;
+  border-color: transparent !important;
+}
+
+/* El botón que envuelve la imagen y el cuerpo debe crecer */
+.btn-detalle-producto {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  /* Esto empuja el footer hacia abajo */
+  width: 100%;
+}
+
+.product-image-container {
+  height: 220px;
+  background: var(--white);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+
+.product-title {
+  font-size: 1.1rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin-top: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.product-price {
+  font-size: 1.25rem;
+  color: var(--primary-600);
+  /* Azul Apple/Primary */
+  margin-bottom: 0;
+  letter-spacing: -0.02em;
+}
+
+/* Botón Agregar pequeño y redondeado */
+.btn-agregar-carrito {
+  border-radius: var(--radius-full);
+  font-weight: var(--font-weight-medium);
+  transition: all var(--transition-fast);
+  padding: 0.35rem 1rem;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  /* Evita que el texto se rompa */
+}
