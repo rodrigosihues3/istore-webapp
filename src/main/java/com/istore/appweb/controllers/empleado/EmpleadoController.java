@@ -96,7 +96,6 @@ public class EmpleadoController {
           if (!estadoActual.equals("PENDIENTE"))
             throw new RuntimeException("Solo se pueden confirmar pedidos pendientes.");
           nuevoEstadoNombre = "CONFIRMADO";
-          actualizarStock = true;
           break;
         case "ENTREGAR":
           if (!estadoActual.equals("CONFIRMADO"))
