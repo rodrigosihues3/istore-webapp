@@ -34,12 +34,21 @@
                 <a href="#" class="link-footer"><small>Cookies</small></a>
             </div>
         </div>
+
+        <script>
+            (function () { if (!window.chatbase || window.chatbase("getState") !== "initialized") { window.chatbase = (...arguments) => { if (!window.chatbase.q) { window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop) { if (prop === "q") { return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function () { const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "hQbEpeoJqDw6E16NlaqUw"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) } })();
+        </script>
+        <script th:src="@{/js/cliente/carrito.js}"></script>
     </div>
 </footer>
 
 <!-- FOOTER -->
 <footer th:fragment="footer-secundario" class="mt-auto border-top py-3 text-center">
     <small class="text-secondary">© 2025 iStore. Todos los derechos reservados.</small>
+    <script>
+        (function () { if (!window.chatbase || window.chatbase("getState") !== "initialized") { window.chatbase = (...arguments) => { if (!window.chatbase.q) { window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop) { if (prop === "q") { return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function () { const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "hQbEpeoJqDw6E16NlaqUw"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) } })();
+    </script>
+    <script th:src="@{/js/cliente/carrito.js}"></script>
 </footer>
 
 <!-- FOOTER ADMIN -->

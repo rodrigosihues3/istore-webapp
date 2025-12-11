@@ -1,5 +1,10 @@
 package com.istore.appweb.controllers.clientes;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -13,6 +18,9 @@ import com.istore.appweb.entities.Usuarios;
 import com.istore.appweb.services.PedidosItemsServices;
 import com.istore.appweb.services.PedidosServices;
 import com.istore.appweb.services.UsuariosServices;
+import com.istore.appweb.util.PedidoPDFExporter;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/mi-cuenta/pedidos")
@@ -61,6 +69,31 @@ public class ClientePedidosController {
     } catch (Exception e) {
       return "error/404";
     }
+  }
+
+  @GetMapping("/exportar-pdf/{id}")
+  public void exportarPDF(@PathVariable("id") Integer id, HttpServletResponse response) throws IOException {
+    // 1. Buscar Pedido
+    Pedidos pedido = pedidosService.getById(id);
+
+    if (pedido == null) {
+      response.sendError(HttpServletResponse.SC_NOT_FOUND);
+      return;
+    }
+
+    // 2. Configurar cabecera HTTP para descarga PDF
+    response.setContentType("application/pdf");
+    DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+    String currentDateTime = dateFormatter.format(new Date());
+
+    String headerKey = "Content-Disposition";
+    // "attachment" para descargar, "inline" para ver en navegador
+    String headerValue = "inline; filename=Comprobante_" + id + "_" + currentDateTime + ".pdf";
+    response.setHeader(headerKey, headerValue);
+
+    // 3. Generar
+    PedidoPDFExporter exporter = new PedidoPDFExporter(pedido);
+    exporter.exportar(response);
   }
 
   // Helper para obtener el objeto Usuario desde Spring Security

@@ -1,7 +1,9 @@
 <!-- MODAL CARRITO -->
 <div th:fragment="carrito" class="modal fade" id="cartModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="false">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content border-0 rounded-4 shadow">
+
+        <div th:fragment="contenido-carrito" class="modal-content border-0 rounded-4 shadow"
+            id="contenido-carrito-ajax">
 
             <div class="modal-header border-bottom-0 pb-0">
                 <h4 class="modal-title fw-bold">Tu carrito de compras</h4>
@@ -10,14 +12,50 @@
 
             <div class="modal-body pt-4" id="cuerpo-carrito">
 
-                <div id="lista-carrito-items">
-                    <div class="text-center py-5">
-                        <i class="bi bi-cart fs-1 text-muted mb-3 d-block"></i>
-                        <p class="text-muted">Tu carrito está vacio.</p>
-                        <a th:href="@{/catalogo}" class="btn btn-outline-dark btn-sm rounded-pill mt-2"
-                            data-bs-dismiss="modal">
-                            Empezar a comprar
-                        </a>
+                <div th:if="${#lists.isEmpty(items)}" id="mensaje-vacio" class="text-center py-5">
+                    <i class="bi bi-cart-x fs-1 text-muted mb-3 d-block"></i>
+                    <p class="text-muted">Tu carrito está vacío.</p>
+                    <button class="btn btn-outline-dark btn-sm rounded-pill mt-2" data-bs-dismiss="modal">
+                        Empezar a comprar
+                    </button>
+                </div>
+
+                <div th:unless="${#lists.isEmpty(items)}" id="lista-carrito-items">
+                    <div th:each="item : ${items}"
+                        class="d-flex align-items-center mb-3 pb-3 border-bottom item-carrito"
+                        th:id="'item-carrito-' + ${item.producto.idProducto}">
+
+                        <img th:if="${item.producto.urlImagen != null}" th:src="${item.producto.urlImagen}"
+                            class="rounded me-3 border" style="width: 80px; height: 80px; object-fit: contain;">
+                        <div th:unless="${item.producto.urlImagen != null}"
+                            class="rounded me-3 border d-flex align-items-center justify-content-center bg-light"
+                            style="width: 80px; height: 80px;"><i class="bi bi-image"></i></div>
+
+                        <div class="flex-grow-1">
+                            <h6 class="fw-semibold mb-1" th:text="${item.producto.nombre}">Nombre Producto</h6>
+
+                            <div class="d-flex align-items-center my-2">
+                                <div class="input-group input-group-sm" style="width: 110px;">
+                                    <button class="btn btn-outline-secondary" type="button"
+                                        th:onclick="'cambiarCantidad(' + ${item.producto.idProducto} + ', ' + ${item.cantidad - 1} + ')'">-</button>
+
+                                    <input type="text" class="form-control text-center bg-white"
+                                        th:value="${item.cantidad}" readonly style="font-weight: 600;">
+
+                                    <button class="btn btn-outline-secondary" type="button"
+                                        th:onclick="'cambiarCantidad(' + ${item.producto.idProducto} + ', ' + ${item.cantidad + 1} + ')'">+</button>
+                                </div>
+                            </div>
+
+                            <p class="fw-bold mb-0 text-primary">
+                                S/ <span th:text="${#numbers.formatDecimal(item.total, 1, 2, 'COMMA')}">0.00</span>
+                            </p>
+                        </div>
+
+                        <button class="btn btn-sm btn-outline-danger border-0 rounded-circle"
+                            th:onclick="'eliminarDelCarrito(' + ${item.producto.idProducto} + ')'" title="Eliminar">
+                            <i class="bi bi-trash"></i>
+                        </button>
                     </div>
                 </div>
 
@@ -27,13 +65,18 @@
                 class="modal-footer border-top-0 d-flex justify-content-between align-items-center bg-light rounded-bottom-4">
                 <div>
                     <span class="text-muted small d-block">Total estimado</span>
-                    <h4 class="fw-bold mb-0" id="total-carrito">S/. 0.00</h4>
+                    <h4 class="fw-bold mb-0" id="total-carrito">
+                        S/ <span
+                            th:text="${total != null ? #numbers.formatDecimal(total, 1, 2, 'COMMA') : '0.00'}">0.00</span>
+                    </h4>
                 </div>
                 <div>
-                    <button class="btn btn-link text-decoration-none text-muted me-2" data-bs-dismiss="modal">Seguir
-                        mirando</button>
-                    <a th:href="@{/cliente/pagar-carrito}" class="btn btn-primary rounded-pill px-4"
-                        id="btn-finalizar-compra">
+                    <button class="btn btn-link btn-secondary text-decoration-none text-muted me-2" data-bs-dismiss="modal">
+                        Seguir mirando
+                    </button>
+
+                    <a th:href="@{/cliente/checkout}" class="btn btn-primary px-4"
+                        th:classappend="${#lists.isEmpty(items) ? 'disabled' : ''}" id="btn-finalizar-compra">
                         Pagar ahora
                     </a>
                 </div>

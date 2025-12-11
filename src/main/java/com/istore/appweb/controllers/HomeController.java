@@ -29,7 +29,12 @@ public class HomeController {
         return "index";
     }
 
-    // --- NUEVO ENDPOINT AJAX ---
+    @GetMapping("/catalogo")
+    public String redireccionarCatalogo() {
+        return "redirect:/"; // Redirige al Home donde carga el catálogo
+    }
+
+    // --- ENDPOINT AJAX ---
     @GetMapping("/catalogo/filtrar")
     public String filtrarCatalogo(
             @RequestParam(required = false) String busqueda,

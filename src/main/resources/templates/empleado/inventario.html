@@ -1,164 +1,45 @@
-<!DOCTYPE html>
-<html lang="es">
+<div th:fragment="tablaInventario" class="animate__animated animate__fadeIn h-100 d-flex flex-column">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Empleado | Inventario</title>
+  <div class="mb-4">
+    <h3 class="fw-bold text-dark mb-3">Consulta de Stock</h3>
+    <input type="text" id="buscador" class="form-control" placeholder="Buscar producto por nombre o SKU..."
+      onkeyup="filtrarTabla()">
+  </div>
 
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-    crossorigin="anonymous">
-
-  <!-- Estilos personalizados -->
-  <link rel="stylesheet" href="../css/styles.css">
-</head>
-
-<body class="bg-light d-flex flex-column min-vh-100">
-  <!-- HEADER -->
-  <header class="sticky-top">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm">
-      <div class="container-fluid justify-content-between">
-        <a class="navbar-brand fw-semibold" href="../index.html">✌️iStore</a>
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
-          aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse justify-content-between" id="navbarScroll">
-          <div class="w-25"></div>
-
-          <!-- Barra de búsqueda -->
-          <form class="d-flex w-25" role="search">
-            <input class="form-control me-2" type="search" placeholder="¿Qué estás buscando?" aria-label="Search">
-            <button class="btn btn-outline-secondary" type="submit">Buscar</button>
-          </form>
-
-          <!-- Opciones derecha -->
-          <ul class="navbar-nav navbar-nav-scroll">
-            <li class="nav-item me-lg-3 me-2 my-auto">
-              <span class="nav-link">📍 Ica, Perú</span>
-            </li>
-            <li class="nav-item me-lg-2 me-2 my-auto">
-              <a href="#" class="btn btn-outline-dark border-0">
-                🛒 Carrito <span class="badge bg-primary ms-1">0</span>
-              </a>
-            </li>
-
-            <!-- PERFIL -->
-            <li class="nav-item dropdown z-3">
-              <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
-                data-bs-toggle="dropdown" aria-expanded="false">
-                <div class="rounded-circle bg-light d-flex justify-content-center align-items-center me-2"
-                  style="width: 32px; height: 32px; border: 1px solid var(--border-medium);">
-                  <span>👤</span>
-                </div>
-                Perfil
-              </a>
-              <ul class="dropdown-menu dropdown-menu-end shadow-sm"
-                style="min-width: 240px; border-radius: var(--radius-medium);">
-
-                <!-- Avatar + nombre -->
-                <li class="px-3 py-2 text-center border-bottom">
-                  <div class="rounded-circle bg-light d-flex justify-content-center align-items-center mx-auto mb-2"
-                    style="width: 64px; height: 64px; border: 1px solid var(--border-medium);">
-                    <span class="fs-3">👤</span>
-                  </div>
-                  <p class="mb-0 fw-semibold">María López</p>
-                  <small class="text-secondary">empleado@istore.com</small>
-                </li>
-
-                <!-- Opciones -->
-                <li><a class="dropdown-item" href="">👤 Mi cuenta</a></li>
-                <li><a class="dropdown-item" href="">📦 Mis pedidos</a></li>
-                <li class="mt-2 mb-1 px-3 text-uppercase small fw-semibold text-secondary text-center">
-                  Funciones de empleado
-                </li>
-                <li><a class="dropdown-item" href="catalogo.html">🛠️ Gestionar catálogos</a></li>
-                <li><a class="dropdown-item" href="inventario.html">📦 Gestionar inventario</a></li>
-                <li><a class="dropdown-item" href="pedidos.html">📑 Ver pedidos</a></li>
-                <li><a class="dropdown-item" href="devoluciones.html">🔄 Devoluciones</a></li>
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
-                <li><a class="dropdown-item text-danger" href="../index.html">Cerrar sesión</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
-
-  <!-- CONTENIDO -->
-  <main class="container my-5">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <h1 class="fw-bold">📦 Inventario</h1>
-    </div>
-
-    <!-- Cards de categorías -->
-    <div class="row g-4">
-      <!-- iPhones -->
-      <div class="col-md-3">
-        <div class="card h-100 shadow-sm border-0">
-          <img src="../img/catalogo/categoria-iphones.png" class="card-img-top" alt="iPhones">
-          <div class="card-body text-center">
-            <h5 class="card-title fw-semibold">iPhones</h5>
-            <p class="text-secondary small">Gestiona el stock de todos los iPhones.</p>
-            <a href="inventario/iphones.html" class="btn btn-outline-primary w-100">Gestionar</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Apple Watch -->
-      <div class="col-md-3">
-        <div class="card h-100 shadow-sm border-0">
-          <img src="../img/catalogo/categoria-applewatch.png" class="card-img-top" alt="Apple Watch">
-          <div class="card-body text-center">
-            <h5 class="card-title fw-semibold">Apple Watch</h5>
-            <p class="text-secondary small">Gestiona el stock de relojes inteligentes.</p>
-            <a href="inventario/applewatches.html" class="btn btn-outline-primary w-100">Gestionar</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- AirPods -->
-      <div class="col-md-3">
-        <div class="card h-100 shadow-sm border-0">
-          <img src="../img/catalogo/categoria-audifonos.png" class="card-img-top" alt="AirPods">
-          <div class="card-body text-center">
-            <h5 class="card-title fw-semibold">AirPods</h5>
-            <p class="text-secondary small">Gestiona el stock de audífonos Apple.</p>
-            <a href="inventario/audifonos.html" class="btn btn-outline-primary w-100">Gestionar</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Accesorios -->
-      <div class="col-md-3">
-        <div class="card h-100 shadow-sm border-0">
-          <img src="../img/catalogo/categoria-accesorios.png" class="card-img-top" alt="Accesorios">
-          <div class="card-body text-center">
-            <h5 class="card-title fw-semibold">Accesorios</h5>
-            <p class="text-secondary small">Gestiona el stock de accesorios apple.</p>
-            <a href="inventario/accesorios.html" class="btn btn-outline-primary w-100">Gestionar</a>
-          </div>
-        </div>
+  <div class="card shadow-sm border-0 flex-grow-1 overflow-hidden">
+    <div class="card-body p-0 d-flex flex-column h-100">
+      <div class="table-responsive flex-grow-1">
+        <table class="table align-middle mb-0" id="tabla-inventario">
+          <thead class="table-light sticky-top">
+            <tr>
+              <th>Imagen</th>
+              <th>SKU</th>
+              <th>Producto</th>
+              <th>Stock</th>
+              <th>Precio</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="p : ${productos}">
+              <td>
+                <img th:if="${p.urlImagen != null}" th:src="${p.urlImagen}"
+                  style="width: 40px; height: 40px; object-fit: contain;" class="border rounded bg-white">
+              </td>
+              <td th:text="${p.sku}" class="small font-monospace text-muted">SKU</td>
+              <td>
+                <div class="fw-bold" th:text="${p.nombre}">Nombre</div>
+                <small class="text-muted" th:text="${p.color.nombre}">Color</small>
+              </td>
+              <td>
+                <span class="badge"
+                  th:classappend="${p.stock > 5 ? 'bg-success' : (p.stock > 0 ? 'bg-warning' : 'bg-danger')}"
+                  th:text="${p.stock}">10</span>
+              </td>
+              <td class="fw-bold text-dark" th:text="'S/ ' + ${p.precio}">Price</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="mt-auto border-top py-3">
-    <div class="container text-center">
-      <small class="text-apple-secondary">© 2025 iStore. Gestión de empleados.</small>
-    </div>
-  </footer>
-
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-    crossorigin="anonymous"></script>
-</body>
-
-</html>
+  </div>
+</div>

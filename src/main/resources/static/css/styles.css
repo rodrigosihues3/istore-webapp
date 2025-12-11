@@ -125,6 +125,7 @@
 body {
   background-color: var(--surface-primary);
   color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
   font-size: var(--font-size-base);
   line-height: var(--line-height-normal);
   -webkit-font-smoothing: antialiased;

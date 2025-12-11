@@ -35,6 +35,14 @@ public class Pedidos {
   private BigDecimal total;
 
   private String referenciaPago; // Token de Culqi, o Nro Operación
+  @Column(length = 20)
+  private String numeroDocumento; // Guardará DNI o RUC según el tipo de comprobante
+
+  @Column(length = 150)
+  private String nombreEntidad; // Guardará Nombre del cliente o Razon social
+
+  @Column(length = 255)
+  private String direccionEntrega;
 
   @ManyToOne
   @JoinColumn(name = "id_estado_pago")
