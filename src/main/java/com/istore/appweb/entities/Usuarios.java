@@ -2,6 +2,8 @@ package com.istore.appweb.entities;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -37,6 +39,7 @@ public class Usuarios {
 
   @ManyToOne
   @JoinColumn(name = "id_rol")
+  @JsonIgnore
   private Roles rol;
 
   private LocalDateTime fechaCreacion = LocalDateTime.now();

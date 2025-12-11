@@ -55,14 +55,6 @@
           </a>
         </li>
 
-        <!-- <li>
-          <a href="#" class="nav-link nav-link-admin d-flex align-items-center"
-            onclick="cargarVista('inventario', '/admin/inventario/tabla', this)">
-            <i class="bi bi-boxes me-2"></i>
-            Inventario
-          </a>
-        </li> -->
-
         <li>
           <a href="#" class="nav-link nav-link-admin d-flex align-items-center"
             onclick="cargarVista('roles', '/admin/roles/tabla', this)">
@@ -126,6 +118,10 @@
         <a th:href="@{/}"
           class="btn btn-outline-secondary btn-sm w-100 d-flex align-items-center justify-content-center">
           <i class="bi bi-house-door me-2"></i> Ir a la Tienda
+        </a>
+
+        <a th:href="@{/admin/data/exportar-json}" class="btn btn-dark">
+          <i class="bi bi-download me-2"></i> Exportar Data
         </a>
 
         <form th:action="@{/cerrar-sesion}" method="post" class="w-100">

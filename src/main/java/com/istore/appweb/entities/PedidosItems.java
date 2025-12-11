@@ -3,6 +3,8 @@ package com.istore.appweb.entities;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,10 +40,12 @@ public class PedidosItems {
 
   @ManyToOne
   @JoinColumn(name = "id_pedido")
+  @JsonIgnore
   private Pedidos pedido;
 
   @ManyToOne
   @JoinColumn(name = "id_producto")
+  @JsonIgnore
   private Productos producto;
 
   private LocalDateTime fechaCreacion = LocalDateTime.now();

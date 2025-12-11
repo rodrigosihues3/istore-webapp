@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -50,21 +52,26 @@ public class Pedidos {
 
   @ManyToOne
   @JoinColumn(name = "id_usuario")
+  @JsonIgnore
   private Usuarios usuario;
 
   @ManyToOne
   @JoinColumn(name = "id_tipo_comprobante")
+  @JsonIgnore
   private TiposComprobantes tipoComprobante;
 
   @ManyToOne
   @JoinColumn(name = "id_metodo_pago")
+  @JsonIgnore
   private MetodosPagos metodoPago;
 
   @ManyToOne
   @JoinColumn(name = "id_estado_compra")
+  @JsonIgnore
   private EstadosCompras estadoCompra;
 
   @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+  @JsonIgnore
   private List<PedidosItems> items;
 
   private LocalDateTime fechaCreacion = LocalDateTime.now();
